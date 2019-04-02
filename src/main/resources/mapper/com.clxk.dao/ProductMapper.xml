@@ -13,10 +13,6 @@
         ${pre}.priceoff as "priceoff",
     </sql>
 
-    <sql id="product_when">
-
-    </sql>
-
     <resultMap id="productMap" type="com.clxk.model.Product">
         <id property="id" column="id"/>
         <result property="pname" column="pname"/>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.dao.ManagerDao">
+    <sql id="manager_field">
+        ${pre}.id as "id",
+        ${pre}.username as "username",
+        ${pre}.password as "password",
+        ${pre}.level as "level",
+        ${pre}.nick as "nick",
+        ${pre}.name as "name"
+    </sql>
+
+    <resultMap id="managerMap" type="com.clxk.model.Manager">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="level" column="level"/>
+        <result property="nick" column="nick"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.model.Manager" useGeneratedKeys="true" keyProperty="id">
+        insert into manager(id, username, password, level, nick, name) values(#{id}, #{username}, #{password}, #{level}, #{nick}, #{name});
+    </insert>
+
+    <update id="update" parameterType="com.clxk.model.Manager">
+        update manager
+        <set>
+            <choose>
+                <when test="password != null and password != ''">
+                    password = #{password},
+                </when>
+                <when test="level != null and level != ''">
+                    level = #{level},
+                </when>
+                <when test="nick != null and nick != ''">
+                    nick = #{nick},
+                </when>
+                <when test="name != null and name != ''">
+                    name = #{name},
+                </when>
+            </choose>
+        </set>
+        where username = #{username}
+    </update>
+
+    <select id="findAll" resultMap="managerMap">
+        select * from manager
+    </select>
+
+    <select id="findByUsername" parameterType="String" resultMap="managerMap">
+        select * from manager
+        where username = #{username}
+    </select>
+
+    <select id="findByLevel" parameterType="int" resultMap="managerMap">
+        select * from manager
+        where level = #{level}
+    </select>
+</mapper>
