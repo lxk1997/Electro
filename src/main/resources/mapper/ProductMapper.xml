@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.dao.ProductDao">
+    <sql id="product_field">
+        ${pre}.id as "id",
+        ${pre}.pname as "pname",
+        ${pre}.ptype as "ptype",
+        ${pre}.pdetails as "pdetails",
+        ${pre}.pdescription as "pdescription",
+        ${pre}.purprice as "purprice",
+        ${pre}.sellprice as "sellprice",
+        ${pre}.priceoff as "priceoff",
+    </sql>
+
+    <sql id="product_when">
+
+    </sql>
+
+    <resultMap id="productMap" type="com.clxk.model.Product">
+        <id property="id" column="id"/>
+        <result property="pname" column="pname"/>
+        <result property="ptype" column="ptype"/>
+        <result property="pdetails" column="pdetails"/>
+        <result property="pdescription" column="pdescription"/>
+        <result property="purprice" column="purprice"/>
+        <result property="sellprice" column="sellprice"/>
+        <result property="priceoff" column="priceoff"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="om.clxk.model.Product" useGeneratedKeys="true" keyProperty="id">
+        insert into product(id, pname, ptype, pdetails, pdescription, purprice, sellprice, priceoff)
+        values(#{id}, #{pname}, #{ptype}, #{pdetails}, #{pdescription}, #{purprice}, #{sellprice}, #{priceoff});
+    </insert>
+
+    <update id="update" parameterType="com.clxk.model.Product">
+        update product
+        <set>
+            <choose>
+                <when test="pname != null and pname != ''">
+                    pname = #{pname},
+                </when>
+                <when test="ptype != null and ptype != ''">
+                    ptype = #{ptype},
+                </when>
+                <when test="pdetails != null and pdetails != ''">
+                    pdetails = #{pdetails},
+                </when>
+                <when test="pdescription != null and pdescription != ''">
+                    pdescription = #{pdescription},
+                </when>
+                <when test="purprice != null and purprice != ''">
+                    purprice = #{purprice},
+                </when>
+                <when test="sellprice != null and sellprice != ''">
+                    sellprice = #{sellprice},
+                </when>
+                <when test="priceoff != null and priceoff != ''">
+                    priceoff = #{priceoff},
+                </when>
+            </choose>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.clxk.model.Product">
+        delete from product
+        <where>
+            <choose>
+                <when test="id != null and id != ''">
+                    and id = #{id}
+                </when>
+                <when test="pname != null and pname != ''">
+                    and pname = #{pname}
+                </when>
+                <when test="ptype != null and ptype != ''">
+                    and ptype = #{ptype}
+                </when>
+                <when test="pdetails != null and pdetails != ''">
+                    and pdetails = #{pdetails}
+                </when>
+                <when test="pdescription != null and pdescription != ''">
+                    and pdescription = #{pdescription}
+                </when>
+                <when test="purprice != null and purprice != ''">
+                    and purprice = #{purprice}
+                </when>
+                <when test="sellprice != null and sellprice != ''">
+                    and sellprice = #{sellprice}
+                </when>
+                <when test="priceoff != null and priceoff != ''">
+                    and priceoff = #{priceoff}
+                </when>
+            </choose>
+        </where>
+    </delete>
+
+    <select id="findAll" resultMap="productMap">
+        select * from product
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="productMap">
+        select * from product
+        where id = #{id}
+    </select>
+</mapper>

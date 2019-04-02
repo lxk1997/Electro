@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.dao.UserDao">
+    <sql id="user_field">
+        ${pre}.id as "id",
+        ${pre}.username as "username",
+        ${pre}.password as "password",
+        ${pre}.phonenum as "phonenum",
+        ${pre}.nick as "nick",
+        ${pre}.email as "email",
+        ${pre}.avatar as "avatar",
+        ${pre}.age as "age"
+    </sql>
+
+    <resultMap id="userMap" type="com.clxk.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="phonenum" column="phonenum"/>
+        <result property="nick" column="nick"/>
+        <result property="email" column="email"/>
+        <result property="avatar" column="avatar"/>
+        <result property="age" column="age"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.model.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(id, username, password, phonenum, nick, email, avatar, age) values(#{id}, #{username}, #{password}, #{phonenum}, #{nick}, #{email}, #{avatar}, #{age});
+    </insert>
+
+    <update id="update" parameterType="com.clxk.model.User">
+        update user
+        <set>
+            <choose>
+                <when test="password != null and password != ''">
+                    password = #{password},
+                </when>
+                <when test="phonenum != null and phonenum != ''">
+                    phonenum = #{phonenum},
+                </when>
+                <when test="nick != null and nick != ''">
+                    nick = #{nick},
+                </when>
+                <when test="email != null and email != ''">
+                    email = #{email},
+                </when>
+                <when test="avatar != null and avatar != ''">
+                    avatar = #{avatar},
+                </when>
+                <when test="age != null and age != ''">
+                    age = #{age},
+                </when>
+            </choose>
+        </set>
+        where username = #{username}
+    </update>
+
+    <select id="findAll" resultMap="userMap">
+        select * from user
+    </select>
+
+    <select id="findByUsername" parameterType="String" resultMap="userMap">
+        select * from user
+        where username = #{username}
+    </select>
+</mapper>
