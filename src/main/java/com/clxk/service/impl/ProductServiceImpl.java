@@ -1,5 +1,6 @@
 package com.clxk.service.impl;
 
+import com.clxk.dao.ProductDao;
 import com.clxk.model.Product;
 import com.clxk.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -17,30 +18,30 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Resource
-    private ProductService productService;
+    private ProductDao productDao;
 
     @Override
     public int insert(Product product) {
-        return productService.insert(product);
+        return productDao.insert(product);
     }
 
     @Override
     public int delete(Product product) {
-        return productService.delete(product);
+        return productDao.delete(product);
     }
 
     @Override
     public int update(Product product) {
-        return productService.update(product);
+        return productDao.update(product);
     }
 
     @Override
     public List<Product> findAll() {
-        return productService.findAll();
+        return productDao.findAll();
     }
 
     @Override
     public Product findById(int id) {
-        return productService.findById(id);
+        return productDao.findById(id);
     }
 }

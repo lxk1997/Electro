@@ -67,8 +67,7 @@ public class Manager {
 
     }
 
-    public Manager(int id, String username, String password, int level) {
-        this.id = id;
+    public Manager(String username, String password, int level) {
         this.username = username;
         this.password = password;
         this.level = level;

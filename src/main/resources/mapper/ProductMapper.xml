@@ -24,7 +24,7 @@
         <result property="priceoff" column="priceoff"/>
     </resultMap>
 
-    <insert id="insert" parameterType="om.clxk.model.Product" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.clxk.model.Product" useGeneratedKeys="true" keyProperty="id">
         insert into product(id, pname, ptype, pdetails, pdescription, purprice, sellprice, priceoff)
         values(#{id}, #{pname}, #{ptype}, #{pdetails}, #{pdescription}, #{purprice}, #{sellprice}, #{priceoff});
     </insert>

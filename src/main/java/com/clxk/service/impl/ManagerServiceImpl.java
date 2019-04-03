@@ -1,5 +1,6 @@
 package com.clxk.service.impl;
 
+import com.clxk.dao.ManagerDao;
 import com.clxk.model.Manager;
 import com.clxk.service.ManagerService;
 import org.springframework.stereotype.Service;
@@ -17,35 +18,35 @@ import java.util.List;
 public class ManagerServiceImpl implements ManagerService {
 
     @Resource
-    private ManagerService managerService;
+    private ManagerDao managerDao;
 
     @Override
     public int insert(Manager manager) {
-        return managerService.insert(manager);
+        return managerDao.insert(manager);
     }
 
     @Override
     public int update(Manager manager) {
-        return managerService.update(manager);
+        return managerDao.update(manager);
     }
 
     @Override
     public int delete(Manager manager) {
-        return managerService.delete(manager);
+        return managerDao.delete(manager);
     }
 
     @Override
     public List<Manager> findAll() {
-        return managerService.findAll();
+        return managerDao.findAll();
     }
 
     @Override
     public List<Manager> findByLevel(int level) {
-        return managerService.findByLevel(level);
+        return managerDao.findByLevel(level);
     }
 
     @Override
     public Manager findByUsername(String username) {
-        return null;
+        return managerDao.findByUsername(username);
     }
 }

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
 
@@ -7,19 +8,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="vendor/linearicons/style.css">
-    <link rel="stylesheet" href="vendor/chartist/css/chartist-custom.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../vendor/linearicons/style.css">
+    <link rel="stylesheet" href="../vendor/chartist/css/chartist-custom.css">
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="../css/demo.css">
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon.png">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
-            <a href="index.html"><img src="img/logo.png" width="60px" height="20px" style="background-color: #15161D" alt="Klorofil Logo" class="img-responsive logo"></a>
+            <a href="index.html"><img src="../img/logo.png" width="60px" height="20px" style="background-color: #15161D" alt="Klorofil Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
             <div class="navbar-btn">
@@ -69,7 +70,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/user.png" class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../img/user.png" class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                             <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
@@ -99,7 +100,7 @@
                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages" class="collapse ">
                             <ul class="nav">
-                                <li><a href="javascript:openURL('https://www.baidu.com');" class="">Profile</a></li>
+                                <li><a href="page-profile.html" class="">Profile</a></li>
                                 <li><a href="page-login.html" class="">Login</a></li>
                                 <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
                             </ul>
@@ -127,8 +128,7 @@
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <div class="container-fluid">
-                <!-- 内容主体区域 -->
-                <iframe name="rightframe" width="100%" height="600px" style="border: none"></iframe>
+
             </div>
         </div>
         <!-- END MAIN CONTENT -->
@@ -144,18 +144,13 @@
 </div>
 <!-- END WRAPPER -->
 <!-- Javascript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-<script src="vendor/chartist/js/chartist.min.js"></script>
-<script src="js/klorofil-common.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="../vendor/chartist/js/chartist.min.js"></script>
+<script src="../js/klorofil-common.js"></script>
 <script>
-
-    function openURL(url) {
-        window.open(url, 'rightframe');
-    }
-
     $(function() {
         var data, options;
 

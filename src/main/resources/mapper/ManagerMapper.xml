@@ -58,4 +58,15 @@
         select * from manager
         where level = #{level}
     </select>
+
+    <delete id="delete" parameterType="com.clxk.model.Manager">
+        delete from manager
+        <where>
+            <choose>
+                <when test="id != null and id != ''">
+                    and id = #{id}
+                </when>
+            </choose>
+        </where>
+    </delete>
 </mapper>
