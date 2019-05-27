@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,20 +14,20 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>"/>
 
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="css/slick.css"/>
-    <link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/slick.css'/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/slick-theme.css'/>"/>
 
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/nouislider.min.css'/>"/>
 
     <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,7 +66,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <img src="./img/logo.png" alt="">
+                            <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
                                 <div class="cart-list">
                                     <div class="product-widget">
                                         <div class="product-img">
-                                            <img src="./img/product01.png" alt="">
+                                            <img src="<c:url value='/img/product01.png'/>" alt="">
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -122,7 +123,7 @@
 
                                     <div class="product-widget">
                                         <div class="product-img">
-                                            <img src="./img/product02.png" alt="">
+                                            <img src="<c:url value='/img/product02.png'/>" alt="">
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -519,12 +520,12 @@
 <!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/jquery.zoom.min.js"></script>
-<script src="js/main.js"></script>
+<script src="<c:url value='/js/jquery.min.js'/>"></script>
+<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+<script src="<c:url value='/js/slick.min.js'/>"></script>
+<script src="<c:url value='/js/nouislider.min.js'/>"></script>
+<script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
+<script src="<c:url value='/js/main.js'/>"></script>
 
 </body>
 </html>

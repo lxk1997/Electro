@@ -1,4 +1,4 @@
-package com.clxk.controller;
+package com.clxk.electro.controller;
 
 import org.springframework.stereotype.Controller;
 

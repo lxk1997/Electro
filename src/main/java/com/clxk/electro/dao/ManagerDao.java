@@ -1,6 +1,6 @@
-package com.clxk.dao;
+package com.clxk.electro.dao;
 
-import com.clxk.model.Manager;
+import com.clxk.electro.model.Manager;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

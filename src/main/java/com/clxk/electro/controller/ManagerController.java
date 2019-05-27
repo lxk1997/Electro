@@ -1,13 +1,12 @@
-package com.clxk.controller;
+package com.clxk.electro.controller;
 
-import com.clxk.model.Manager;
-import com.clxk.service.ManagerService;
+import com.clxk.electro.model.Manager;
+import com.clxk.electro.service.ManagerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.sql.SQLOutput;
 
 /**
  * @Description 管理员控制层
@@ -22,12 +21,12 @@ public class ManagerController {
     @Resource
     private ManagerService managerService;
 
-    @RequestMapping("/toLogin")
+    @RequestMapping("/toLogin.do")
     public String toLogin() {
         return "backstage/login";
     }
 
-    @RequestMapping("login")
+    @RequestMapping("login.do")
     @ResponseBody
     public String login(Manager manager) {
         System.out.println(manager.getUsername() + " " + manager.getPassword());

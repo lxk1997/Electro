@@ -1,9 +1,8 @@
-package com.clxk.dao;
+package com.clxk.electro.dao;
 
-import com.clxk.model.User;
+import com.clxk.electro.model.User;
 import org.springframework.stereotype.Repository;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**

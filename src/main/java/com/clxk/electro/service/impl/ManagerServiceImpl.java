@@ -1,8 +1,8 @@
-package com.clxk.service.impl;
+package com.clxk.electro.service.impl;
 
-import com.clxk.dao.ManagerDao;
-import com.clxk.model.Manager;
-import com.clxk.service.ManagerService;
+import com.clxk.electro.dao.ManagerDao;
+import com.clxk.electro.service.ManagerService;
+import com.clxk.electro.model.Manager;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

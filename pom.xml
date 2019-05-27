@@ -4,14 +4,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.clxk</groupId>
-  <artifactId>eshop-project</artifactId>
+  <groupId>com.clxk.electro</groupId>
+  <artifactId>Electro</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>eshop-project Maven Webapp</name>
+  <name>Electro</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>http://www.clxk.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -170,10 +170,17 @@
       <artifactId>pagehelper</artifactId>
       <version>${pagehelper.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>commons-el</groupId>
+      <artifactId>commons-el</artifactId>
+      <version>1.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
-    <finalName>eshop-project</finalName>
+    <finalName>Elector</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

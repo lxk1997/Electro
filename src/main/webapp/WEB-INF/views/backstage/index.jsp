@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -8,19 +9,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../vendor/linearicons/style.css">
-    <link rel="stylesheet" href="../vendor/chartist/css/chartist-custom.css">
+    <link rel="stylesheet" href="<c:url value='/vendor/bootstrap/css/bootstrap.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/vendor/font-awesome/css/font-awesome.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/vendor/linearicons/style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/vendor/chartist/css/chartist-custom.css'/>">
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="<c:url value='/css/main.css'/>">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" href="../css/demo.css">
+    <link rel="stylesheet" href="<c:url value='/css/demo.css'/>">
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" href="../img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="<c:url value='/img/apple-icon.png'/>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<c:url value='/img/favicon.png'/>">
 </head>
 
 <body>
@@ -29,7 +30,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
-            <a href="index.html"><img src="../img/logo.png" width="60px" height="20px" style="background-color: #15161D" alt="Klorofil Logo" class="img-responsive logo"></a>
+            <a href="<c:url value='/WEB-INF/views/backstage/index.jsp'/>"><img src="<c:url value='/img/logo.png'/>" width="60px" height="20px" style="background-color: #15161D" alt="Klorofil Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
             <div class="navbar-btn">

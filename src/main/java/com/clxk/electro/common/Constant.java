@@ -1,4 +1,4 @@
-package com.clxk.common;
+package com.clxk.electro.common;
 
 /**
  * @Description 常量

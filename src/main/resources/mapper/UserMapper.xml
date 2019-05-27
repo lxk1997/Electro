@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.clxk.dao.UserDao">
+<mapper namespace="com.clxk.electro.dao.UserDao">
     <sql id="user_field">
         ${pre}.id as "id",
         ${pre}.username as "username",
@@ -13,7 +13,7 @@
         ${pre}.age as "age"
     </sql>
 
-    <resultMap id="userMap" type="com.clxk.model.User">
+    <resultMap id="userMap" type="com.clxk.electro.model.User">
         <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
@@ -24,11 +24,11 @@
         <result property="age" column="age"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.clxk.model.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.clxk.electro.model.User" useGeneratedKeys="true" keyProperty="id">
         insert into user(id, username, password, phonenum, nick, email, avatar, age) values(#{id}, #{username}, #{password}, #{phonenum}, #{nick}, #{email}, #{avatar}, #{age});
     </insert>
 
-    <update id="update" parameterType="com.clxk.model.User">
+    <update id="update" parameterType="com.clxk.electro.model.User">
         update user
         <set>
             <choose>

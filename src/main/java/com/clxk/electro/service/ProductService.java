@@ -1,6 +1,6 @@
-package com.clxk.service;
+package com.clxk.electro.service;
 
-import com.clxk.model.Product;
+import com.clxk.electro.model.Product;
 
 import java.util.List;
 

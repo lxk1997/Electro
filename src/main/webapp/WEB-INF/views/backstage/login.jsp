@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en" class="fullscreen-bg">
 
@@ -8,18 +9,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../vendor/linearicons/style.css">
+    <link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/vendor/font-awesome/css/font-awesome.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/vendor/linearicons/style.css'/>">
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="<c:url value='/css/main.css'/>">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" href="../css/demo.css">
+    <link rel="stylesheet" href="<c:url value='/css/demo.css'/>">
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" href="../img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="<c:url value='/img/apple-icon.png'/>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<c:url value='/img/favicon.png'/>">
 </head>
 
 <body>
@@ -31,7 +32,7 @@
                 <div class="left">
                     <div class="content">
                         <div class="header">
-                            <div class="logo text-center"><img src="../img/logo.png" style="background-color: #15161D"
+                            <div class="logo text-center"><img src="<c:url value='/img/logo.png'/>" style="background-color: #15161D"
                                                                alt="Electro Logo"></div>
                             <p class="lead">Login to your account</p>
                         </div>
@@ -72,12 +73,12 @@
 </body>
 
 <!-- jQuery Plugins -->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/slick.min.js"></script>
-<script src="../js/nouislider.min.js"></script>
-<script src="../js/jquery.zoom.min.js"></script>
-<script src="../js/main.js"></script>
+<script src="<c:url value='/js/jquery.min.js'/>"></script>
+<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+<script src="<c:url value='/js/slick.min.js'/>"></script>
+<script src="<c:url value='/js/nouislider.min.js'/>"></script>
+<script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
+<script src="<c:url value='/js/main.js'/>"></script>
 
 <script type="text/javascript">
 

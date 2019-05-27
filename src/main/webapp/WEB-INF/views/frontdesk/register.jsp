@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +14,20 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>"/>
 
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="../css/slick.css"/>
-    <link type="text/css" rel="stylesheet" href="../css/slick-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/slick.css'/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/slick-theme.css'/>"/>
 
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="../css/nouislider.min.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/nouislider.min.css'/>"/>
 
     <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="../css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -64,8 +65,8 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="/eshop_war_exploded/index.jsp" class="logo">
-                            <img src="../img/logo.png" alt="">
+                        <a href="<c:url value='/index.jsp'/>" class="logo">
+                            <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
                                 <div class="cart-list">
                                     <div class="product-widget">
                                         <div class="product-img">
-                                            <img src="../img/product01.png" alt="">
+                                            <img src="<c:url value='/img/product01.png'/>" alt="">
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -122,7 +123,7 @@
 
                                     <div class="product-widget">
                                         <div class="product-img">
-                                            <img src="../img/product02.png" alt="">
+                                            <img src="<c:url value='/img/product02.png'/>" alt="">
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -171,7 +172,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="/eshop_war_exploded/index.jsp">Home</a></li>
+                <li class="active"><a href="<c:url value='/index.jsp'/>">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
                 <li><a href="#">Categories</a></li>
                 <li><a href="#">Laptops</a></li>
@@ -196,7 +197,7 @@
             <div class="col-md-12">
                 <h3 class="breadcrumb-header">REGISTE</h3>
                 <ul class="breadcrumb-tree">
-                    <li><a href="/eshop_war_exploded/index.jsp">HOME</a></li>
+                    <li><a href="<c:url value='/index.jsp'/>">HOME</a></li>
                     <li class="active">REGISTE</li>
                 </ul>
             </div>
@@ -241,6 +242,11 @@
 
                     <div class="form-group">
                         <input class="input" type="text" name="nick" placeholder="Nick">
+                    </div>
+
+                    <div class="form-group">
+                        <input class="input" style="display: inline;width: 130px;" type="text" name="verifycode" placeholder="Verifycode*">
+                        <img name="vcode" style="width: 75px;height: 38px;" src="<c:url value='/verifycode/getCode.do'/>" onclick="changeVerifyCode(this);">
                     </div>
 
                     <a href="javascript:void(0);" onclick="registe()" class="primary-btn" style="margin-left: 2px">REGISTER</a>
@@ -388,14 +394,19 @@
 <!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/slick.min.js"></script>
-<script src="../js/nouislider.min.js"></script>
-<script src="../js/jquery.zoom.min.js"></script>
-<script src="../js/main.js"></script>
+<script src="<c:url value='/js/jquery.min.js'/>"></script>
+<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+<script src="<c:url value='/js/slick.min.js'/>"></script>
+<script src="<c:url value='/js/nouislider.min.js'/>"></script>
+<script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
+<script src="<c:url value='/js/main.js'/>"></script>
 
 <script type="text/javascript">
+
+    function changeVerifyCode(o) {
+        var url = '/electro/verifycode/getCode.do?'+Math.random();
+        o.src = url;
+    }
 
     function registe() {
         var username = $("input[name='username']").val();
@@ -404,9 +415,10 @@
         var phone = $("input[name='phone']").val();
         var email = $("input[name='email']").val();
         var nick = $("input[name='nick']").val();
+        var vcode = $("input[name='verifycode']").val();
         $.ajax({
             type: 'post',
-            url: 'registe',
+            url: '/electro/user/registe.do',
             dataType: 'text',
             data: {
                 username: username,
@@ -414,11 +426,12 @@
                 confirmpass: confirmpass,
                 phonenum: phone,
                 email: email,
-                nick: nick
+                nick: nick,
+                vcode: vcode
             },
             success: function (data) {
                 if(data == "SUCCESS") {
-                    window.location.href="../../../index.jsp";
+                    window.location.href="/electro/index.jsp";
                 } else {
                     $("span[name='errorstatus']").html(data);
                     $("input[name='username']").val('');
@@ -427,6 +440,8 @@
                     $("input[name='phone']").val('');
                     $("input[name='email']").val('');
                     $("input[name='nick']").val('');
+                    $("input[name='verifycode']").val();
+                    $("img[name='vcode']").attr("src","/electro/verifycode/getCode.do?"+Math.random());
                 }
 
             }

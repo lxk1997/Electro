@@ -1,4 +1,4 @@
-package com.clxk.model;
+package com.clxk.electro.model;
 
 /**
  * @Description 管理员实体类
