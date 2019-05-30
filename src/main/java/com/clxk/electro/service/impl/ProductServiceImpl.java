@@ -1,17 +1,17 @@
 package com.clxk.electro.service.impl;
 
 import com.clxk.electro.dao.ProductDao;
-import com.clxk.electro.service.ProductService;
 import com.clxk.electro.model.Product;
+import com.clxk.electro.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @Description 商品服务层实现
+ * @Description ProductService实现层
  * @Author Clxk
- * @Date 2019/4/1 22:54
+ * @Date 2019/5/30 21:10
  * @Version 1.0
  */
 @Service
@@ -41,7 +41,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(int id) {
-        return productDao.findById(id);
+    public List<Product> findByCategory(String catogoryId) {
+        return productDao.findByCategory(catogoryId);
     }
+
+    @Override
+    public Product findByPid(String pid) {
+        return productDao.findByPid(pid);
+    }
+
 }

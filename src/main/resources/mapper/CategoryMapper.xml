@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.electro.dao.CategoryDao">
+    <sql id="category_field">
+        ${pre}.cid as "cid",
+        ${pre}.cname as "cname",
+    </sql>
+
+    <resultMap id="categoryMap" type="com.clxk.electro.model.Category">
+        <id property="cid" column="cid"/>
+        <result property="cname" column="cname"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.electro.model.Category">
+        insert into category(cid, cname) values(#{cid}, #{cname});
+    </insert>
+
+    <update id="update" parameterType="com.clxk.electro.model.Category">
+        update category
+        <set>
+            <choose>
+                <when test="cname != null and cname != ''">
+                    cname = #{cname},
+                </when>
+            </choose>
+        </set>
+        where cid = #{cid}
+    </update>
+
+    <select id="findAll" resultMap="categoryMap">
+        select * from category
+    </select>
+
+    <select id="findByCid" parameterType="String" resultMap="categoryMap">
+        select * from category
+        where cid = #{cid}
+    </select>
+
+</mapper>

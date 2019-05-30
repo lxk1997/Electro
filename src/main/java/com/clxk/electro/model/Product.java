@@ -1,30 +1,31 @@
 package com.clxk.electro.model;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @Description 商品实体类
  * @Author Clxk
- * @Date 2019/4/1 22:32
+ * @Date 2019/5/30 21:02
  * @Version 1.0
  */
-public class Product implements Serializable {
+public class Product {
 
-    private int id;
+    private String pid;
     private String pname;
-    private int ptype;
-    private String pdetails;
-    private String pdescription;
-    private double purprice;
-    private double sellprice;
-    private double priceoff;
+    private String categoryId;
+    private Double price;
+    private Double firstcost;
+    private Double discount;
+    private int stock;
+    private Date date;
 
-    public int getId() {
-        return id;
+    public String getPid() {
+        return pid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getPname() {
@@ -35,62 +36,65 @@ public class Product implements Serializable {
         this.pname = pname;
     }
 
-    public int getPtype() {
-        return ptype;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setPtype(int ptype) {
-        this.ptype = ptype;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getPdetails() {
-        return pdetails;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPdetails(String pdetails) {
-        this.pdetails = pdetails;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getPdescription() {
-        return pdescription;
+    public Double getFirstcost() {
+        return firstcost;
     }
 
-    public void setPdescription(String pdescription) {
-        this.pdescription = pdescription;
+    public void setFirstcost(Double firstcost) {
+        this.firstcost = firstcost;
     }
 
-    public double getPriceoff() {
-        return priceoff;
+    public Double getDiscount() {
+        return discount;
     }
 
-    public void setPriceoff(double priceoff) {
-        this.priceoff = priceoff;
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 
-    public double getPurprice() {
-        return purprice;
+    public int getStock() {
+        return stock;
     }
 
-    public void setPurprice(double purprice) {
-        this.purprice = purprice;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
-    public double getSellprice() {
-        return sellprice;
+    public Date getDate() {
+        return date;
     }
 
-    public void setSellprice(double sellprice) {
-        this.sellprice = sellprice;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Product() {
-
     }
 
-    public Product(String pname, int ptype, double purprice, double sellprice) {
+    public Product(String pid, String pname, String categoryId, Double price, Double firstcost, Double discount, int stock, Date date) {
+        this.pid = pid;
         this.pname = pname;
-        this.ptype = ptype;
-        this.purprice = purprice;
-        this.sellprice = sellprice;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.firstcost = firstcost;
+        this.discount = discount;
+        this.stock = stock;
+        this.date = date;
     }
 }

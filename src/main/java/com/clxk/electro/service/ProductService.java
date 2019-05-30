@@ -5,13 +5,12 @@ import com.clxk.electro.model.Product;
 import java.util.List;
 
 /**
- * @Description 商品服务层接口
+ * @Description Productservice层
  * @Author Clxk
- * @Date 2019/4/1 22:53
+ * @Date 2019/5/30 21:09
  * @Version 1.0
  */
 public interface ProductService {
-
     int insert(Product product);
 
     int delete(Product product);
@@ -20,5 +19,7 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    Product findById(int id);
+    List<Product> findByCategory(String catogoryId);
+
+    Product findByPid(String pid);
 }

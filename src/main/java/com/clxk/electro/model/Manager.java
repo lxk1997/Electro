@@ -3,32 +3,35 @@ package com.clxk.electro.model;
 /**
  * @Description 管理员实体类
  * @Author Clxk
- * @Date 2019/4/2 15:19
+ * @Date 2019/5/30 23:26
  * @Version 1.0
  */
 public class Manager {
 
-    private int id;
-    private String username;
+    private String mid;
+    private String mname;
     private String password;
-    private int level;
-    private String name;
-    private String nick;
+    private String departmentId;
+    private String firstname;
+    private String lastname;
+    private String phone;
+    private String email;
+    private String avatar;
 
-    public int getId() {
-        return id;
+    public String getMid() {
+        return mid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMname() {
+        return mname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMname(String mname) {
+        this.mname = mname;
     }
 
     public String getPassword() {
@@ -39,37 +42,66 @@ public class Manager {
         this.password = password;
     }
 
-    public int getLevel() {
-        return level;
+    public String getDepartmentId() {
+        return departmentId;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getNick() {
-        return nick;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Manager() {
-
     }
 
-    public Manager(String username, String password, int level) {
-        this.username = username;
+    public Manager(String mid, String mname, String password, String departmentId, String firstname, String lastname, String phone, String email, String avatar) {
+        this.mid = mid;
+        this.mname = mname;
         this.password = password;
-        this.level = level;
+        this.departmentId = departmentId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.avatar = avatar;
     }
 }

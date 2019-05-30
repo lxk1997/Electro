@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.electro.dao.ProductDetailsDao">
+    <sql id="productDetails_field">
+        ${pre}.pdid as "pdid",
+        ${pre}.avatar1 as "avatar1",
+        ${pre}.avatar2 as "avatar2",
+        ${pre}.avatar3 as "avatar3",
+        ${pre}.avatar4 as "avatar4",
+        ${pre}.description as "description",
+        ${pre}.details as "details",
+        ${pre}.rating as "rating"
+    </sql>
+
+    <resultMap id="productDetailsMap" type="com.clxk.electro.model.ProductDetails">
+        <id property="pdid" column="pdid"/>
+        <result property="avatar1" column="avatar1"/>
+        <result property="avatar2" column="avatar2"/>
+        <result property="avatar3" column="avatar3"/>
+        <result property="avatar4" column="avatar4"/>
+        <result property="description" column="description"/>
+        <result property="details" column="details"/>
+        <result property="rating" column="rating"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.electro.model.ProductDetails">
+        insert into product_details(pdid, avatar1,avatar2,avatar3,avatar4,description,details,rating) values(#{pdid}, #{avatar1}, #{avatar2}, #{avatar3}, #{avatar4},#{description}, #{details}, #{rating});
+    </insert>
+
+    <update id="update" parameterType="com.clxk.electro.model.ProductDetails">
+        update product_details
+        <set>
+            <choose>
+                <when test="avatar1 != null and avatar1 != ''">
+                    avatar1 = #{avatar1},
+                </when>
+                <when test="avatar2 != null and avatar2 != ''">
+                    avatar2 = #{avatar2},
+                </when>
+                <when test="avatar3 != null and avatar3 != ''">
+                    avatar3 = #{avatar3},
+                </when>
+                <when test="avatar4 != null and avatar4 != ''">
+                    avatar4 = #{avatar4},
+                </when>
+                <when test="description != null and description != ''">
+                    description = #{description},
+                </when>
+                <when test="details != null and details != ''">
+                    details = #{details},
+                </when>
+                <when test="rating != null and rating != ''">
+                    rating = #{rating},
+                </when>
+            </choose>
+        </set>
+        where pdid = #{pdid}
+    </update>
+
+    <select id="findAll" resultMap="productDetailsMap">
+        select * from product_details
+    </select>
+
+    <select id="findByPdid" parameterType="String" resultMap="productDetailsMap">
+        select * from product_details
+        where pdid = #{pdid}
+    </select>
+
+</mapper>

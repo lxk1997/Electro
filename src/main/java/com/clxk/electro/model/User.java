@@ -10,29 +10,32 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    private int id;
-    private String username;
+    private String uid;
+    private String uname;
     private String password;
-    private String phonenum;
-    private String nick;
     private String email;
-    private String avatar;
-    private int age;
+    private String phone;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private String city;
+    private String country;
+    private String zipcode;
 
-    public int getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUname() {
+        return uname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public String getPassword() {
@@ -43,22 +46,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getPhonenum() {
-        return phonenum;
-    }
-
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum;
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -67,28 +54,85 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public int getAge() {
-        return age;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid='" + uid + '\'' +
+                ", username='" + uname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                '}';
     }
 
     public User() {
-
     }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String uid, String uname, String password) {
+        this.uid = uid;
+        this.uname = uname;
         this.password = password;
     }
 }

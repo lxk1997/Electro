@@ -20,5 +20,7 @@ public interface UserDao {
 
     List<User> findAll();
 
-    User findByUsername(String username);
+    User findByUname(String uname);
+
+    User findByUid(String uid);
 }

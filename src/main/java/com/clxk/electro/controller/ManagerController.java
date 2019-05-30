@@ -1,17 +1,16 @@
 package com.clxk.electro.controller;
 
-import com.clxk.electro.model.Manager;
 import com.clxk.electro.service.ManagerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Description 管理员控制层
+ * @Description Manager控制层
  * @Author Clxk
- * @Date 2019/4/2 16:55
+ * @Date 2019/5/30 23:35
  * @Version 1.0
  */
 @Controller
@@ -21,22 +20,13 @@ public class ManagerController {
     @Resource
     private ManagerService managerService;
 
-    @RequestMapping("/toLogin.do")
-    public String toLogin() {
-        return "backstage/login";
-    }
-
-    @RequestMapping("login.do")
-    @ResponseBody
-    public String login(Manager manager) {
-        System.out.println(manager.getUsername() + " " + manager.getPassword());
-        Manager man = managerService.findByUsername(manager.getUsername());
-        if (man == null) {
-            return "Not exist username!";
-        } else if (!man.getPassword().equals(manager.getPassword())) {
-            return "Password error!";
-        } else {
-            return "SUCCESS";
+    @RequestMapping("/table/getManagerTable.do")
+    public String getManagerTable(HttpServletRequest request) {
+        String url = "manager/table-manager";
+        if(request.getQueryString() != null && request.getQueryString().contains("editable")) {
+            url = "manager/editable-table-manager";
         }
+        request.setAttribute("managerTable", managerService.findAll());
+        return url;
     }
 }

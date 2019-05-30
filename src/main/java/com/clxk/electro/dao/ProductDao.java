@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Description 商品dao层
+ * @Description Product持久层
  * @Author Clxk
- * @Date 2019/4/1 22:43
+ * @Date 2019/5/30 21:06
  * @Version 1.0
  */
 @Repository
@@ -22,5 +22,7 @@ public interface ProductDao {
 
     List<Product> findAll();
 
-    Product findById(int id);
+    List<Product> findByCategory(String catogoryId);
+
+    Product findByPid(String pid);
 }

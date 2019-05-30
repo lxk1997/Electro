@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Description 管理员dao层
+ * @Description Manager持久层
  * @Author Clxk
- * @Date 2019/4/2 15:37
+ * @Date 2019/5/30 23:31
  * @Version 1.0
  */
 @Repository
@@ -18,11 +18,9 @@ public interface ManagerDao {
 
     int update(Manager manager);
 
-    int delete(Manager manager);
-
     List<Manager> findAll();
 
-    List<Manager> findByLevel(int level);
+    Manager findByMname(String mname);
 
-    Manager findByUsername(String username);
+    Manager findByMid(String mid);
 }

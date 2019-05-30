@@ -5,9 +5,9 @@ import com.clxk.electro.model.Manager;
 import java.util.List;
 
 /**
- * @Description 管理员服务层接口
+ * @Description Manager 服务层接口
  * @Author Clxk
- * @Date 2019/4/2 15:40
+ * @Date 2019/5/30 23:32
  * @Version 1.0
  */
 public interface ManagerService {
@@ -16,11 +16,9 @@ public interface ManagerService {
 
     int update(Manager manager);
 
-    int delete(Manager manager);
-
     List<Manager> findAll();
 
-    List<Manager> findByLevel(int level);
+    Manager findByMname(String mname);
 
-    Manager findByUsername(String username);
+    Manager findByMid(String mid);
 }

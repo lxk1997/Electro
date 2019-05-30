@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+
     @Override
     public int insert(User user) {
         return userDao.insert(user);
@@ -36,7 +37,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+    public User findByUname(String uname) {
+        return userDao.findByUname(uname);
+    }
+
+    @Override
+    public User findByUid(String uid) {
+        return userDao.findByUid(uid);
     }
 }

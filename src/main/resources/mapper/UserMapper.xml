@@ -3,64 +3,84 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clxk.electro.dao.UserDao">
     <sql id="user_field">
-        ${pre}.id as "id",
-        ${pre}.username as "username",
+        ${pre}.uid as "uid",
+        ${pre}.uname as "uname",
         ${pre}.password as "password",
-        ${pre}.phonenum as "phonenum",
-        ${pre}.nick as "nick",
+        ${pre}.phone as "phone",
+        ${pre}.firstname as "firstname",
         ${pre}.email as "email",
-        ${pre}.avatar as "avatar",
-        ${pre}.age as "age"
+        ${pre}.lastname as "lastname",
+        ${pre}.address as "address"
+        ${pre}.city as "city"
+        ${pre}.country as "country"
+        ${pre}.zipcode as "zipcode"
     </sql>
 
     <resultMap id="userMap" type="com.clxk.electro.model.User">
-        <id property="id" column="id"/>
-        <result property="username" column="username"/>
+        <id property="uid" column="uid"/>
+        <result property="uname" column="uname"/>
         <result property="password" column="password"/>
-        <result property="phonenum" column="phonenum"/>
-        <result property="nick" column="nick"/>
+        <result property="phone" column="phone"/>
+        <result property="firstname" column="firstname"/>
+        <result property="lastname" column="lastname"/>
         <result property="email" column="email"/>
-        <result property="avatar" column="avatar"/>
-        <result property="age" column="age"/>
+        <result property="address" column="address"/>
+        <result property="city" column="city"/>
+        <result property="country" column="country"/>
+        <result property="zipcode" column="zipcode"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.clxk.electro.model.User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(id, username, password, phonenum, nick, email, avatar, age) values(#{id}, #{username}, #{password}, #{phonenum}, #{nick}, #{email}, #{avatar}, #{age});
+    <insert id="insert" parameterType="com.clxk.electro.model.User">
+        insert into tb_user(uid, uname, password, phone, email) values(#{uid}, #{uname}, #{password}, #{phone}, #{email});
     </insert>
 
     <update id="update" parameterType="com.clxk.electro.model.User">
-        update user
+        update tb_user
         <set>
             <choose>
                 <when test="password != null and password != ''">
                     password = #{password},
                 </when>
-                <when test="phonenum != null and phonenum != ''">
-                    phonenum = #{phonenum},
-                </when>
-                <when test="nick != null and nick != ''">
-                    nick = #{nick},
-                </when>
                 <when test="email != null and email != ''">
                     email = #{email},
                 </when>
-                <when test="avatar != null and avatar != ''">
-                    avatar = #{avatar},
+                <when test="phone != null and phone != ''">
+                    phone = #{phone},
                 </when>
-                <when test="age != null and age != ''">
-                    age = #{age},
+                <when test="firstname != null and firstname != ''">
+                    firstname = #{firstname},
+                </when>
+                <when test="lastname != null and lastname != ''">
+                    lastname = #{lastname},
+                </when>
+                <when test="address != null and address != ''">
+                    address = #{address},
+                </when>
+                <when test="city != null and city != ''">
+                    city = #{city},
+                </when>
+                <when test="country != null and country != ''">
+                    country = #{country},
+                </when>
+                <when test="zipcode != null and zipcode != ''">
+                    zipcode = #{zipcode},
                 </when>
             </choose>
         </set>
-        where username = #{username}
+        where uid = #{uid}
     </update>
 
     <select id="findAll" resultMap="userMap">
-        select * from user
+        select * from tb_user
     </select>
 
-    <select id="findByUsername" parameterType="String" resultMap="userMap">
-        select * from user
-        where username = #{username}
+    <select id="findByUname" parameterType="String" resultMap="userMap">
+        select * from tb_user
+        where uname = #{uname}
+    </select>
+
+    <select id="findByUid" parameterType="String" resultMap="userMap">
+        select * from tb_user
+        where uid = #{uid}
     </select>
 </mapper>

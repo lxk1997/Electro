@@ -3,70 +3,74 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clxk.electro.dao.ManagerDao">
     <sql id="manager_field">
-        ${pre}.id as "id",
-        ${pre}.username as "username",
+        ${pre}.mid as "mid",
+        ${pre}.mname as "mname",
         ${pre}.password as "password",
-        ${pre}.level as "level",
-        ${pre}.nick as "nick",
-        ${pre}.name as "name"
+        ${pre}.phone as "phone",
+        ${pre}.firstname as "firstname",
+        ${pre}.email as "email",
+        ${pre}.lastname as "lastname",
+        ${pre}.department_id as "departmentId"
+        ${pre}.avatar as "avatar"
     </sql>
 
     <resultMap id="managerMap" type="com.clxk.electro.model.Manager">
-        <id property="id" column="id"/>
-        <result property="username" column="username"/>
+        <id property="mid" column="mid"/>
+        <result property="mname" column="mname"/>
         <result property="password" column="password"/>
-        <result property="level" column="level"/>
-        <result property="nick" column="nick"/>
-        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="firstname" column="firstname"/>
+        <result property="lastname" column="lastname"/>
+        <result property="email" column="email"/>
+        <result property="avatar" column="avatar"/>
+        <result property="departmentId" column="department_id"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.clxk.electro.model.Manager" useGeneratedKeys="true" keyProperty="id">
-        insert into manager(id, username, password, level, nick, name) values(#{id}, #{username}, #{password}, #{level}, #{nick}, #{name});
+    <insert id="insert" parameterType="com.clxk.electro.model.Manager">
+        insert into tb_manager(mid, mname, password, phone, email, department_id, firstname, lastname, avatar) values(#{mid}, #{mname}, #{password}, #{phone}, #{email}, #{departmentId}, #{firstname}, #{lastname}, #{avatar});
     </insert>
 
     <update id="update" parameterType="com.clxk.electro.model.Manager">
-        update manager
+        update tb_manager
         <set>
             <choose>
                 <when test="password != null and password != ''">
                     password = #{password},
                 </when>
-                <when test="level != null and level != ''">
-                    level = #{level},
+                <when test="email != null and email != ''">
+                    email = #{email},
                 </when>
-                <when test="nick != null and nick != ''">
-                    nick = #{nick},
+                <when test="phone != null and phone != ''">
+                    phone = #{phone},
                 </when>
-                <when test="name != null and name != ''">
-                    name = #{name},
+                <when test="firstname != null and firstname != ''">
+                    firstname = #{firstname},
+                </when>
+                <when test="lastname != null and lastname != ''">
+                    lastname = #{lastname},
+                </when>
+                <when test="avatar != null and avatar != ''">
+                    avatar = #{avatar},
+                </when>
+                <when test="departmint_id != null and departmint_id != ''">
+                    departmint_id = #{departmintId},
                 </when>
             </choose>
         </set>
-        where username = #{username}
+        where mid = #{mid}
     </update>
 
     <select id="findAll" resultMap="managerMap">
-        select * from manager
+        select * from tb_manager
     </select>
 
-    <select id="findByUsername" parameterType="String" resultMap="managerMap">
-        select * from manager
-        where username = #{username}
+    <select id="findByMname" parameterType="String" resultMap="managerMap">
+        select * from tb_manager
+        where mname = #{mname}
     </select>
 
-    <select id="findByLevel" parameterType="int" resultMap="managerMap">
-        select * from manager
-        where level = #{level}
+    <select id="findByMid" parameterType="String" resultMap="managerMap">
+        select * from tb_manager
+        where mid = #{mid}
     </select>
-
-    <delete id="delete" parameterType="com.clxk.electro.model.Manager">
-        delete from manager
-        <where>
-            <choose>
-                <when test="id != null and id != ''">
-                    and id = #{id}
-                </when>
-            </choose>
-        </where>
-    </delete>
 </mapper>
