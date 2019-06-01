@@ -22,9 +22,9 @@ public class DepartmentController {
 
     @RequestMapping("/table/getDepartment.do")
     public String getDepartmentTable(HttpServletRequest request) {
-        String url = "manager/table-department";
+        String url = "/WEB-INF/views/manager/table-department";
         if(request.getQueryString() != null && request.getQueryString().contains("editable")) {
-            url = "manager/editable-table-department";
+            url = "/WEB-INF/views/manager/editable-table-department";
         }
         request.setAttribute("departmentTable", departmentService.findAll());
         return url;

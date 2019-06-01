@@ -25,4 +25,6 @@ public interface ProductDao {
     List<Product> findByCategory(String catogoryId);
 
     Product findByPid(String pid);
+
+    List<Product> findByDateOrderAndCategory(String categoryId);
 }

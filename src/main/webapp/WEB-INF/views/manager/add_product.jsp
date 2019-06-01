@@ -1,3 +1,5 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="com.clxk.electro.common.Utils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -341,44 +343,36 @@
             </div>
             <!-- /# row -->
             <section id="main-content">
-                <div class="row">
-                    <button type="button" class="btn btn-default m-b-10"  style="width: 80px;height: 30px;margin-left: 10px;" onclick="edit(this)">Edit</button>
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="bootstrap-data-table-panel">
-                                <div class="table-responsive">
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th>Category Id</th>
-                                            <th>Price</th>
-                                            <th>Firstcost</th>
-                                            <th>Discount</th>
-                                            <th>Stock</th>
-                                            <th>Date</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach items="${requestScope.productTable}" var="product">
-                                            <tr>
-                                                <td>${product.pname}</td>
-                                                <td>${product.categoryId}</td>
-                                                <td>${product.price}</td>
-                                                <td>${product.firstcost}</td>
-                                                <td>${product.discount}</td>
-                                                <td>${product.stock}</td>
-                                                <td>${product.date}</td>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /# card -->
-                    </div>
-                    <!-- /# column -->
+                <div class="row" style="text-align: center">
+                    <form id="form" action="<c:url value='/product/upload.do'/> " method="POST" enctype="multipart/form-data">
+                        <input type="text" class="form-control input-default"
+                               name="pname" placeholder="Product Name*" style="margin-bottom: 20px;" value="${requestScope.pname}">
+                        <select name="categoryId" class="form-control" style="margin-bottom: 20px;" value="${requestScope.categoryId}">
+                            <option value="1">Laptops</option>
+                            <option value="2">Smartphones</option>
+                            <option value="3">Cameras</option>
+                            <option value="4">Accessories</option>
+                        </select>
+                        <input type="text" class="form-control input-default"
+                               name="price" placeholder="Product Price*" style="margin-bottom: 20px;" value="${requestScope.price}">
+                        <input type="text" class="form-control input-default"
+                               name="firstcost" placeholder="Firstcost*" style="margin-bottom: 20px;" value="${requestScope.firstcost}">
+                        <input type="text" class="form-control input-default"
+                               name="discount" placeholder="Discount*" style="margin-bottom: 20px;" value="${requestScope.discount}">
+                        <input type="number" class="form-control input-default"
+                               name="stock" placeholder="Stock*" style="margin-bottom: 20px;" value="${requestScope.stock}">
+                        <input type="hidden" name="date" value="<%=new Date()%>">
+                        Avatar: <input type="file" class="file-input" name="img1" style="margin-bottom: 20px;">
+                        <input type="file" class="file-input" name="img2" style="margin-bottom: 20px;">
+                        <input type="file" class="file-input" name="img3" style="margin-bottom: 20px;">
+                        <input type="file" class="file-input" name="img4" style="margin-bottom: 20px;">
+                        <textarea class="form-control" rows="3" name="description" placeholder="Description*" style="margin-bottom: 20px;">${requestScope.description}</textarea>
+                        <textarea class="form-control" rows="3" name="details" placeholder="Details*" style="margin-bottom: 20px;" >${requestScope.details}</textarea>
+                        <input type="hidden" name="ratings"><br>
+                        <a  href="#" id="msg" style="color: red">${requestScope.msg}</a><br>
+                        <input type="button" class="btn btn-primary" value="Upload" style="margin-right: 120px;" onclick="upload();">
+                        <input type="reset" class="btn btn-primary" value="Reset">
+                    </form>
                 </div>
                 <!-- /# row -->
 
@@ -417,6 +411,48 @@
 <script src="<c:url value='/assets/js/lib/data-table/datatables-init.js'/>"></script>
 </body>
 
+<script type="text/javascript">
+    function upload() {
+        var pname = $("input[name='pname']").val();
+        var categoryId = $("select[name='categoryId']").val();
+        var price = $("input[name='price']").val();
+        var firstcost = $("input[name='firstcost']").val();
+        var discount = $("input[name='discount']").val();
+        var stock = $("input[name='stock']").val();
+        var avatar1 = $("input[name='img1']").val();
+        var avatar2 = $("input[name='img2']").val();
+        var avatar3 = $("input[name='img3']").val();
+        var avatar4 = $("input[name='img4']").val();
+        var description = $("textarea[name='description']").val();
+        var details = $("textarea[name='details']").val();
+        var rating = $("input[name='rating']").val();
+        if(pname == "") {
+            $("a[id='msg']").text("Null Product Name!");
+        } else if(price == "") {
+            $("a[id='msg']").text("Null Price!");
+        } else if(firstcost == "") {
+            $("a[id='msg']").text("Null Firstcost!");
+        } else if(discount == "") {
+            $("a[id='msg']").text("Null Discount!");
+        } else if(stock == "") {
+            $("a[id='msg']").text("Null Stock!");
+        } else if(description == "") {
+            $("a[id='msg']").text("Null Description!");
+        } else if(details == "") {
+            $("a[id='msg']").text("Null Details!");
+        } else if(avatar1 == "" || avatar2 == "" || avatar3 == "" || avatar4 == "") {
+            $("a[id='msg']").text("Null Avatar!");
+        } else if(isNaN(price) == true) {
+            $("a[id='msg']").text("Price Error!");
+        } else if(isNaN(firstcost) == true) {
+            $("a[id='msg']").text("Firstcost Error!");
+        } else if(isNaN(discount) == true) {
+            $("a[id='msg']").text("Discount Error!");
+        } else {
+            $("form[id='form']").submit();
+        }
+    }
+</script>
 </html>
 
 

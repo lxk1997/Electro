@@ -50,4 +50,10 @@ public class ProductServiceImpl implements ProductService {
         return productDao.findByPid(pid);
     }
 
+    @Override
+    public List<Product> findByDateOrderAndCategory(String category) {
+        return productDao.findByDateOrderAndCategory(category);
+    }
+
+
 }

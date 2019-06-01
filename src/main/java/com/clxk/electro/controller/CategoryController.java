@@ -22,9 +22,9 @@ public class CategoryController {
 
     @RequestMapping("/table/getCategory.do")
     public String getCategoryTable(HttpServletRequest request) {
-        String url = "manager/table-category";
+        String url = "/WEB-INF/views/manager/table-category";
         if(request.getQueryString() != null && request.getQueryString().contains("editable")) {
-            url = "manager/editable-table-category";
+            url = "/WEB-INF/views/manager/editable-table-category";
         }
         request.setAttribute("categoryTable", categoryService.findAll());
         return url;

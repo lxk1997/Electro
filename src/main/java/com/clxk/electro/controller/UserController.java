@@ -29,12 +29,12 @@ public class UserController {
 
     @RequestMapping("/toLogin.do")
     public String toLogin() {
-        return "/login";
+        return "/WEB-INF/views/login";
     }
 
     @RequestMapping("/toRegiste.do")
     public String toRegiste() {
-        return "/register";
+        return "/WEB-INF/views/register";
     }
 
     @RequestMapping("/login.do")
@@ -89,9 +89,9 @@ public class UserController {
         String queryString = request.getQueryString();
         System.out.println(queryString);
         if(queryString != null && queryString.contains("editable")) {
-            return "manager/editable-table-user";
+            return "/WEB-INF/views/manager/editable-table-user";
         }
-        return "manager/table-user";
+        return "/WEB-INF/views/manager/table-user";
     }
 
 }

@@ -3,6 +3,7 @@ package com.clxk.electro.dao;
 import com.clxk.electro.model.User;
 import org.springframework.stereotype.Repository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

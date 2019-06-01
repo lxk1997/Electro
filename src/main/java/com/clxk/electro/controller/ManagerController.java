@@ -22,9 +22,9 @@ public class ManagerController {
 
     @RequestMapping("/table/getManagerTable.do")
     public String getManagerTable(HttpServletRequest request) {
-        String url = "manager/table-manager";
+        String url = "/WEB-INF/views/manager/table-manager";
         if(request.getQueryString() != null && request.getQueryString().contains("editable")) {
-            url = "manager/editable-table-manager";
+            url = "/WEB-INF/views/manager/editable-table-manager";
         }
         request.setAttribute("managerTable", managerService.findAll());
         return url;

@@ -97,4 +97,18 @@ public class Product {
         this.stock = stock;
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "pid='" + pid + '\'' +
+                ", pname='" + pname + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", price=" + price +
+                ", firstcost=" + firstcost +
+                ", discount=" + discount +
+                ", stock=" + stock +
+                ", date=" + date +
+                '}';
+    }
 }

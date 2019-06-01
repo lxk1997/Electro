@@ -93,4 +93,18 @@ public class ProductDetails {
     public void setRating(String rating) {
         this.rating = rating;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetails{" +
+                "pdid='" + pdid + '\'' +
+                ", avatar1='" + avatar1 + '\'' +
+                ", avatar2='" + avatar2 + '\'' +
+                ", avatar3='" + avatar3 + '\'' +
+                ", avatar4='" + avatar4 + '\'' +
+                ", description='" + description + '\'' +
+                ", details='" + details + '\'' +
+                ", rating='" + rating + '\'' +
+                '}';
+    }
 }

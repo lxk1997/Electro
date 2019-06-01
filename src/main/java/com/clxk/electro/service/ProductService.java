@@ -22,4 +22,6 @@ public interface ProductService {
     List<Product> findByCategory(String catogoryId);
 
     Product findByPid(String pid);
+
+    List<Product> findByDateOrderAndCategory(String category);
 }

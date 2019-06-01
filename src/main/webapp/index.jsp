@@ -44,7 +44,7 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
@@ -278,11 +278,11 @@
                 <div class="section-title">
                     <h3 class="title">New Products</h3>
                     <div class="section-nav">
-                        <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                            <li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-                            <li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-                            <li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+                        <ul id="ul-new-product" class="section-tab-nav tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab1" onclick="javascript:<c:set var='np' value='${sessionScope.laptops}'/>;">Laptops</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="javascript:<c:set var='np' value='${sessionScope.smartphones}'/>;">Smartphones</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="javascript:<c:set var='np' value='${sessionScope.cameras}'/>;">Cameras</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="javascript:<c:set var='np' value='${sessionScope.accessories}'/>;">Accessories</a></li>
                         </ul>
                     </div>
                 </div>
@@ -296,6 +296,7 @@
                         <!-- tab -->
                         <div id="tab1" class="tab-pane active">
                             <div class="products-slick" data-nav="#slick-nav-1">
+                                <c:forEach items="${np}" var="product">
                                 <!-- product -->
                                 <div class="product">
                                     <div class="product-img">
@@ -333,7 +334,7 @@
                                     </div>
                                 </div>
                                 <!-- /product -->
-
+                                </c:forEach>
                                 <!-- product -->
                                 <div class="product">
                                     <div class="product-img">
@@ -1225,6 +1226,19 @@
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
 <script src="<c:url value='/js/main.js'/>"></script>
+
+<script type="text/javascript">
+    window.onload = function () {
+        var laptops = ${sessionScope.laptops};
+        if(laptops == null || laptops == "" || laptops == undefined)
+            window.location.href = '<c:url value="/init/toIndex.do"/> ';
+    }
+
+    function np(id) {
+        alert("aaa");
+    }
+
+</script>
 
 </body>
 </html>

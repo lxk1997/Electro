@@ -71,4 +71,10 @@
         select * from product
         where category_id = #{categoryId}
     </select>
+
+    <select id="findByDateOrder" parameterType="String" resultMap="productMap">
+        select * from product
+        where category_id = #(categoryId)
+        order by date desc limit 4;
+    </select>
 </mapper>
