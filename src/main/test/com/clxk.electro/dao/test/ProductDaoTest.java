@@ -3,17 +3,14 @@ package com.clxk.electro.dao.test;
 import com.clxk.base.test.BaseJunit4Test;
 import com.clxk.electro.common.Utils;
 import com.clxk.electro.dao.ProductDao;
-import com.clxk.electro.dao.ProductDetailsDao;
 import com.clxk.electro.model.Product;
 import com.clxk.electro.model.ProductDetails;
 import org.junit.Test;
-import sun.rmi.transport.Connection;
 
 import javax.annotation.Resource;
 import java.io.*;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Description 商品dao层测试
@@ -58,7 +55,10 @@ public class ProductDaoTest extends BaseJunit4Test {
 
     @Test
     public void testFindAll() {
-
+        List<Product> products = productDao.findAll();
+        for(Product p : products) {
+            System.out.println(p.getProductDetails().getAvatar1());
+        }
     }
 
     @Test

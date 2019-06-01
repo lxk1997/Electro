@@ -51,8 +51,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByDateOrderAndCategory(String category) {
-        return productDao.findByDateOrderAndCategory(category);
+    public List<Product> findByDateOrderAndCategory(String categoryId) {
+        return productDao.findByDateOrderAndCategory(categoryId);
     }
 
 

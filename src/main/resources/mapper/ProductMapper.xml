@@ -22,10 +22,24 @@
         <result property="discount" column="discount"/>
         <result property="stock" column="stock"/>
         <result property="date" column="date"/>
+        <association property="productDetails" javaType="com.clxk.electro.model.ProductDetails">
+            <id property="pdid" column="pdid"/>
+            <result property="avatar1" column="avatar1"/>
+            <result property="avatar2" column="avatar2"/>
+            <result property="avatar3" column="avatar3"/>
+            <result property="avatar4" column="avatar4"/>
+            <result property="description" column="description"/>
+            <result property="details" column="details"/>
+            <result property="rating" column="rating"/>
+        </association>
     </resultMap>
 
     <insert id="insert" parameterType="com.clxk.electro.model.Product">
-        insert into product(pid, pname, category_id, price, firstcost, discount, stock, date) values(#{pid}, #{pname}, #{categoryId}, #{price}, #{firstcost},#{discount}, #{stock}, #{date});
+        insert into product(pid, pname, category_id, price, firstcost, discount, stock, date)
+          values(#{pid}, #{pname}, #{categoryId}, #{price}, #{firstcost},#{discount}, #{stock}, #{date});
+        insert into product_details(pdid, avatar1, avatar2, avatar3, avatar4, description, details, rating)
+          values(#{productDetails.pdid}, #{productDetails.avatar1},#{productDetails.avatar2},#{productDetails.avatar3},#{productDetails.avatar4},#{productDetails.description},#{productDetails.details},#{productDetails.rating});
+
     </insert>
 
     <update id="update" parameterType="com.clxk.electro.model.Product">
@@ -55,26 +69,53 @@
                 </when>
             </choose>
         </set>
-        where pid = #{pid}
+        where pid = #{pid};
+
+        update product_details
+        <set>
+            <choose>
+                <when test="avatar1 != null and avatar1 != ''">
+                    avatar1 = #{productDetails.avatar1},
+                </when>
+                <when test="avatar2 != null and avatar2 != ''">
+                    avatar2 = #{productDetails.avatar2},
+                </when>
+                <when test="avatar3 != null and avatar3 != ''">
+                    avatar3 = #{productDetails.avatar3},
+                </when>
+                <when test="avatar4 != null and avatar4 != ''">
+                    avatar4 = #{productDetails.avatar4},
+                </when>
+                <when test="description != null and description != ''">
+                    description = #{productDetails.description},
+                </when>
+                <when test="details != null and details != ''">
+                    details = #{productDetails.details},
+                </when>
+                <when test="rating != null and rating != ''">
+                    rating = #{productDetails.rating},
+                </when>
+            </choose>
+        </set>
+        where pdid = #{pdid};
     </update>
 
     <select id="findAll" resultMap="productMap">
-        select * from product
+        select * from product, product_details where product_details.pdid = product.pid
     </select>
 
     <select id="findByPid" parameterType="String" resultMap="productMap">
-        select * from product
-        where pid = #{pid}
+        select * from product, product_details
+        where product.pid = product_details.pdid and pid = #{pid}
     </select>
 
     <select id="findByCategory" parameterType="String" resultMap="productMap">
-        select * from product
-        where category_id = #{categoryId}
+        select * from product, product_details
+        where product.pid = product_details.pdid and category_id = #{categoryId}
     </select>
 
-    <select id="findByDateOrder" parameterType="String" resultMap="productMap">
-        select * from product
-        where category_id = #(categoryId)
-        order by date desc limit 4;
+    <select id="findByDateOrderAndCategory" parameterType="String" resultMap="productMap">
+        select * from product, product_details
+        where product.pid = product_details.pdid and category_id = #{categoryId}
     </select>
 </mapper>

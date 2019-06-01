@@ -3,7 +3,7 @@ package com.clxk.electro.controller;
 import com.clxk.electro.common.Utils;
 import com.clxk.electro.model.Product;
 import com.clxk.electro.model.ProductDetails;
-import com.clxk.electro.service.ProductDetailsService;
+import com.clxk.electro.service.CategoryService;
 import com.clxk.electro.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Description Product控制层
@@ -31,7 +29,23 @@ public class ProductController {
     @Resource
     private ProductService productService;
     @Resource
-    private ProductDetailsService productDetailsService;
+    private CategoryService categoryService;
+
+    @RequestMapping("/toStore.do")
+    public String toStore(HttpSession session, HttpServletRequest request) {
+        String categoryId = request.getParameter("categoryId");
+        if(categoryId.equals("0")) {
+            List<Product> productList = productService.findByDateOrderAndCategory("1");
+            session.setAttribute("store",productList);
+            request.setAttribute("category","Laptops（" + productList.size() + "RESULTS)");
+        }
+        else {
+            List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
+            session.setAttribute("store",productList);
+            request.setAttribute("category", categoryService.findByCid(categoryId).getCname() + "(" + productList.size() + "RESULTS)");
+        }
+        return "/WEB-INF/views/store";
+    }
 
     @RequestMapping("/table/getProductTable.do")
     public String getProductTable(HttpServletRequest request) {
@@ -95,10 +109,10 @@ public class ProductController {
         Product product = new Product(uuid,pname,categoryId,Double.valueOf(price),Double.valueOf(firstcost),
                 Double.valueOf(discount), Integer.valueOf(stock), new Date());
         String path = request.getServletContext().getRealPath("/WEB-INF/imgs/");
-        ProductDetails pd = new ProductDetails(uuid,Utils.saveFile(path,avatar1),Utils.saveFile(path,avatar2),
-                Utils.saveFile(path,avatar3),Utils.saveFile(path,avatar4),description,details,"0,0,0,0,0");
+        ProductDetails pd = new ProductDetails(uuid,Utils.saveFile(avatar1),Utils.saveFile(avatar2),
+                Utils.saveFile(avatar3),Utils.saveFile(avatar4),description,details,"0,0,0,0,0");
+        product.setProductDetails(pd);
         productService.insert(product);
-        productDetailsService.insert(pd);
         return "/WEB-INF/views/product";
     }
 }

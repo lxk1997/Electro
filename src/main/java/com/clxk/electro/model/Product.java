@@ -19,6 +19,7 @@ public class Product {
     private Double discount;
     private int stock;
     private Date date;
+    private ProductDetails productDetails;
 
     public String getPid() {
         return pid;
@@ -110,5 +111,13 @@ public class Product {
                 ", stock=" + stock +
                 ", date=" + date +
                 '}';
+    }
+
+    public ProductDetails getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(ProductDetails productDetails) {
+        this.productDetails = productDetails;
     }
 }
