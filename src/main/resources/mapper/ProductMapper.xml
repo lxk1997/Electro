@@ -111,11 +111,11 @@
 
     <select id="findByCategory" parameterType="String" resultMap="productMap">
         select * from product, product_details
-        where product.pid = product_details.pdid and category_id = #{categoryId}
+        where product.pid = product_details.pdid and product.category_id = #{categoryId}
     </select>
 
     <select id="findByDateOrderAndCategory" parameterType="String" resultMap="productMap">
         select * from product, product_details
-        where product.pid = product_details.pdid and category_id = #{categoryId}
+        where product.pid = product_details.pdid and product.category_id = #{categoryId} order by product.date desc limit 0, 8;
     </select>
 </mapper>

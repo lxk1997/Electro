@@ -161,7 +161,6 @@
                                     <h5>SUBTOTAL: $2940.00</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="#">View Cart</a>
                                     <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
@@ -310,21 +309,36 @@
                         <!-- tab -->
                         <div id="tab1" class="tab-pane active">
                             <div class="products-slick" data-nav="#slick-nav-1">
-                                <c:forEach items="${sessionScope.laptops}" var="product">
+                                <c:forEach items="${sessionScope.accessories}" var="product">
                                     <!-- product -->
                                     <div class="product">
                                         <div class="product-img">
                                             <img src="<c:url value='/imgs${product.productDetails.avatar1}'/>" alt="">
                                             <div class="product-label">
-                                                <span class="sale">-30%</span>
+                                                <c:if test="${product.discount != 1}">
+                                                    <span class="sale">-${(1 - product.discount) * 10}%</span>
+                                                </c:if>
                                                 <span class="new">NEW</span>
                                             </div>
                                         </div>
                                         <div class="product-body">
-                                            <p class="product-category">Laptops</p>
+                                            <c:choose>
+                                                <c:when test="${product.categoryId eq '1'}">
+                                                    <p class="product-category">Laptops</p>
+                                                </c:when>
+                                                <c:when test="${product.categoryId eq '2'}">
+                                                    <p class="product-category">Smartphones</p>
+                                                </c:when>
+                                                <c:when test="${product.categoryId eq '3'}">
+                                                    <p class="product-category">Cameras</p>
+                                                </c:when>
+                                                <c:when test="${product.categoryId eq '4'}">
+                                                    <p class="product-category">Accessories</p>
+                                                </c:when>
+                                            </c:choose>
                                             <h3 class="product-name"><a href="#">${product.pname}</a></h3>
                                             <h4 class="product-price">$${product.price}
-                                                <del class="product-old-price">$990.00</del>
+                                                <del class="product-old-price">$${product.price / product.discount}</del>
                                             </h4>
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>
@@ -1118,7 +1132,6 @@
     function newProductRefesh(number) {
         switch (number) {
             case 1:
-                alert(")");
                 <c:set var="np" value="${sessionScope.laptops}"/>;
                 break;
             case 2:
