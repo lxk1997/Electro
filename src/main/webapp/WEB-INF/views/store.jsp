@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -437,8 +438,8 @@
                             </div>
                             <div class="product-body">
                                 <p class="product-category">Laptops</p>
-                                <h3 class="product-name"><a href="#">${product.pname}</a></h3>
-                                <h4 class="product-price">$${product.price} <del class="product-old-price">$990.00</del></h4>
+                                <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a></h3>
+                                <h4 class="product-price">$${product.price} <del class="product-old-price">$<fmt:formatNumber type="number" value="${product.price * product.discount}" pattern="#.00"/> </del></h4>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>

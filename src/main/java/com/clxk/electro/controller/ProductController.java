@@ -31,6 +31,14 @@ public class ProductController {
     @Resource
     private CategoryService categoryService;
 
+    @RequestMapping("/toProductDetails.do")
+    public String toProductDetails(HttpServletRequest request) {
+        String pid = request.getParameter("pid");
+        Product product = productService.findByPid(pid);
+        request.setAttribute("productDetails", product);
+        return "/WEB-INF/views/product";
+    }
+
     @RequestMapping("/toStore.do")
     public String toStore(HttpSession session, HttpServletRequest request) {
         String categoryId = request.getParameter("categoryId");

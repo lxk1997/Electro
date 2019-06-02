@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,10 +294,10 @@
                     <h3 class="title">New Products</h3>
                     <div class="section-nav">
                         <ul id="ul-new-product" class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="javascript:void(0)" onclick="newProductRefesh(1);">Laptops</a></li>
-                            <li><a data-toggle="tab" href="javascript:void(0)" onclick="newProductRefesh(2);">Smartphones</a></li>
-                            <li><a data-toggle="tab" href="javascript:void(0)" onclick="newProductRefesh(3);">Cameras</a></li>
-                            <li><a data-toggle="tab" href="javascript:void(0)" onclick="newProductRefesh(4);">Accessories</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.laptops}'/>; ">Laptops</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.smartphones}'/>; ">Smartphones</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.cameras}'/>; ">Cameras</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.accessories}'/>; ">Accessories</a></li>
                         </ul>
                     </div>
                 </div>
@@ -309,7 +311,7 @@
                         <!-- tab -->
                         <div id="tab1" class="tab-pane active">
                             <div class="products-slick" data-nav="#slick-nav-1">
-                                <c:forEach items="${sessionScope.accessories}" var="product">
+                                <c:forEach items="${np}" var="product">
                                     <!-- product -->
                                     <div class="product">
                                         <div class="product-img">
@@ -336,9 +338,9 @@
                                                     <p class="product-category">Accessories</p>
                                                 </c:when>
                                             </c:choose>
-                                            <h3 class="product-name"><a href="#">${product.pname}</a></h3>
-                                            <h4 class="product-price">$${product.price}
-                                                <del class="product-old-price">$${product.price / product.discount}</del>
+                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a></h3>
+                                            <h4 class="product-price">$<fmt:formatNumber type="number" value="${product.price * product.discount}" pattern="#.00"/>
+                                                <del class="product-old-price">$${product.price}</del>
                                             </h4>
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>
