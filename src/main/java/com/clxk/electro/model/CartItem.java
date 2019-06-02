@@ -1,5 +1,7 @@
 package com.clxk.electro.model;
 
+import java.math.BigDecimal;
+
 /**
  * @Description 购物车单个条目
  * @Author Clxk
@@ -43,6 +45,15 @@ public class CartItem {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public double getSubTotal() {
+        BigDecimal subTotal = new BigDecimal("0");
+        BigDecimal price = new BigDecimal(product.getPrice()+"");
+        BigDecimal discount = new BigDecimal(product.getDiscount() +"");
+        BigDecimal count = new BigDecimal(getCount()+"");
+        subTotal = price.multiply(discount).multiply(count);
+        return subTotal.doubleValue();
     }
 
     public CartItem() {

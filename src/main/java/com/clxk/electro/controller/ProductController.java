@@ -32,7 +32,7 @@ public class ProductController {
     private CategoryService categoryService;
 
     @RequestMapping("/toProductDetails.do")
-    public String toProductDetails(HttpServletRequest request) {
+    public String toProductDetails(HttpSession session, HttpServletRequest request) {
         String pid = request.getParameter("pid");
         Product product = productService.findByPid(pid);
         request.setAttribute("productDetails", product);
@@ -121,6 +121,6 @@ public class ProductController {
                 Utils.saveFile(avatar3),Utils.saveFile(avatar4),description,details,"0,0,0,0,0");
         product.setProductDetails(pd);
         productService.insert(product);
-        return "/WEB-INF/views/product";
+        return getProductTable(request);
     }
 }

@@ -1,6 +1,7 @@
 package com.clxk.electro.dao.test;
 
 import com.clxk.base.test.BaseJunit4Test;
+import com.clxk.electro.common.Utils;
 import com.clxk.electro.dao.UserDao;
 import com.clxk.electro.model.User;
 import com.github.pagehelper.PageHelper;
@@ -23,6 +24,7 @@ public class UserDaoTest extends BaseJunit4Test {
 
     @Test
     public void testInsert() {
+        userDao.insert(new User(Utils.uuid(), "aaaaaa","aaaaaaa"));
 
     }
 
@@ -41,6 +43,7 @@ public class UserDaoTest extends BaseJunit4Test {
 
     @Test
     public void testFindByUsername() {
+        User user = userDao.findByUname("admin");
     }
 }
 

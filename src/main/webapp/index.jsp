@@ -100,7 +100,9 @@
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
                                 <span>Your Wishlist</span>
-                                <div class="qty">0</div>
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="qty">0</div>
+                                </c:if>
                             </a>
                         </div>
                         <!-- /Wishlist -->
@@ -110,62 +112,52 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <div class="qty">0</div>
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="qty">${cartCnt}</div>
+                                </c:if>
                             </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="<c:url value='/img/product01.png'/>" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                            <c:choose>
+                                <c:when test="${sessionScope.user eq null}">
+                                    <div class="cart-dropdown">
+                                        <div class="cart-list">
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="<c:url value='/img/product02.png'/>" alt="">
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+                                        <div class="cart-summary">
+                                            <small>0 Item(s) selected</small>
+                                            <h5>SUBTOTAL: $0.00</h5>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                        <div class="cart-btns">
+                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
                                     </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="cart-dropdown">
+                                        <div class="cart-list">
+                                            <c:forEach items="${cart}" var="cartitem">
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
+                                                        <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                    </div>
+                                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="cart-summary">
+                                            <small>${cartCnt} Item(s) selected</small>
+                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                        </div>
+                                        <div class="cart-btns">
+                                            <a href="<c:url value='/checkout/toCheckout.do'/> ">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="<c:url value='/img/product02.png'/>" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
-
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="<c:url value='/img/product02.png'/>" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
                         </div>
                         <!-- /Cart -->
 
@@ -359,7 +351,7 @@
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart
+                                            <button class="add-to-cart-btn" onclick="addToCast(${product.pid})"><i class="fa fa-shopping-cart"></i> add to cart
                                             </button>
                                         </div>
                                     </div>
@@ -426,7 +418,6 @@
     <!-- /container -->
 </div>
 <!-- /HOT DEAL SECTION -->
-<div class="tlinks">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
 
 
 <!-- SECTION -->
@@ -1025,12 +1016,13 @@
                 <div class="col-md-3 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-title">About Us</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut.</p>
                         <ul class="footer-links">
-                            <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                            <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                            <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1097,13 +1089,8 @@
                         <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
                     </ul>
                     <span class="copyright">
-
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
-                            class="fa fa-heart-o" aria-hidden="true"></i> by Colorlib  -  More Templates <a
-                            href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a
-                            href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
-
-							</span>
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script>clxk1997
+                    </span>
                 </div>
             </div>
             <!-- /row -->
@@ -1129,6 +1116,9 @@
         if(laptops == null || laptops == "" || laptops == undefined) {
             window.location.href = '<c:url value="/init/toIndex.do"/> ';
         }
+        if(${sessionScope.user != null and sessionScope.cart == null}) {
+            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
+        }
     };
 
     function newProductRefesh(number) {
@@ -1146,6 +1136,7 @@
                 <c:set var="np" value="${sessionScope.accessories}"/>;
                 break;
         }
+
     };
 
 </script>

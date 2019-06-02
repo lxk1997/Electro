@@ -45,13 +45,13 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
             <ul class="header-links pull-right">
                 <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                <li><a href="<c:url value='/user/toLogin.do'/>"><i class="fa fa-user-o"></i> My Account</a></li>
             </ul>
         </div>
     </div>
@@ -79,8 +79,10 @@
                         <form>
                             <select class="input-select">
                                 <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                                <option value="1">Laptops</option>
+                                <option value="2">Smartphones</option>
+                                <option value="3">Cameras</option>
+                                <option value="4">Accessories</option>
                             </select>
                             <input class="input" placeholder="Search here">
                             <button class="search-btn">Search</button>
@@ -97,7 +99,9 @@
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
                                 <span>Your Wishlist</span>
-                                <div class="qty">2</div>
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="qty">0</div>
+                                </c:if>
                             </a>
                         </div>
                         <!-- /Wishlist -->
@@ -107,41 +111,52 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <div class="qty">3</div>
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="qty">${cartCnt}</div>
+                                </c:if>
                             </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="<c:url value='/img/product01.png'/>" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                            <c:choose>
+                                <c:when test="${sessionScope.user eq null}">
+                                    <div class="cart-dropdown">
+                                        <div class="cart-list">
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="<c:url value='/img/product02.png'/>" alt="">
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+                                        <div class="cart-summary">
+                                            <small>0 Item(s) selected</small>
+                                            <h5>SUBTOTAL: $0.00</h5>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                        <div class="cart-btns">
+                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="#">View Cart</a>
-                                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="cart-dropdown">
+                                        <div class="cart-list">
+                                            <c:forEach items="${cart}" var="cartitem">
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
+                                                        <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                    </div>
+                                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="cart-summary">
+                                            <small>${cartCnt} Item(s) selected</small>
+                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                        </div>
+                                        <div class="cart-btns">
+                                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                         <!-- /Cart -->
 
@@ -534,11 +549,13 @@
                 <div class="col-md-3 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-title">About Us</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
                         <ul class="footer-links">
-                            <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                            <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                            <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
                         </ul>
                     </div>
                 </div>
@@ -605,10 +622,8 @@
                         <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
                     </ul>
                     <span class="copyright">
-
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Colorlib  -  More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
-
-							</span>
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script>clxk1997
+                    </span>
                 </div>
             </div>
             <!-- /row -->
@@ -626,6 +641,14 @@
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
 <script src="<c:url value='/js/main.js'/>"></script>
+
+<script type="text/javascript">
+    window.onload = function () {
+        if(${sessionScope.user != null and sessionScope.cart == null}) {
+            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/store"/> </c:url>';
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -6,14 +6,7 @@
         ${pre}.uid as "uid",
         ${pre}.uname as "uname",
         ${pre}.password as "password",
-        ${pre}.phone as "phone",
-        ${pre}.firstname as "firstname",
-        ${pre}.email as "email",
-        ${pre}.lastname as "lastname",
-        ${pre}.address as "address"
-        ${pre}.city as "city"
-        ${pre}.country as "country"
-        ${pre}.zipcode as "zipcode"
+        ${pre}.phone as "phone"
     </sql>
 
     <resultMap id="userMap" type="com.clxk.electro.model.User">
@@ -21,13 +14,7 @@
         <result property="uname" column="uname"/>
         <result property="password" column="password"/>
         <result property="phone" column="phone"/>
-        <result property="firstname" column="firstname"/>
-        <result property="lastname" column="lastname"/>
         <result property="email" column="email"/>
-        <result property="address" column="address"/>
-        <result property="city" column="city"/>
-        <result property="country" column="country"/>
-        <result property="zipcode" column="zipcode"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.clxk.electro.model.User">
@@ -46,24 +33,6 @@
                 </when>
                 <when test="phone != null and phone != ''">
                     phone = #{phone},
-                </when>
-                <when test="firstname != null and firstname != ''">
-                    firstname = #{firstname},
-                </when>
-                <when test="lastname != null and lastname != ''">
-                    lastname = #{lastname},
-                </when>
-                <when test="address != null and address != ''">
-                    address = #{address},
-                </when>
-                <when test="city != null and city != ''">
-                    city = #{city},
-                </when>
-                <when test="country != null and country != ''">
-                    country = #{country},
-                </when>
-                <when test="zipcode != null and zipcode != ''">
-                    zipcode = #{zipcode},
                 </when>
             </choose>
         </set>

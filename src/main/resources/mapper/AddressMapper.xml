@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.electro.dao.AddressDao">
+    <sql id="address_field">
+        ${pre}.aid as "aid",
+        ${pre}.uid as "uid",
+        ${pre}.firstname as "firstname",
+        ${pre}.lastname as "lastname",
+        ${pre}.email as "email",
+        ${pre}.address as "address",
+        ${pre}.city as "city",
+        ${pre}.country as "country",
+        ${pre}.zipcode as "zipcode",
+        ${pre}.telphone as "telphone"
+    </sql>
+
+    <resultMap id="addressMap" type="com.clxk.electro.model.Address">
+        <id property="aid" column="aid"/>
+        <result property="uid" column="uid"/>
+        <result property="firstname" column="firstname"/>
+        <result property="lastname" column="lastname"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="city" column="city"/>
+        <result property="country" column="country"/>
+        <result property="zipcode" column="zipcode"/>
+        <result property="telphone" column="telphone"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.electro.model.Address">
+        insert into address (aid, uid, firstname, lastname, email, address, city, country, zipcode, telphone)
+        values (#{aid}, #{uid}, #{firstname}, #{lastname}, #{email}, #{address}, #{city}, #{country}, #{zipcode}, #{telphone});
+
+    </insert>
+
+    <update id="update" parameterType="com.clxk.electro.model.Address">
+        update address
+        <set>
+            <choose>
+                <when test="uid != null and uid != ''">
+                    uid = #{uid},
+                </when>
+                <when test="firstname != null and firstname != ''">
+                    firstname = #{firstname},
+                </when>
+                <when test="lastname != null and lastname != ''">
+                    lastname = #{lastname},
+                </when>
+                <when test="email != null and email != ''">
+                    email = #{email},
+                </when>
+                <when test="address != null and address != ''">
+                    address = #{address},
+                </when>
+                <when test="city != null and city != ''">
+                    city = #{city},
+                </when>
+                <when test="country != null and country != ''">
+                    country = #{country},
+                </when>
+                <when test="zipcode != null and zipcode != ''">
+                    zipcode = #{zipcode},
+                </when>
+                <when test="telphone != null and telphone != ''">
+                    telphone = #{telphone},
+                </when>
+            </choose>
+        </set>
+        where ciid = #{ciid};
+    </update>
+
+    <select id="findByUid" parameterType="String" resultMap="addressMap">
+        select * from address where uid = #{uid};
+    </select>
+
+    <select id="findByAid" parameterType="String" resultMap="addressMap">
+        select * from address where aid = #{aid};
+    </select>
+
+</mapper>

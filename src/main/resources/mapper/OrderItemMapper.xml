@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.electro.dao.OrderItemDao">
+    <sql id="order_item_field">
+        ${pre}.oiid as "oiid",
+        ${pre}.uid as "uid",
+        ${pre}.pid as "pid",
+        ${pre}.count as "count",
+        ${pre}.date as "date",
+        ${pre}.status as "status",
+        ${pre}.notes as "notes"
+        ${pre}.address_id ad "address_id"
+    </sql>
+
+    <resultMap id="orderItemMap" type="com.clxk.electro.model.OrderItem">
+        <id property="oiid" column="oiid"/>
+        <result property="uid" column="uid"/>
+        <result property="count" column="count"/>
+        <result property="date" column="date"/>
+        <result property="status" column="status"/>
+        <result property="notes" column="notes"/>
+        <association property="address" javaType="com.clxk.electro.model.Address">
+            <id property="aid" column="aid"/>
+            <result property="uid" column="uid"/>
+            <result property="firstname" column="firstname"/>
+            <result property="lastname" column="lastname"/>
+            <result property="email" column="email"/>
+            <result property="address" column="address"/>
+            <result property="city" column="city"/>
+            <result property="country" column="country"/>
+            <result property="zipcode" column="zipcode"/>
+            <result property="telphone" column="telphone"/>
+        </association>
+        <association property="product" javaType="com.clxk.electro.model.Product">
+            <id property="pid" column="pid"/>
+            <result property="pname" column="pname"/>
+            <result property="categoryId" column="category_id"/>
+            <result property="price" column="price"/>
+            <result property="firstcost" column="firstcost"/>
+            <result property="discount" column="discount"/>
+            <result property="stock" column="stock"/>
+            <result property="date" column="date"/>
+            <association property="productDetails" javaType="com.clxk.electro.model.ProductDetails">
+                <id property="pdid" column="pdid"/>
+                <result property="avatar1" column="avatar1"/>
+                <result property="avatar2" column="avatar2"/>
+                <result property="avatar3" column="avatar3"/>
+                <result property="avatar4" column="avatar4"/>
+                <result property="description" column="description"/>
+                <result property="details" column="details"/>
+                <result property="rating" column="rating"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.electro.model.OrderItem">
+       insert into order_items(oiid, uid, pid, count, date, status, notes, address_id)
+          values (#{oiid}, #{uid}, #{product.pid}, #{count}, #{date}, #{status}, #{notes}, #{address.aid});
+    </insert>
+
+    <update id="update" parameterType="com.clxk.electro.model.OrderItem">
+        update order_items
+        <set>
+            <choose>
+                <when test="uid != null and uid != ''">
+                    uid = #{uid},
+                </when>
+                <when test="pid != null and pid != ''">
+                    pid = #{pid},
+                </when>
+                <when test="count != null and count != ''">
+                    count = #{count},
+                </when>
+                <when test="date != null and date != ''">
+                    date = #{date},
+                </when>
+                <when test="status != null and status != ''">
+                    status = #{status},
+                </when>
+                <when test="notes != null and notes != ''">
+                    notes = #{notes},
+                </when>
+                <when test="address_id != null and address_id != ''">
+                    address_id = #{address.aid},
+                </when>
+            </choose>
+        </set>
+        where oiid = #{oiid};
+    </update>
+
+    <select id="findAll" resultMap="orderItemMap">
+        select * from order_items, product, product_details, address
+            where product_details.pdid = product.pid
+                and product.pid = order_items.pid
+                and order_items.address_id = address.aid;
+    </select>
+
+    <select id="findByOiid" parameterType="String" resultMap="orderItemMap">
+        select * from order_items, product, product_details, address
+            where product_details.pdid = product.pid
+                and product.pid = order_items.pid
+                and order_items.address_id = address.aid
+                and oiid = #{oiid};
+    </select>
+
+    <select id="findByUid" parameterType="String" resultMap="orderItemMap">
+       select * from order_items, product, product_details, address
+            where product_details.pdid = product.pid
+                and product.pid = order_items.pid
+                and order_items.address_id = address.aid
+                and order_items.uid = #{uid};
+    </select>
+
+    <select id="findTopSellingByCategory" parameterType="String" resultMap="orderItemMap">
+     select * from order_items, product, product_details, address
+            where product_details.pdid = product.pid
+                and product.pid = order_items.pid
+                and order_items.address_id = address.aid
+            and product.category_id = #{categoryId}
+        group by product.pid
+        order by count(*) desc;
+    </select>
+
+</mapper>
