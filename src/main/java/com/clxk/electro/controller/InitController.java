@@ -42,24 +42,30 @@ public class InitController {
         session.setAttribute("topCameras", orderItemService.findTopSellingByCategory("3"));
         session.setAttribute("topAccessories", orderItemService.findTopSellingByCategory("4"));
         session.setAttribute("np", session.getAttribute("laptops"));
+        session.setAttribute("ts", session.getAttribute("topLaptops"));
         return "/index";
     }
 
     @RequestMapping("newProductRefresh.do")
     @ResponseBody
-    public String newProductRefresh(HttpServletRequest request, HttpSession session, int number) {
+    public String newProductRefresh(HttpSession session, int number, String type) {
+        String s = type;
         switch (number) {
             case 1:
-                session.setAttribute("np", session.getAttribute("laptops"));
+                if(type.equals("np"))session.setAttribute(s, session.getAttribute("laptops"));
+                else session.setAttribute(s, session.getAttribute("topLaptops"));
                 break;
             case 2:
-                session.setAttribute("np", session.getAttribute("smartphones"));
+                if(type.equals("np"))session.setAttribute(s, session.getAttribute("smartphones"));
+                else session.setAttribute(s, session.getAttribute("topSmartphones"));
                 break;
             case 3:
-                session.setAttribute("np", session.getAttribute("cameras"));
+                if(type.equals("np"))session.setAttribute(s, session.getAttribute("cameras"));
+                else session.setAttribute(s, session.getAttribute("topCameras"));
                 break;
             case 4:
-                session.setAttribute("np", session.getAttribute("accessories"));
+                if(type.equals("np"))session.setAttribute(s, session.getAttribute("accessories"));
+                else session.setAttribute(s, session.getAttribute("topAccessories"));
                 break;
         }
         return "success";

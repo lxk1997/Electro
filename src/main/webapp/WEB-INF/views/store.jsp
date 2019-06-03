@@ -142,7 +142,7 @@
                                                         <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
                                                         <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
                                                     </div>
-                                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                                    <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
                                                 </div>
                                             </c:forEach>
                                         </div>
@@ -647,6 +647,20 @@
         if(${sessionScope.user != null and sessionScope.cart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/store"/> </c:url>';
         }
+    }
+
+    function deleteCartItem(ciid) {
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/cart/deleteCartItem.do"/> ',
+            dataType: 'text',
+            data: {
+                ciid: ciid
+            },
+            success: function (data) {
+                $("div[class='dropdown']").load('<c:url value="/ajax/cart.jsp"/> ');
+            }
+        })
     }
 </script>
 
