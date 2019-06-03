@@ -94,6 +94,8 @@ public class OrderItem {
                 ", count=" + count +
                 ", date=" + date +
                 ", status=" + status +
+                ", notes='" + notes + '\'' +
+                ", address=" + address +
                 '}';
     }
 

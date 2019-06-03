@@ -35,6 +35,7 @@ public class InitController {
         session.setAttribute("topSmartphones", orderItemService.findTopSellingByCategory("2"));
         session.setAttribute("topCameras", orderItemService.findTopSellingByCategory("3"));
         session.setAttribute("topAccessories", orderItemService.findTopSellingByCategory("4"));
+        System.out.println(orderItemService.findTopSellingByCategory("1").get(0));
         return "/index";
     }
 }

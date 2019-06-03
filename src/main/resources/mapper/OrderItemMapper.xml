@@ -121,9 +121,13 @@
     </select>
 
     <select id="findTopSellingByCategoryId" parameterType="String" resultMap="orderItemMap">
-       select product.*, sum(count) as `count` from product, product_details, order_items
-          where product.pid = product_details.pdid and product.pid = order_items.pid and product.category_id = "1"
-          group by product.pid order by sum(count) desc
+       select product.*, product_details.*,  sum(count) as `count`
+         from product
+            left join product_details on product.pid = product_details.pdid
+            left join order_items on product.pid = order_items.pid
+        where product.category_id = #{categoryId}
+        group by product.pid
+        order by sum(count) desc
     </select>
 
 </mapper>

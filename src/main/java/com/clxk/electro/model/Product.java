@@ -110,6 +110,7 @@ public class Product {
                 ", discount=" + discount +
                 ", stock=" + stock +
                 ", date=" + date +
+                ", productDetails=" + productDetails +
                 '}';
     }
 
