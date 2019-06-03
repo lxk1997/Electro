@@ -432,7 +432,7 @@
         var vcode = $("input[name='verifycode']").val();
         $.ajax({
             type: 'post',
-            url: '/electro/user/login.do',
+            url: '<c:url value="/user/login.do"/>',
             dataType: 'text',
             data: {
                 uname: uname,

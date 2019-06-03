@@ -27,4 +27,6 @@ public interface OrderItemService {
     List<OrderItem> findByCategoryId(String categoryId);
 
     List<OrderItem>findTopSellingByCategory(String categoryId);
+
+    List<OrderItem> findByStatus(int status);
 }

@@ -19,6 +19,22 @@ public class Address {
     private String zipcode;
     private String telphone;
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "aid='" + aid + '\'' +
+                ", uid='" + uid + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", telphone='" + telphone + '\'' +
+                '}';
+    }
+
     public Address(String aid, String uid, String firstname, String lastname, String email, String address, String city, String country, String zipcode, String telphone) {
         this.aid = aid;
         this.uid = uid;

@@ -7,10 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin-Editable-ManagerTable</title>
+    <title>Admin-UserTable</title>
     <!-- ================= Favicon ================== -->
-    <!-- ================= Favicon ================== -->
-    <!-- Standard -->
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
     <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
@@ -26,8 +24,7 @@
     <!-- Styles -->
     <link href="<c:url value='/assets/css/lib/font-awesome.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/lib/themify-icons.css'/>" rel="stylesheet">
-    <link href="<c:url value='/assets/css/lib/jsgrid/jsgrid-theme.min.css'/>" rel="stylesheet" />
-    <link href="<c:url value='/assets/css/lib/jsgrid/jsgrid.min.css'/>" type="text/css" rel="stylesheet" />
+    <link href="<c:url value='/assets/css/lib/data-table/buttons.bootstrap.min.css'/>" rel="stylesheet" />
     <link href="<c:url value='/assets/css/lib/menubar/sidebar.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/lib/bootstrap.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/lib/helper.css'/>" rel="stylesheet">
@@ -69,13 +66,9 @@
                         <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=4'/>">已完成 </a></li>
                     </ul>
                 </li>
-                <li><a href="app-event-calender.html"><i class="ti-calendar"></i> Calender </a></li>
-                <li><a href="app-email.html"><i class="ti-email"></i> Email</a></li>
-                <li><a href="app-profile.html"><i class="ti-user"></i> Profile</a></li>
                 <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
                 <li class="label">Features</li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="ui-typography.html">Typography</a></li>
                         <li><a href="ui-alerts.html">Alerts</a></li>
@@ -88,14 +81,12 @@
 
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="uc-calendar.html">Calendar</a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="table-basic.html">Basic</a></li>
 
@@ -104,14 +95,12 @@
                         <li><a href="table-jsgrid.html">Editable </a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="font-themify.html">Themify</a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-map"></i> Maps <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-map"></i> Maps <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="vector-map.html">Vector Map</a></li>
                     </ul>
@@ -119,14 +108,12 @@
                 <li class="label">Form</li>
                 <li><a href="form-basic.html"><i class="ti-view-list-alt"></i> Basic Form </a></li>
                 <li class="label">Extra</li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-files"></i> Invoice <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-files"></i> Invoice <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="invoice.html">Basic</a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-target"></i> Pages <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-target"></i> Pages <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="page-login.html">Login</a></li>
                         <li><a href="page-register.html">Register</a></li>
@@ -163,19 +150,17 @@
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/3.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">5 members joined today</div>
+                                                    <div class="notification-text">5 members joined today </div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/3.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mariam</div>
@@ -185,27 +170,21 @@
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/3.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Tasnim</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                        ...
-                                                    </div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/3.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                        ...
-                                                    </div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
                                         </li>
@@ -231,53 +210,41 @@
                                     <ul>
                                         <li class="notification-unread">
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/1.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/1.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Michael Qin</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                        ...
-                                                    </div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li class="notification-unread">
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/2.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                        ...
-                                                    </div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/3.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Michael Qin</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                        ...
-                                                    </div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img"
-                                                     src="assets/images/avatar/2.jpg" alt=""/>
+                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                        ...
-                                                    </div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
                                         </li>
@@ -362,7 +329,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Editable-Manager-Table</li>
+                                <li class="breadcrumb-item active">Order-Table</li>
                             </ol>
                         </div>
                     </div>
@@ -370,12 +337,42 @@
                 <!-- /# column -->
             </div>
             <!-- /# row -->
-            <div id="main-content">
+            <section id="main-content">
+                <button type="button" class="btn btn-default m-b-10"  style="width: 80px;height: 30px;margin-left: 10px;" onclick="edit(this)">Edit</button>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="jsgrid-table-panel">
-                                <div id="jsGrid"></div>
+                            <div class="bootstrap-data-table-panel">
+                                <div class="table-responsive">
+                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Uid</th>
+                                            <th>Product Id</th>
+                                            <th>Product Name</th>
+                                            <th>Count</th>
+                                            <th>Notes</th>
+                                            <th>Address Id</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${requestScope.ordersTable}" var="order">
+                                            <tr>
+                                                <td>${order.uid}</td>
+                                                <td>${order.product.pid}</td>
+                                                <td>${order.product.pname}</td>
+                                                <td>${order.count}</td>
+                                                <td>${order.notes}</td>
+                                                <td>${order.address.aid}</td>
+                                                <td>${order.status}</td>
+                                                <td>${order.date}</td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <!-- /# card -->
@@ -387,17 +384,14 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer">
-                            <p>2018 © Admin Board. - <a href="#">example.com</a> / More Templates <a
-                                    href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from
-                                <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+                            <p>2018 © Admin Board. - <a href="#">example.com</a> / More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
-
 
 <!-- jquery vendor -->
 <script src="<c:url value='/assets/js/lib/jquery.min.js'/>"></script>
@@ -409,26 +403,32 @@
 
 <!-- bootstrap -->
 
-
-
-<!-- JS Grid Scripts Start-->
-<script src="<c:url value='/assets/js/lib/jsgrid/db.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.core.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.load-indicator.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.load-strategies.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.sort-strategies.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.field.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.text.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.number.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.select.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.checkbox.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.control.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid-init.js'/>"></script>
-<!-- JS Grid Scripts End-->
-
-<script src="<c:url value='/assets/js/lib/bootstrap.min.js'/>"></script><script src="<c:url value='/assets/js/scripts.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/bootstrap.min.js'/>"></script>
+<script src="<c:url value='/assets/js/scripts.js'/>"></script>
 <!-- scripit init-->
+<script src="<c:url value='/assets/js/lib/data-table/datatables.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/dataTables.buttons.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/buttons.flash.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/jszip.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/pdfmake.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/vfs_fonts.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/buttons.html5.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/buttons.print.min.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/data-table/datatables-init.js'/>"></script>
 
+<!-- jQuery Plugins -->
+<script src="<c:url value='/js/jquery.min.js'/>"></script>
+<script src="<c:url value='/js/slick.min.js'/>"></script>
+<script src="<c:url value='/js/nouislider.min.js'/>"></script>
+<script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
+<script src="<c:url value='/js/main.js'/>"></script>
+
+<script type="text/javascript">
+
+    function edit(o) {
+        window.location.href='<c:url value="/category/table/getCategory.do?type=editable"/> ';
+    }
+</script>
 </body>
 
 </html>

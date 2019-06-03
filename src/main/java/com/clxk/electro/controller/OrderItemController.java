@@ -57,4 +57,20 @@ public class OrderItemController {
         }
     }
 
+    @RequestMapping("/table/getOrderTable.do")
+    public String getOrderTable(HttpServletRequest request) {
+        String url = "/WEB-INF/views/manager/";
+        List<OrderItem> orders = null;
+        if(request.getParameter("type") == "editable") {
+            url += "editable-";
+        }
+        String status = request.getParameter("status");
+        if(status.equals("0")) orders = orderItemService.findAll();
+        else orders = orderItemService.findByStatus(Integer.valueOf(status));
+        request.setAttribute("ordersTable", orders);
+        System.out.println(orders.get(0));
+        url += "table-order";
+        return url;
+    }
+
 }

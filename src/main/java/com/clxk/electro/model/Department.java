@@ -37,4 +37,12 @@ public class Department {
         this.did = did;
         this.dname = dname;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "did='" + did + '\'' +
+                ", dname='" + dname + '\'' +
+                '}';
+    }
 }

@@ -61,4 +61,9 @@ public class OrderItemServiceImpl implements OrderItemService {
         return orderItemDao.findTopSellingByCategoryId(categoryId);
     }
 
+    @Override
+    public List<OrderItem> findByStatus(int status) {
+        return orderItemDao.findByStatus(status);
+    }
+
 }

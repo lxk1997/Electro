@@ -434,7 +434,7 @@
         var vcode = $("input[name='verifycode']").val();
         $.ajax({
             type: 'post',
-            url: '/electro/user/registe.do',
+            url: '<c:url value="/user/registe.do"/>',
             dataType: 'text',
             data: {
                 uname: uname,
@@ -446,7 +446,7 @@
             },
             success: function (data) {
                 if(data == "SUCCESS") {
-                    window.location.href="/electro/index.jsp";
+                    window.location.href="<c:url value='/index.jsp'/>";
                 } else {
                     $("span[name='errorstatus']").html(data);
                     $("input[name='uname']").val('');
@@ -455,7 +455,7 @@
                     $("input[name='phone']").val('');
                     $("input[name='email']").val('');
                     $("input[name='verifycode']").val();
-                    $("img[name='vcode']").attr("src","/electro/verifycode/getCode.do?"+Math.random());
+                    $("img[name='vcode']").attr("src","<c:url value='/verifycode/getCode.do?+Math.random()'/>");
                 }
 
             }

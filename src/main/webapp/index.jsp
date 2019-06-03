@@ -38,6 +38,29 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- jQuery Plugins -->
+    <script src="<c:url value='/js/jquery.min.js'/>"></script>
+    <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/js/slick.min.js'/>"></script>
+    <script src="<c:url value='/js/nouislider.min.js'/>"></script>
+    <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
+    <script src="<c:url value='/js/main.js'/>"></script>
+
+    <script type="text/javascript">
+        function newProductRefresh(number) {
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/init/newProductRefresh.do"/> ',
+                dataType: 'text',
+                data: {
+                    number: number
+                },
+                success: function (data) {
+                    $("#newProduct").load('/electro/ajax/index-newProduct.jsp');
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <!-- HEADER -->
@@ -127,7 +150,8 @@
                                             <h5>SUBTOTAL: $0.00</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i
+                                                    class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </c:when>
@@ -137,11 +161,18 @@
                                             <c:forEach items="${cart}" var="cartitem">
                                                 <div class="product-widget">
                                                     <div class="product-img">
-                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>"
+                                                             alt="">
                                                     </div>
                                                     <div class="product-body">
-                                                        <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
-                                                        <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                        <h3 class="product-name"><a
+                                                                href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a>
+                                                        </h3>
+                                                        <h4 class="product-price"><span
+                                                                class="qty">${cartitem.count}x</span>$<fmt:formatNumber
+                                                                type="number"
+                                                                value="${cartitem.product.price * cartitem.product.discount}"
+                                                                pattern="#.00"/></h4>
                                                     </div>
                                                     <button class="delete"><i class="fa fa-close"></i></button>
                                                 </div>
@@ -149,10 +180,12 @@
                                         </div>
                                         <div class="cart-summary">
                                             <small>${cartCnt} Item(s) selected</small>
-                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}"
+                                                                             pattern="#.00"/></h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="<c:url value='/checkout/toCheckout.do'/> ">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="<c:url value='/checkout/toCheckout.do'/> ">Checkout <i
+                                                    class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </c:otherwise>
@@ -219,7 +252,8 @@
                     </div>
                     <div class="shop-body">
                         <h3>Laptop<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="1"/></c:url> " class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="1"/></c:url> "
+                           class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -232,7 +266,8 @@
                     </div>
                     <div class="shop-body">
                         <h3>Smartphone<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="2"/></c:url>" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="2"/></c:url>"
+                           class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -246,7 +281,8 @@
                     </div>
                     <div class="shop-body">
                         <h3>Cameras<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="3"/></c:url>" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="3"/></c:url>"
+                           class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -260,7 +296,8 @@
                     </div>
                     <div class="shop-body">
                         <h3>Accessories<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="4"/></c:url>" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="4"/></c:url>"
+                           class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -286,16 +323,17 @@
                     <h3 class="title">New Products</h3>
                     <div class="section-nav">
                         <ul id="ul-new-product" class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.laptops}'/>; ">Laptops</a></li>
-                            <li><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.smartphones}'/>; ">Smartphones</a></li>
-                            <li><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.cameras}'/>; ">Cameras</a></li>
-                            <li><a data-toggle="tab" href="#tab1" onclick="<c:set var='np' value='${sessionScope.accessories}'/>; ">Accessories</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab1"
+                                                  onclick="newProductRefresh(1);">Laptops</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="newProductRefresh(2);">Smartphones</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="newProductRefresh(3);">Cameras</a></li>
+                            <li><a data-toggle="tab" href="#tab1" onclick="newProductRefresh(4);">Accessories</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <!-- /section title -->
-
+<div id="newProduct">
             <!-- Products tab & slick -->
             <div class="col-md-12">
                 <div class="row">
@@ -303,14 +341,16 @@
                         <!-- tab -->
                         <div id="tab1" class="tab-pane active">
                             <div class="products-slick" data-nav="#slick-nav-1">
-                                <c:forEach items="${np}" var="product">
+                                <c:forEach items="${sessionScope.np}" var="product">
                                     <!-- product -->
                                     <div class="product">
                                         <div class="product-img">
                                             <img src="<c:url value='/imgs${product.productDetails.avatar1}'/>" alt="">
                                             <div class="product-label">
                                                 <c:if test="${product.discount != 1}">
-                                                    <span class="sale">-${(1 - product.discount) * 10}%</span>
+                                                    <span class="sale">-<fmt:formatNumber type="number"
+                                                                                          value="${(1 - product.discount) * 100}"
+                                                                                          pattern="#"/> %</span>
                                                 </c:if>
                                                 <span class="new">NEW</span>
                                             </div>
@@ -330,8 +370,12 @@
                                                     <p class="product-category">Accessories</p>
                                                 </c:when>
                                             </c:choose>
-                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a></h3>
-                                            <h4 class="product-price">$<fmt:formatNumber type="number" value="${product.price * product.discount}" pattern="#.00"/>
+                                            <h3 class="product-name"><a
+                                                    href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a>
+                                            </h3>
+                                            <h4 class="product-price">$<fmt:formatNumber type="number"
+                                                                                         value="${product.price * product.discount}"
+                                                                                         pattern="#.00"/>
                                                 <del class="product-old-price">$${product.price}</del>
                                             </h4>
                                             <div class="product-rating">
@@ -346,12 +390,14 @@
                                                         class="tooltipp">add to wishlist</span></button>
                                                 <button class="add-to-compare"><i class="fa fa-exchange"></i><span
                                                         class="tooltipp">add to compare</span></button>
-                                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
+                                                <button class="quick-view"><i class="fa fa-eye"></i><span
+                                                        class="tooltipp">quick view</span>
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn" onclick="addToCast(${product.pid})"><i class="fa fa-shopping-cart"></i> add to cart
+                                            <button class="add-to-cart-btn" onclick="addToCast(${product.pid})"><i
+                                                    class="fa fa-shopping-cart"></i> add to cart
                                             </button>
                                         </div>
                                     </div>
@@ -364,8 +410,9 @@
                         <!-- /tab -->
                     </div>
                 </div>
+                <!-- Products tab & slick -->
             </div>
-            <!-- Products tab & slick -->
+</div>
         </div>
         <!-- /row -->
     </div>
@@ -433,10 +480,17 @@
                     <h3 class="title">Top selling</h3>
                     <div class="section-nav">
                         <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab2" onclick="<c:set var='ts' value='${sessionScope.topLaptops}'/>; ">Laptops</a></li>
-                            <li><a data-toggle="tab" href="#tab2" onclick="<c:set var='ts' value='${sessionScope.topSmartphones}'/>; ">Smartphones</a></li>
-                            <li><a data-toggle="tab" href="#tab2" onclick="<c:set var='ts' value='${sessionScope.topCameras}'/>; ">Cameras</a></li>
-                            <li><a data-toggle="tab" href="#tab2" onclick="<c:set var='ts' value='${sessionScope.topAccessories}'/>; ">Accessories</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab2"
+                                                  onclick="<c:set var='ts' value='${sessionScope.topLaptops}'/>; ">Laptops</a>
+                            </li>
+                            <li><a data-toggle="tab" href="#tab2"
+                                   onclick="<c:set var='ts' value='${sessionScope.topSmartphones}'/>; ">Smartphones</a>
+                            </li>
+                            <li><a data-toggle="tab" href="#tab2"
+                                   onclick="<c:set var='ts' value='${sessionScope.topCameras}'/>; ">Cameras</a></li>
+                            <li><a data-toggle="tab" href="#tab2"
+                                   onclick="<c:set var='ts' value='${sessionScope.topAccessories}'/>; ">Accessories</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -454,7 +508,8 @@
                                     <!-- product -->
                                     <div class="product">
                                         <div class="product-img">
-                                            <img src="<c:url value='/imgs${orderitem.product.productDetails.avatar1}'/>" alt="">
+                                            <img src="<c:url value='/imgs${orderitem.product.productDetails.avatar1}'/>"
+                                                 alt="">
                                             <div class="product-label">
                                                 <c:if test="${orderitem.product.discount != 1}">
                                                     <span class="sale">-${(1 - orderitem.product.discount) * 10}%</span>
@@ -477,8 +532,12 @@
                                                     <p class="product-category">Accessories</p>
                                                 </c:when>
                                             </c:choose>
-                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${orderitem.product.pid}"/></c:url>">${orderitem.product.pname}</a></h3>
-                                            <h4 class="product-price">$<fmt:formatNumber type="number" value="${orderitem.product.price * orderitem.product.discount}" pattern="#.00"/>
+                                            <h3 class="product-name"><a
+                                                    href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${orderitem.product.pid}"/></c:url>">${orderitem.product.pname}</a>
+                                            </h3>
+                                            <h4 class="product-price">$<fmt:formatNumber type="number"
+                                                                                         value="${orderitem.product.price * orderitem.product.discount}"
+                                                                                         pattern="#.00"/>
                                                 <del class="product-old-price">$${orderitem.product.price}</del>
                                             </h4>
                                             <div class="product-rating">
@@ -493,12 +552,15 @@
                                                         class="tooltipp">add to wishlist</span></button>
                                                 <button class="add-to-compare"><i class="fa fa-exchange"></i><span
                                                         class="tooltipp">add to compare</span></button>
-                                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
+                                                <button class="quick-view"><i class="fa fa-eye"></i><span
+                                                        class="tooltipp">quick view</span>
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn" onclick="addToCast(${orderitem.product.pid})"><i class="fa fa-shopping-cart"></i> add to cart
+                                            <button class="add-to-cart-btn"
+                                                    onclick="addToCast(${orderitem.product.pid})"><i
+                                                    class="fa fa-shopping-cart"></i> add to cart
                                             </button>
                                         </div>
                                     </div>
@@ -511,8 +573,8 @@
                     </div>
                 </div>
             </div>
-            <!-- /Products tab & slick -->
         </div>
+        <!-- /Products tab & slick -->
         <!-- /row -->
     </div>
     <!-- /container -->
@@ -849,42 +911,6 @@
 </div>
 <!-- /SECTION -->
 
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->
-
 <!-- FOOTER -->
 <footer id="footer">
     <!-- top footer -->
@@ -900,9 +926,11 @@
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
-                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i
+                                    class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
-                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -993,30 +1021,12 @@
 
     window.onload = function () {
         var laptops = "${sessionScope.laptops}";
-        if(laptops == null || laptops == "" || laptops == undefined) {
+        if (laptops == null || laptops == "" || laptops == undefined) {
             window.location.href = '<c:url value="/init/toIndex.do"/> ';
         }
-        if(${sessionScope.user != null and sessionScope.cart == null}) {
+        if (${sessionScope.user != null and sessionScope.cart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
         }
-    };
-
-    function newProductRefesh(number) {
-        switch (number) {
-            case 1:
-                <c:set var="np" value="${sessionScope.laptops}"/>;
-                break;
-            case 2:
-                <c:set var="np" value="${sessionScope.smartphones}"/>;
-                break;
-            case 3:
-                <c:set var="np" value="${sessionScope.cameras}"/>;
-                break;
-            case 4:
-                <c:set var="np" value="${sessionScope.accessories}"/>;
-                break;
-        }
-
     };
 
 </script>

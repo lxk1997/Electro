@@ -58,12 +58,12 @@
                 <li><a href="<c:url value='/category/table/getCategory.do?type=simple'/>"><i class="ti-layout-grid4-alt"></i> 商品分类管理 </a></li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 订单管理 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="table-basic.html">所有分类</a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=0'/>">所有分类</a></li>
 
-                        <li><a href="table-export.html">未付款</a></li>
-                        <li><a href="table-row-select.html">未发货</a></li>
-                        <li><a href="table-jsgrid.html">未收货 </a></li>
-                        <li><a href="table-jsgrid.html">已完成 </a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=1'/>">未付款</a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=2'/>">未发货</a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=3'/>">未收货 </a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=4'/>">已完成 </a></li>
                     </ul>
                 </li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 部门管理 </a></li>

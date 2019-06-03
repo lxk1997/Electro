@@ -104,4 +104,19 @@ public class Manager {
         this.email = email;
         this.avatar = avatar;
     }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "mid='" + mid + '\'' +
+                ", mname='" + mname + '\'' +
+                ", password='" + password + '\'' +
+                ", departmentId='" + departmentId + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }

@@ -59,6 +59,16 @@ public class CartItem {
     public CartItem() {
     }
 
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "ciid='" + ciid + '\'' +
+                ", uid='" + uid + '\'' +
+                ", product=" + product +
+                ", count=" + count +
+                '}';
+    }
+
     public CartItem(String ciid, String uid, Product product, int count) {
         this.ciid = ciid;
         this.uid = uid;

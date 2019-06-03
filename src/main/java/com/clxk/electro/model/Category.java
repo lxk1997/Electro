@@ -31,4 +31,12 @@ public class Category {
         this.cid = cid;
         this.cname = cname;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "cid='" + cid + '\'' +
+                ", cname='" + cname + '\'' +
+                '}';
+    }
 }

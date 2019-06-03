@@ -32,5 +32,7 @@ public interface OrderItemDao {
 
     List<OrderItem> findTopSellingByCategoryId(String categoryId);
 
+    List<OrderItem> findByStatus(int status);
+
 
 }
