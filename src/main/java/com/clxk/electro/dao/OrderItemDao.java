@@ -28,7 +28,9 @@ public interface OrderItemDao {
 
     List<OrderItem> findByUid(String uid);
 
-    List<OrderItem> findTopSellingByCategory(String categoryId);
+    List<OrderItem> findByCategoryId(String categoryId);
+
+    List<OrderItem> findTopSellingByCategoryId(String categoryId);
 
 
 }

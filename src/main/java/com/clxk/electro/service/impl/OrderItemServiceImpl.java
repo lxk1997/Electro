@@ -3,10 +3,11 @@ package com.clxk.electro.service.impl;
 import com.clxk.electro.dao.OrderItemDao;
 import com.clxk.electro.model.OrderItem;
 import com.clxk.electro.service.OrderItemService;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Description 订单条目服务层实现
@@ -51,7 +52,13 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItem> findTopSellingByCategory(String categoryId) {
-        return orderItemDao.findTopSellingByCategory(categoryId);
+    public List<OrderItem> findByCategoryId(String categoryId) {
+        return orderItemDao.findByCategoryId(categoryId);
     }
+
+    @Override
+    public List<OrderItem> findTopSellingByCategory(String categoryId) {
+        return orderItemDao.findTopSellingByCategoryId(categoryId);
+    }
+
 }

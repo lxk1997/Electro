@@ -112,14 +112,18 @@
                 and order_items.uid = #{uid};
     </select>
 
-    <select id="findTopSellingByCategory" parameterType="String" resultMap="orderItemMap">
-     select * from order_items, product, product_details, address
+    <select id="findByCategoryId" parameterType="String" resultMap="orderItemMap">
+       select * from order_items, product, product_details, address
             where product_details.pdid = product.pid
                 and product.pid = order_items.pid
                 and order_items.address_id = address.aid
-            and product.category_id = #{categoryId}
-        group by product.pid
-        order by count(*) desc;
+                and product.category_id = #{categoryId};
+    </select>
+
+    <select id="findTopSellingByCategoryId" parameterType="String" resultMap="orderItemMap">
+       select product.*, sum(count) as `count` from product, product_details, order_items
+          where product.pid = product_details.pdid and product.pid = order_items.pid and product.category_id = "1"
+          group by product.pid order by sum(count) desc
     </select>
 
 </mapper>
