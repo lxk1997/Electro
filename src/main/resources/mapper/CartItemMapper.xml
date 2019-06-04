@@ -72,4 +72,19 @@
           and ciid = #{ciid}
     </select>
 
+    <select id="findByPid" parameterType="String" resultMap="cartItemMap">
+        select * from cart_items, product, product_details
+        where product.pid = product_details.pdid
+          and cart_items.pid = product.pid
+          and product.pid = #{pid};
+    </select>
+
+    <update id="changeCount" parameterType="Map">
+        update cart_items set count = count + #{count} where ciid = #{ciid};
+    </update>
+
+    <delete id="delete" parameterType="com.clxk.electro.model.CartItem">
+        delete from cart_items where ciid = #{ciid};
+    </delete>
+
 </mapper>

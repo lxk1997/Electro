@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro - HTML Ecommerce Template</title>
+    <title>Electro</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -31,6 +31,9 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
+    <!-- layui-->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/layui.css'/>"/>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,13 +43,22 @@
 
     <!-- jQuery Plugins -->
     <script src="<c:url value='/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/js/slick.min.js'/>"></script>
-    <script src="<c:url value='/js/nouislider.min.js'/>"></script>
-    <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
-    <script src="<c:url value='/js/main.js'/>"></script>
+    <script src="<c:url value='/js/layui.all.js'/>"></script>
 
     <script type="text/javascript">
+
+
+        function updateHotDealTime() {
+            var date = new Date();
+            $("#days").html((7 - date.getDay()) % 7);//0-6 now 周三 ，还有 4天， 显示 3
+            $("#hours").html(23 - date.getHours());// 0-23 now 5点， 还有 18个小时
+            $("#minute").html(59 - date.getMinutes());
+            $("#secends").html(60 - date.getSeconds());
+        }
+
+
+        setInterval(updateHotDealTime, 1000);
+
         function refresh(number, model) {
             $.ajax({
                 type: 'post',
@@ -61,6 +73,50 @@
                         $("#topSelling").load('<c:url value="/ajax/index-topSelling.jsp"/>');
                     else
                         $("#newProduct").load('<c:url value="/ajax/index-newProduct.jsp"/>');
+                }
+            })
+        }
+
+        function deleteCartItem(ciid) {
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/cart/deleteCartItem.do"/> ',
+                dataType: 'text',
+                data: {
+                    ciid: ciid
+                },
+                success: function (data) {
+                    $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+                }
+            })
+        }
+
+        {
+            if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
+            console.log("加载购物车");
+            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
+        }
+        }
+
+        function addToCast(pid) {
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/cart/addCartItem.do"/> ',
+                dataType: 'text',
+                data: {
+                    pid: pid
+                },
+                success: function (data) {
+                    $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('添加成功', {
+                            icon: 1,
+                            time: 1000
+                        });
+                    });
                 }
             })
         }
@@ -119,96 +175,87 @@
                 </div>
                 <!-- /SEARCH BAR -->
 
-                <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
-                    <div class="header-ctn">
-                        <!-- Wishlist -->
-                        <div>
-                            <a href="#">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
-                                <c:if test="${sessionScope.user != null}">
-                                    <div class="qty">0</div>
-                                </c:if>
-                            </a>
-                        </div>
-                        <!-- /Wishlist -->
+                <div id="account">
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+                            <!-- Wishlist -->
+                            <div>
+                                <a href="#">
+                                    <i class="fa fa-heart-o"></i>
+                                    <span>Your Wishlist</span>
+                                    <c:if test="${sessionScope.user != null}">
+                                        <div class="qty">0</div>
+                                    </c:if>
+                                </a>
+                            </div>
+                            <!-- /Wishlist -->
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Your Cart</span>
+                                    <c:if test="${sessionScope.user != null}">
+                                        <div class="qty">${cartCnt}</div>
+                                    </c:if>
+                                </a>
+                                <c:choose>
+                                    <c:when test="${sessionScope.user eq null}">
+                                        <div class="cart-dropdown">
+                                            <div class="cart-list">
 
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
-                                <c:if test="${sessionScope.user != null}">
-                                    <div class="qty">${cartCnt}</div>
-                                </c:if>
-                            </a>
-                            <c:choose>
-                                <c:when test="${sessionScope.user eq null}">
-                                    <div class="cart-dropdown">
-                                        <div class="cart-list">
-
+                                            </div>
+                                            <div class="cart-summary">
+                                                <small>0 Item(s) selected</small>
+                                                <h5>SUBTOTAL: $0.00</h5>
+                                            </div>
+                                            <div class="cart-btns">
+                                                <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="cart-summary">
-                                            <small>0 Item(s) selected</small>
-                                            <h5>SUBTOTAL: $0.00</h5>
-                                        </div>
-                                        <div class="cart-btns">
-                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i
-                                                    class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="cart-dropdown">
-                                        <div class="cart-list">
-                                            <c:forEach items="${cart}" var="cartitem">
-                                                <div class="product-widget">
-                                                    <div class="product-img">
-                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>"
-                                                             alt="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="cart-dropdown">
+                                            <div class="cart-list">
+                                                <c:forEach items="${cart}" var="cartitem">
+                                                    <div class="product-widget">
+                                                        <div class="product-img">
+                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                        </div>
+                                                        <div class="product-body">
+                                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
+                                                            <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                        </div>
+                                                        <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
                                                     </div>
-                                                    <div class="product-body">
-                                                        <h3 class="product-name"><a
-                                                                href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a>
-                                                        </h3>
-                                                        <h4 class="product-price"><span
-                                                                class="qty">${cartitem.count}x</span>$<fmt:formatNumber
-                                                                type="number"
-                                                                value="${cartitem.product.price * cartitem.product.discount}"
-                                                                pattern="#.00"/></h4>
-                                                    </div>
-                                                    <button class="delete"><i class="fa fa-close"></i></button>
-                                                </div>
-                                            </c:forEach>
+                                                </c:forEach>
+                                            </div>
+                                            <div class="cart-summary">
+                                                <small>${cartCnt} Item(s) selected</small>
+                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                            </div>
+                                            <div class="cart-btns">
+                                                <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
+                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="cart-summary">
-                                            <small>${cartCnt} Item(s) selected</small>
-                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}"
-                                                                             pattern="#.00"/></h5>
-                                        </div>
-                                        <div class="cart-btns">
-                                            <a href="<c:url value='/checkout/toCheckout.do'/> ">Checkout <i
-                                                    class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
 
+                            </div>
+                            <!-- /Cart -->
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
                         </div>
-                        <!-- /Cart -->
-
-                        <!-- Menu Toogle -->
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
-                            </a>
-                        </div>
-                        <!-- /Menu Toogle -->
                     </div>
+                    <!-- /ACCOUNT -->
                 </div>
-                <!-- /ACCOUNT -->
             </div>
             <!-- row -->
         </div>
@@ -344,7 +391,7 @@
                         <div class="products-tabs">
                             <!-- tab -->
                             <div id="tab1" class="tab-pane active">
-                                <div class="products-slick" data-nav="#slick-nav-1">
+                                <div id="products-slick1" class="products-slick" data-nav="#slick-nav-1">
                                     <c:forEach items="${sessionScope.np}" var="product">
                                         <!-- product -->
                                         <div class="product">
@@ -401,7 +448,7 @@
                                                 </div>
                                             </div>
                                             <div class="add-to-cart">
-                                                <button class="add-to-cart-btn" onclick="addToCast(${product.pid})"><i
+                                                <button class="add-to-cart-btn" onclick="addToCast('${product.pid}')"><i
                                                         class="fa fa-shopping-cart"></i> add to cart
                                                 </button>
                                             </div>
@@ -437,25 +484,25 @@
                     <ul class="hot-deal-countdown">
                         <li>
                             <div>
-                                <h3>02</h3>
+                                <h3 id="days"></h3>
                                 <span>Days</span>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <h3>10</h3>
+                                <h3 id="hours"></h3>
                                 <span>Hours</span>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <h3>34</h3>
+                                <h3 id="minute"></h3>
                                 <span>Mins</span>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <h3>60</h3>
+                                <h3 id="secends"></h3>
                                 <span>Secs</span>
                             </div>
                         </li>
@@ -509,7 +556,7 @@
                         <div class="products-tabs">
                             <!-- tab -->
                             <div id="tab2" class="tab-pane fade in active">
-                                <div class="products-slick" data-nav="#slick-nav-2">
+                                <div id="products-slick2" class="products-slick" data-nav="#slick-nav-2">
                                     <c:forEach items="${sessionScope.ts}" var="orderitem">
                                         <!-- product -->
                                         <div class="product">
@@ -1017,7 +1064,6 @@
 <!-- /FOOTER -->
 
 <!-- jQuery Plugins -->
-<script src="<c:url value='/js/jquery.min.js'/>"></script>
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 <script src="<c:url value='/js/slick.min.js'/>"></script>
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
@@ -1027,12 +1073,11 @@
 <script type="text/javascript">
 
     window.onload = function () {
+        <c:set var="np" scope="session" value="${sessionScope.laptops}"/>;
+        <c:set var="ts" scope="session" value="${sessionScope.topLaptops}"/>;
         var laptops = "${sessionScope.laptops}";
         if (laptops == null || laptops == "" || laptops == undefined) {
             window.location.href = '<c:url value="/init/toIndex.do"/> ';
-        }
-        if (${sessionScope.user != null and sessionScope.cart == null}) {
-            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
         }
     };
 
@@ -1040,4 +1085,3 @@
 
 
 </body>
-</html>

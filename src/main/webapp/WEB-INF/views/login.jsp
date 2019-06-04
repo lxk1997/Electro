@@ -421,7 +421,7 @@
 <script type="text/javascript">
 
     window.onload = function () {
-        if(${sessionScope.user != null and sessionScope.cart == null}) {
+        if(${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/login"/> </c:url>';
         }
     }

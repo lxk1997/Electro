@@ -1,6 +1,7 @@
 package com.clxk.electro.dao;
 
 import com.clxk.electro.model.CartItem;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface CartItemDao {
     CartItem findByCiid(String ciid);
 
     List<CartItem> findByUid(String uid);
+
+    CartItem findByPid(String pid);
+
+    int changeCount(@Param("ciid") String ciid, @Param("count") int count);
 }

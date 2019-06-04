@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Cart</title>
+
+    <!-- Library - Bootstrap v3.3.5 -->
+    <link rel="stylesheet" type="text/css" href="libraries/lib.css">
+
+    <!-- Custom - Common CSS -->
+    <link rel="stylesheet" type="text/css" href="css/shortcode.css">
+    <link rel="stylesheet" type="text/css" href="images/style.css">
+
+</head>
+
+<body>
+<div class="main-container">
+
+    <!-- Cart -->
+    <div class="woocommerce-cart container-fluid no-left-padding no-right-padding">
+        <!-- Container -->
+        <div class="container">
+            <!-- Cart Table -->
+            <div class="col-md-12 col-sm-12 col-xs-12 cart-table">
+                <form>
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                        <tr>
+                            <th class="product-thumbnail">Item</th>
+                            <th class="product-name">Product Name</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-unit-price">Unit Price</th>
+                            <th class="product-subtotal">Total</th>
+                            <th class="product-remove">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="cart_item">
+                            <td data-title="Item" class="product-thumbnail"><a href="#"><img
+                                    src="images/product-item.jpg" alt="Product"/></a></td>
+                            <td data-title="Product Name" class="product-name"><a href="#">mens casual shoe</a></td>
+                            <td data-title="Quantity" class="product-quantity">
+                                <div class="prd-quantity" data-title="Quantity">
+                                    <input value="-" class="qtyminus btn" data-field="quantity1" type="button">
+                                    <input name="quantity1" value="0" class="qty" type="text">
+                                    <input value="+" class="qtyplus btn" data-field="quantity1" type="button">
+                                </div>
+                            </td>
+                            <td data-title="Unit Price" class="product-unit-price">$550</td>
+                            <td data-title="Total" class="product-subtotal">$550</td>
+                            <td data-title="Remove" class="product-remove"><a href="#"><i class="icon icon-Delete"></i></a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </form>
+            </div><!-- Cart Table /- -->
+            <div class="col-md-4 col-sm-6 col-xs-6 cart-collaterals" style="float:right">
+                <div class="cart_totals">
+                    <h3>cart totals</h3>
+                    <table>
+                        <tr>
+                            <th>Sub Total</th>
+                            <td>$550</td>
+                        </tr>
+                        <tr>
+                            <th>Shipping</th>
+                            <td>Free</td>
+                        </tr>
+                        <tr>
+                            <th>Grand Total</th>
+                            <td>$550</td>
+                        </tr>
+                    </table>
+                    <div class="wc-proceed-to-checkout">
+                        <a href="#" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Container /- -->
+    </div><!-- Cart /- -->
+
+</div>
+
+<!-- JQuery v1.12.4 -->
+<script src="js/jquery.min.js"></script>
+
+<!-- Library - Js -->
+<script src="libraries/lib.js"></script>
+
+<script src="libraries/jquery.countdown.min.js"></script>
+
+<!-- Library - Theme JS -->
+<script src="js/functions.js"></script>
+
+</body>
+</html>
+
+

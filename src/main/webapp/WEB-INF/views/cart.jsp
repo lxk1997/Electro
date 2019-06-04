@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro - Registe</title>
+    <title>Electro</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -29,12 +29,11 @@
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/shortcode.css'/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/style1.css'/>">
+    <!-- Library - Bootstrap v3.3.5 -->
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/lib.css'/>"/>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -66,7 +65,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="<c:url value='/index.jsp'/>" class="logo">
+                        <a href="#" class="logo">
                             <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
@@ -126,7 +125,8 @@
                                             <h5>SUBTOTAL: $0.00</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i
+                                                    class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </c:when>
@@ -136,11 +136,18 @@
                                             <c:forEach items="${cart}" var="cartitem">
                                                 <div class="product-widget">
                                                     <div class="product-img">
-                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>"
+                                                             alt="">
                                                     </div>
                                                     <div class="product-body">
-                                                        <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
-                                                        <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                        <h3 class="product-name"><a
+                                                                href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a>
+                                                        </h3>
+                                                        <h4 class="product-price"><span
+                                                                class="qty">${cartitem.count}x</span>$<fmt:formatNumber
+                                                                type="number"
+                                                                value="${cartitem.product.price * cartitem.product.discount}"
+                                                                pattern="#.00"/></h4>
                                                     </div>
                                                     <button class="delete"><i class="fa fa-close"></i></button>
                                                 </div>
@@ -148,7 +155,8 @@
                                         </div>
                                         <div class="cart-summary">
                                             <small>${cartCnt} Item(s) selected</small>
-                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}"
+                                                                             pattern="#.00"/></h5>
                                         </div>
                                         <div class="cart-btns">
                                             <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
@@ -188,7 +196,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="<c:url value='/index.jsp'/>">Home</a></li>
+                <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
                 <li><a href="#">Categories</a></li>
                 <li><a href="#">Laptops</a></li>
@@ -211,10 +219,10 @@
         <!-- row -->
         <div class="row">
             <div class="col-md-12">
-                <h3 class="breadcrumb-header">REGISTE</h3>
+                <h3 class="breadcrumb-header">LOGIN</h3>
                 <ul class="breadcrumb-tree">
-                    <li><a href="<c:url value='/index.jsp'/>">HOME</a></li>
-                    <li class="active">REGISTE</li>
+                    <li><a href="#">HOME</a></li>
+                    <li class="active">LOGIN</li>
                 </ul>
             </div>
         </div>
@@ -228,85 +236,85 @@
 <div class="section">
     <!-- container -->
     <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-5">
-                <div>
-                    <div class="section-title">
-                        <h3 class="title">NEW CUSTOMER</h3>
-                    </div>
+        <div class="main-container">
+            <!-- row -->
+            <div class="row">
+            <!-- Cart -->
+            <div class="woocommerce-cart container-fluid no-left-padding no-right-padding">
+                <!-- Container -->
+                <div class="container">
+                    <!-- Cart Table -->
+                    <div class="cartht-dropdown">
+                    <div class="cart-table">
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                <tr>
+                                    <th class="product-thumbnail">Item</th>
+                                    <th class="product-name">Product Name</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-unit-price">Unit Price</th>
+                                    <th class="product-subtotal">Total</th>
+                                    <th class="product-remove">Remove</th>
+                                </tr>
+                                </thead>
 
-                    <div class="form-group">
-                        <input class="input" type="text" name="uname" placeholder="Username*">
-                    </div>
+                                <tbody>
+                                <c:forEach items="${sessionScope.cart}" var="item">
+                                <tr class="cart_item">
+                                    <td data-title="Item" class="product-thumbnail"><a href="#"><img
+                                            src="<c:url value='/imgs${item.product.productDetails.avatar1}'/> " alt="Product"/></a></td>
+                                    <td data-title="Product Name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${item.product.pname}</a>
+                                    </td>
+                                    <td data-title="Quantity" class="product-quantity">
+                                        <div class="prd-quantity" data-title="Quantity">
+                                            <input value="-" class="qtyminus btn" data-field="quantity1" type="button">
+                                            <input name="quantity1" value="${item.count}" class="qty" type="text">
+                                            <input value="+" class="qtyplus btn" data-field="quantity1" type="button">
+                                        </div>
+                                    </td>
+                                    <td data-title="Unit Price" class="product-unit-price">$<fmt:formatNumber type="number" value='${item.product.price * item.product.discount}' pattern="#.00"/> </td>
+                                    <td data-title="Total" class="product-subtotal">$${item.subTotal}</td>
+                                    <td data-title="Remove" class="product-remove"><a href="#"><i
+                                            class="icon icon-Delete"></i></a>
+                                    </td>
+                                </tr>
+                                </c:forEach>
 
-                    <div class="form-group">
-                        <input class="input" type="password" name="password" placeholder="Password*">
+                                </tbody>
+                            </table>
                     </div>
-
-                    <div class="form-group">
-                        <input class="input" type="password" name="confirmpass" placeholder="Confirm Password*">
+                    </div><!-- Cart Table /- -->
+                    <div class="col-md-4 col-sm-6 col-xs-6 cart-collaterals" style="float:right">
+                        <div class="cart_totals">
+                            <h3>cart totals</h3>
+                            <table>
+                                <tr>
+                                    <th>Sub Total</th>
+                                    <td>$${sessionScope.total}</td>
+                                </tr>
+                                <tr>
+                                    <th>Shipping</th>
+                                    <td>Free</td>
+                                </tr>
+                                <tr>
+                                    <th>Grand Total</th>
+                                    <td>$550</td>
+                                </tr>
+                            </table>
+                            <div class="wc-proceed-to-checkout">
+                                <a href="#" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input class="input" type="text" name="phone" placeholder="Telephone">
-                    </div>
-
-                    <div class="form-group">
-                        <input class="input" type="text" name="email" placeholder="Email">
-                    </div>
-
-                    <div class="form-group">
-                        <input class="input" style="display: inline;width: 130px;" type="text" name="verifycode" placeholder="Verifycode*">
-                        <img name="vcode" style="width: 75px;height: 38px;" src="<c:url value='/verifycode/getCode.do'/>" onclick="changeVerifyCode(this);">
-                    </div>
-
-                    <a href="javascript:void(0);" onclick="registe()" class="primary-btn" style="margin-left: 2px">REGISTER</a>
-                    <span style="color: red;margin-left: 3px;" name="errorstatus"></span>
-                </div>
+                </div><!-- Container /- -->
+            </div><!-- Cart /- -->
             </div>
+
         </div>
-        <!-- /row -->
     </div>
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->
 
 <!-- FOOTER -->
 <footer id="footer">
@@ -323,9 +331,11 @@
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
-                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i
+                                    class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
-                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -404,8 +414,15 @@
 </footer>
 <!-- /FOOTER -->
 
-<!-- jQuery Plugins -->
 <script src="<c:url value='/js/jquery.min.js'/>"></script>
+<!-- Library - Js -->
+<script src="<c:url value='/js/lib.js'/>"></script>
+
+<script src="<c:url value='/js/jquery.countdown.min.js'/>"></script>
+
+<!-- Library - Theme JS -->
+<script src="<c:url value='/js/functions.js'/>"></script>
+<!-- jQuery Plugins -->
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 <script src="<c:url value='/js/slick.min.js'/>"></script>
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
@@ -413,55 +430,11 @@
 <script src="<c:url value='/js/main.js'/>"></script>
 
 <script type="text/javascript">
-
     window.onload = function () {
-        if(${sessionScope.user != null and sessionScope.haveCart == null}) {
-            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/register"/> </c:url>';
+        if (${sessionScope.user != null and sessionScope.haveCart == null}) {
+            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
         }
     }
-
-    function changeVerifyCode(o) {
-        var url = '/electro/verifycode/getCode.do?'+Math.random();
-        o.src = url;
-    }
-
-    function registe() {
-        var uname = $("input[name='uname']").val();
-        var password = $("input[name='password']").val();
-        var confirmpass = $("input[name='confirmpass']").val();
-        var phone = $("input[name='phone']").val();
-        var email = $("input[name='email']").val();
-        var vcode = $("input[name='verifycode']").val();
-        $.ajax({
-            type: 'post',
-            url: '<c:url value="/user/registe.do"/>',
-            dataType: 'text',
-            data: {
-                uname: uname,
-                password: password,
-                confirmpass: confirmpass,
-                phonenum: phone,
-                email: email,
-                vcode: vcode
-            },
-            success: function (data) {
-                if(data == "SUCCESS") {
-                    window.location.href="<c:url value='/index.jsp'/>";
-                } else {
-                    $("span[name='errorstatus']").html(data);
-                    $("input[name='uname']").val('');
-                    $("input[name='password']").val('');
-                    $("input[name='confirmpass']").val('');
-                    $("input[name='phone']").val('');
-                    $("input[name='email']").val('');
-                    $("input[name='verifycode']").val();
-                    $("img[name='vcode']").attr("src","<c:url value='/verifycode/getCode.do?+Math.random()'/>");
-                }
-
-            }
-        })
-    }
-
 </script>
 
 </body>

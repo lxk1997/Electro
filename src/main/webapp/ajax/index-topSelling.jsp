@@ -4,48 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <title>Electro - HTML Ecommerce Template</title>
-
-    <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
-    <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>"/>
-
-    <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/slick.css'/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/slick-theme.css'/>"/>
-
-    <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/nouislider.min.css'/>"/>
-
-    <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>"/>
-
-    <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- jQuery Plugins -->
-    <script src="<c:url value='/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/js/slick.min.js'/>"></script>
-    <script src="<c:url value='/js/nouislider.min.js'/>"></script>
-    <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
-    <script src="<c:url value='/js/main.js'/>"></script>
-</head>
 <body>
 
 <div class="col-md-12">
@@ -53,7 +11,7 @@
         <div class="products-tabs">
             <!-- tab -->
             <div id="tab2" class="tab-pane active">
-                <div class="products-slick" data-nav="#slick-nav-2">
+                <div id="products-slick2" class="products-slick" data-nav="#slick-nav-2">
                     <c:forEach items="${sessionScope.ts}" var="orderitem">
                         <!-- product -->
                         <div class="product">
@@ -62,7 +20,7 @@
                                      alt="">
                                 <div class="product-label">
                                     <c:if test="${orderitem.product.discount != 1}">
-                                        <span class="sale">-${(1 - orderitem.product.discount) * 10}%</span>
+                                        <span class="sale">-<fmt:formatNumber type="number" value="${(1 - orderitem.product.discount) * 100}" pattern="#"/> %</span>
                                     </c:if>
                                     <span class="new">NEW</span>
                                 </div>
@@ -109,7 +67,7 @@
                             </div>
                             <div class="add-to-cart">
                                 <button class="add-to-cart-btn"
-                                        onclick="addToCast(${orderitem.product.pid})"><i
+                                        onclick="addToCast('${orderitem.product.pid}')"><i
                                         class="fa fa-shopping-cart"></i> add to cart
                                 </button>
                             </div>
@@ -124,5 +82,39 @@
     </div>
 </div>
 <!-- /Products tab & slick -->
+
 </body>
+<script src="<c:url value='/js/main.js'/>"></script>
+<script>
+    $('#products-slick2').each(function() {
+        var $this = $(this),
+            $nav = $this.attr('data-nav');
+
+        $this.slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            infinite: true,
+            speed: 300,
+            dots: false,
+            arrows: true,
+            appendArrows: $nav ? $nav : false,
+            responsive: [{
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+            ]
+        });
+    });
+</script>
 </html>

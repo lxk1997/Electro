@@ -644,7 +644,8 @@
 
 <script type="text/javascript">
     window.onload = function () {
-        if(${sessionScope.user != null and sessionScope.cart == null}) {
+        if(${sessionScope.user != null and sessionScope.haveCart == null}) {
+            console.log("加载购物车");
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/store"/> </c:url>';
         }
     }

@@ -31,6 +31,16 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
+    public int changeCount(String ciid, int count) {
+        return cartItemDao.changeCount(ciid, count);
+    }
+
+    @Override
+    public CartItem findByPid(String pid) {
+        return cartItemDao.findByPid(pid);
+    }
+
+    @Override
     public int update(CartItem cartItem) {
         return cartItemDao.update(cartItem);
     }
