@@ -34,16 +34,10 @@
     <!-- layui-->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/layui.css'/>"/>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <!-- jQuery Plugins -->
     <script src="<c:url value='/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/js/layui.all.js'/>"></script>
+    <script src="<c:url value='/js/layui.js'/>"></script>
 
     <script type="text/javascript">
 
@@ -94,12 +88,16 @@
 
         {
             if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
-            console.log("加载购物车");
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
         }
         }
 
         function addToCast(pid) {
+
+            layui.use('layer', function(){
+                var $ = layui.jquery, layer = layui.layer;
+                layer.msg('Add Successful!');
+            });
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/cart/addCartItem.do"/> ',
@@ -109,14 +107,6 @@
                 },
                 success: function (data) {
                     $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
-
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.msg('添加成功', {
-                            icon: 1,
-                            time: 1000
-                        });
-                    });
                 }
             })
         }
@@ -210,7 +200,7 @@
                                                 <h5>SUBTOTAL: $0.00</h5>
                                             </div>
                                             <div class="cart-btns">
-                                                <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:when>
@@ -274,12 +264,12 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Hot Deals</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Laptops</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">Accessories</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>
@@ -303,7 +293,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Laptop<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="1"/></c:url> "
+                        <a href="<c:url value='/product/toStore.do?categoryId=1'/> "
                            class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -317,7 +307,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Smartphone<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="2"/></c:url>"
+                        <a href="<c:url value='/product/toStore.do?categoryId=2'/>"
                            class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -332,7 +322,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Cameras<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="3"/></c:url>"
+                        <a href="<c:url value='/product/toStore.do?categoryId=3'/>"
                            class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -347,7 +337,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Accessories<br>Collection</h3>
-                        <a href="<c:url value='/product/toStore.do'><c:param name="categoryId" value="4"/></c:url>"
+                        <a href="<c:url value='/product/toStore.do?categoryId=4'/>"
                            class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -431,11 +421,9 @@
                                                     <del class="product-old-price">$${product.price}</del>
                                                 </h4>
                                                 <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                                    <c:forEach begin="1" end="${product.productDetails.rating / 20}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:forEach>
                                                 </div>
                                                 <div class="product-btns">
                                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span
@@ -508,8 +496,8 @@
                         </li>
                     </ul>
                     <h2 class="text-uppercase">hot deal this week</h2>
-                    <p>New Collection Up to 50% OFF</p>
-                    <a class="primary-btn cta-btn" href="#">Shop now</a>
+                    <p>New Collection Up to 20% OFF</p>
+                    <a class="primary-btn cta-btn" href="<c:url value=''/> ">Shop now</a>
                 </div>
             </div>
         </div>
@@ -594,11 +582,9 @@
                                                     <del class="product-old-price">$${orderitem.product.price}</del>
                                                 </h4>
                                                 <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                                    <c:forEach begin="1" end="${orderitem.product.productDetails.rating / 20}">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:forEach>
                                                 </div>
                                                 <div class="product-btns">
                                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span

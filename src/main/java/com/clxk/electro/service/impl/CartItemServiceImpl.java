@@ -31,6 +31,11 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
+    public int deleteByUid(String uid) {
+        return cartItemDao.deleteByUid(uid);
+    }
+
+    @Override
     public int changeCount(String ciid, int count) {
         return cartItemDao.changeCount(ciid, count);
     }

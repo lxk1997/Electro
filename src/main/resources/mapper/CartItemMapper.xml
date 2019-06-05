@@ -87,4 +87,8 @@
         delete from cart_items where ciid = #{ciid};
     </delete>
 
+    <delete id="deleteByUid" parameterType="String">
+        delete from cart_items where uid = #{uid};
+    </delete>
+
 </mapper>

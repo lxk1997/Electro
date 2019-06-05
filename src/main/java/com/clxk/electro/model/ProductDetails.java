@@ -14,7 +14,21 @@ public class ProductDetails {
     private String avatar4;
     private String description;
     private String details;
-    private String rating;
+    private int rating;
+
+    @Override
+    public String toString() {
+        return "ProductDetails{" +
+                "pdid='" + pdid + '\'' +
+                ", avatar1='" + avatar1 + '\'' +
+                ", avatar2='" + avatar2 + '\'' +
+                ", avatar3='" + avatar3 + '\'' +
+                ", avatar4='" + avatar4 + '\'' +
+                ", description='" + description + '\'' +
+                ", details='" + details + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 
     public String getPdid() {
         return pdid;
@@ -42,20 +56,6 @@ public class ProductDetails {
 
     public String getAvatar3() {
         return avatar3;
-    }
-
-    public ProductDetails(String pdid, String avatar1, String avatar2, String avatar3, String avatar4, String description, String details, String rating) {
-        this.pdid = pdid;
-        this.avatar1 = avatar1;
-        this.avatar2 = avatar2;
-        this.avatar3 = avatar3;
-        this.avatar4 = avatar4;
-        this.description = description;
-        this.details = details;
-        this.rating = rating;
-    }
-
-    public ProductDetails() {
     }
 
     public void setAvatar3(String avatar3) {
@@ -86,25 +86,25 @@ public class ProductDetails {
         this.details = details;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDetails{" +
-                "pdid='" + pdid + '\'' +
-                ", avatar1='" + avatar1 + '\'' +
-                ", avatar2='" + avatar2 + '\'' +
-                ", avatar3='" + avatar3 + '\'' +
-                ", avatar4='" + avatar4 + '\'' +
-                ", description='" + description + '\'' +
-                ", details='" + details + '\'' +
-                ", rating='" + rating + '\'' +
-                '}';
+    public ProductDetails(String pdid, String avatar1, String avatar2, String avatar3, String avatar4, String description, String details, int rating) {
+        this.pdid = pdid;
+        this.avatar1 = avatar1;
+        this.avatar2 = avatar2;
+        this.avatar3 = avatar3;
+        this.avatar4 = avatar4;
+        this.description = description;
+        this.details = details;
+        this.rating = rating;
+    }
+
+    public ProductDetails() {
     }
 }

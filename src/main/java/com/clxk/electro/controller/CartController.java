@@ -39,9 +39,9 @@ public class CartController {
 
     @RequestMapping("/addCartInit.do")
     public String addCartInit(HttpSession session, HttpServletRequest request) {
-        if(session.getAttribute("cart") == null) {
+        if (session.getAttribute("cart") == null) {
             User user = (User) session.getAttribute("user");
-            if(user != null) {
+            if (user != null) {
                 List<CartItem> cart = cartItemService.findByUid(user.getUid());
                 session.setAttribute("cart", cart);
                 BigDecimal subTotal = new BigDecimal("0");
@@ -50,11 +50,11 @@ public class CartController {
                 BigDecimal discount = null;
                 BigDecimal newPrice = null;
                 int itemCount = 0;
-                for(CartItem item : cart) {
+                for (CartItem item : cart) {
                     itemCount += item.getCount();
                     count = new BigDecimal(item.getCount() + "");
                     price = new BigDecimal(item.getProduct().getPrice() + "");
-                    discount = new BigDecimal(item.getProduct().getDiscount()+"");
+                    discount = new BigDecimal(item.getProduct().getDiscount() + "");
                     newPrice = discount.multiply(price);
                     subTotal = subTotal.add(newPrice.multiply(count));
                 }
@@ -70,23 +70,28 @@ public class CartController {
     @RequestMapping("/addCartItem.do")
     @ResponseBody
     public String addCartItem(HttpSession session, String pid) {
-        Product product = productService.findByPid(pid);
+        List<CartItem> items = (List<CartItem>) session.getAttribute("cart");
         User user = (User) session.getAttribute("user");
-        CartItem byPid = cartItemService.findByPid(pid);
-        CartItem cartItem;
-        if(byPid == null) {
-            cartItem = new CartItem(Utils.uuid(),user.getUid(),product,1);
-            cartItemService.insert(cartItem);
-        } else {
-            cartItem = byPid;
-            cartItemService.changeCount(byPid.getCiid(), +1);
-        }
-
-        session.setAttribute("cart",cartItemService.findByUid(cartItem.getUid()));
         BigDecimal cartTotal = new BigDecimal(session.getAttribute("cartTotal") + "");
-        BigDecimal price = new BigDecimal(cartItem.getProduct().getPrice() + "");
-        BigDecimal discount = new BigDecimal(cartItem.getProduct().getDiscount()+"");
-        cartTotal = cartTotal.add(discount.multiply(price));
+        boolean if_have = false;
+        for (CartItem item : items) {
+            if (item.getProduct().getPid().equals(pid)) {
+                item.setCount(item.getCount() + 1);
+                BigDecimal price = new BigDecimal(item.getProduct().getPrice() + "");
+                BigDecimal discount = new BigDecimal(item.getProduct().getDiscount() + "");
+                cartTotal = cartTotal.add(discount.multiply(price));
+                if_have = true;
+                break;
+            }
+        }
+        if(!if_have) {
+            Product product = productService.findByPid(pid);
+            items.add(new CartItem(Utils.uuid(),user.getUid(),product,1));
+            BigDecimal price = new BigDecimal(product.getPrice() + "");
+            BigDecimal discount = new BigDecimal(product.getDiscount() + "");
+            cartTotal = cartTotal.add(discount.multiply(price));
+        }
+        session.setAttribute("cart", items);
         session.setAttribute("cartTotal", cartTotal.doubleValue());
         session.setAttribute("cartCnt", (int)session.getAttribute("cartCnt") + 1);
         return "success";
@@ -96,21 +101,45 @@ public class CartController {
     @RequestMapping("/deleteCartItem.do")
     @ResponseBody
     public String deleteCartItem(HttpSession session, String ciid) {
-        CartItem item = cartItemService.findByCiid(ciid);
-        if(item.getCount() > 1) {
-            cartItemService.changeCount(ciid, -1);
-        }
-        else {
-            cartItemService.delete(item);
-        }
-
-        session.setAttribute("cart",cartItemService.findByUid(item.getUid()));
+        List<CartItem> items = (List<CartItem>) session.getAttribute("cart");
         BigDecimal cartTotal = new BigDecimal(session.getAttribute("cartTotal") + "");
-        BigDecimal price = new BigDecimal(item.getProduct().getPrice() + "");
-        BigDecimal discount = new BigDecimal(item.getProduct().getDiscount()+"");
-        cartTotal = cartTotal.subtract(discount.multiply(price));
+        for (CartItem item : items) {
+            if (item.getCiid().equals(ciid)) {
+                if(item.getCount() > 1) {
+                    item.setCount(item.getCount() - 1);
+                } else {
+                    items.remove(item);
+                }
+                BigDecimal price = new BigDecimal(item.getProduct().getPrice() + "");
+                BigDecimal discount = new BigDecimal(item.getProduct().getDiscount() + "");
+                cartTotal = cartTotal.subtract(discount.multiply(price));
+                break;
+            }
+        }
+        session.setAttribute("cart", items);
         session.setAttribute("cartTotal", cartTotal.doubleValue());
         session.setAttribute("cartCnt", (int)session.getAttribute("cartCnt") - 1);
+        return "success";
+    }
+
+    @RequestMapping("/deleteAllCartItem.do")
+    @ResponseBody
+    public String deleteAllCartItem(HttpSession session, String ciid) {
+        List<CartItem> items = (List<CartItem>) session.getAttribute("cart");
+        BigDecimal cartTotal = new BigDecimal(session.getAttribute("cartTotal") + "");
+        for (CartItem item : items) {
+            if (item.getCiid().equals(ciid)) {
+                BigDecimal price = new BigDecimal(item.getProduct().getPrice() + "");
+                BigDecimal discount = new BigDecimal(item.getProduct().getDiscount() + "");
+                BigDecimal count = new BigDecimal(item.getCount() + "");
+                cartTotal = cartTotal.subtract(discount.multiply(price).multiply(count));
+                items.remove(item);
+                session.setAttribute("cart", items);
+                session.setAttribute("cartTotal", cartTotal.doubleValue());
+                session.setAttribute("cartCnt", (int)session.getAttribute("cartCnt") - count.intValue());
+                break;
+            }
+        }
         return "success";
     }
 

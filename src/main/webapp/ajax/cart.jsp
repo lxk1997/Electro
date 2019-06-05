@@ -98,7 +98,8 @@
                             <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
                         </div>
                         <div class="cart-btns">
-                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
+                            <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 </c:otherwise>

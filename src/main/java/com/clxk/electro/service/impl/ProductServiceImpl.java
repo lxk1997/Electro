@@ -41,6 +41,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findHotDealProduct() {
+        return productDao.findHotDealProduct();
+    }
+
+    @Override
     public List<Product> findByCategory(String catogoryId) {
         return productDao.findByCategory(catogoryId);
     }

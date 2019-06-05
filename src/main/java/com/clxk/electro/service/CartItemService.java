@@ -16,6 +16,8 @@ public interface CartItemService {
 
     int delete(CartItem cartItem);
 
+    int deleteByUid(String uid);
+
     int changeCount(String ciid, int count);
 
     CartItem findByPid(String pid);

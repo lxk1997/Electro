@@ -19,6 +19,8 @@ public interface ProductService {
 
     List<Product> findAll();
 
+    List<Product> findHotDealProduct();
+
     List<Product> findByCategory(String catogoryId);
 
     Product findByPid(String pid);

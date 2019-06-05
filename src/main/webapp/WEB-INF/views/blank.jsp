@@ -91,86 +91,87 @@
                 </div>
                 <!-- /SEARCH BAR -->
 
-                <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
-                    <div class="header-ctn">
-                        <!-- Wishlist -->
-                        <div>
-                            <a href="#">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
-                                <c:if test="${sessionScope.user != null}">
-                                    <div class="qty">0</div>
-                                </c:if>
-                            </a>
-                        </div>
-                        <!-- /Wishlist -->
+                <div id="account">
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+                            <!-- Wishlist -->
+                            <div>
+                                <a href="#">
+                                    <i class="fa fa-heart-o"></i>
+                                    <span>Your Wishlist</span>
+                                    <c:if test="${sessionScope.user != null}">
+                                        <div class="qty">0</div>
+                                    </c:if>
+                                </a>
+                            </div>
+                            <!-- /Wishlist -->
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Your Cart</span>
+                                    <c:if test="${sessionScope.user != null}">
+                                        <div class="qty">${cartCnt}</div>
+                                    </c:if>
+                                </a>
+                                <c:choose>
+                                    <c:when test="${sessionScope.user eq null}">
+                                        <div class="cart-dropdown">
+                                            <div class="cart-list">
 
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
-                                <c:if test="${sessionScope.user != null}">
-                                    <div class="qty">${cartCnt}</div>
-                                </c:if>
-                            </a>
-                            <c:choose>
-                                <c:when test="${sessionScope.user eq null}">
-                                    <div class="cart-dropdown">
-                                        <div class="cart-list">
-
+                                            </div>
+                                            <div class="cart-summary">
+                                                <small>0 Item(s) selected</small>
+                                                <h5>SUBTOTAL: $0.00</h5>
+                                            </div>
+                                            <div class="cart-btns">
+                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="cart-summary">
-                                            <small>0 Item(s) selected</small>
-                                            <h5>SUBTOTAL: $0.00</h5>
-                                        </div>
-                                        <div class="cart-btns">
-                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="cart-dropdown">
-                                        <div class="cart-list">
-                                            <c:forEach items="${cart}" var="cartitem">
-                                                <div class="product-widget">
-                                                    <div class="product-img">
-                                                        <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="cart-dropdown">
+                                            <div class="cart-list">
+                                                <c:forEach items="${cart}" var="cartitem">
+                                                    <div class="product-widget">
+                                                        <div class="product-img">
+                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                        </div>
+                                                        <div class="product-body">
+                                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
+                                                            <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                        </div>
+                                                        <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
                                                     </div>
-                                                    <div class="product-body">
-                                                        <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
-                                                        <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
-                                                    </div>
-                                                    <button class="delete"><i class="fa fa-close"></i></button>
-                                                </div>
-                                            </c:forEach>
+                                                </c:forEach>
+                                            </div>
+                                            <div class="cart-summary">
+                                                <small>${cartCnt} Item(s) selected</small>
+                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                            </div>
+                                            <div class="cart-btns">
+                                                <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
+                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="cart-summary">
-                                            <small>${cartCnt} Item(s) selected</small>
-                                            <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
-                                        </div>
-                                        <div class="cart-btns">
-                                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-                                        </div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
 
+                            </div>
+                            <!-- /Cart -->
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
                         </div>
-                        <!-- /Cart -->
-
-                        <!-- Menu Toogle -->
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
-                            </a>
-                        </div>
-                        <!-- /Menu Toogle -->
                     </div>
+                    <!-- /ACCOUNT -->
                 </div>
-                <!-- /ACCOUNT -->
             </div>
             <!-- row -->
         </div>
@@ -385,6 +386,49 @@
         if(${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
         }
+    }
+
+    function deleteCartItem(ciid) {
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/cart/deleteCartItem.do"/> ',
+            dataType: 'text',
+            data: {
+                ciid: ciid
+            },
+            success: function (data) {
+                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+            }
+        })
+    }
+
+    {
+        if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
+        window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
+    }
+    }
+
+    function addToCast(pid) {
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/cart/addCartItem.do"/> ',
+            dataType: 'text',
+            data: {
+                pid: pid
+            },
+            success: function (data) {
+                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('添加成功', {
+                        icon: 1,
+                        time: 1000
+                    });
+                });
+            }
+        })
     }
 </script>
 

@@ -39,11 +39,12 @@ public class ProductController {
         return "/WEB-INF/views/product";
     }
 
+
     @RequestMapping("/toStore.do")
     public String toStore(HttpSession session, HttpServletRequest request) {
         String categoryId = request.getParameter("categoryId");
-        if(categoryId.equals("0")) {
-            List<Product> productList = productService.findByDateOrderAndCategory("1");
+        if(categoryId == null || categoryId.equals("0")) {
+            List<Product> productList = productService.findAll();
             session.setAttribute("store",productList);
             request.setAttribute("category","Laptops（" + productList.size() + "RESULTS)");
         }
@@ -118,7 +119,7 @@ public class ProductController {
                 Double.valueOf(discount), Integer.valueOf(stock), new Date());
         String path = request.getServletContext().getRealPath("/WEB-INF/imgs/");
         ProductDetails pd = new ProductDetails(uuid,Utils.saveFile(avatar1),Utils.saveFile(avatar2),
-                Utils.saveFile(avatar3),Utils.saveFile(avatar4),description,details,"0,0,0,0,0");
+                Utils.saveFile(avatar3),Utils.saveFile(avatar4),description,details,100);
         product.setProductDetails(pd);
         productService.insert(product);
         return getProductTable(request);

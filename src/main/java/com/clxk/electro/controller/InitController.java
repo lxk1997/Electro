@@ -43,6 +43,7 @@ public class InitController {
         session.setAttribute("topAccessories", orderItemService.findTopSellingByCategory("4"));
         session.setAttribute("np", session.getAttribute("laptops"));
         session.setAttribute("ts", session.getAttribute("topLaptops"));
+        session.setAttribute("hotDeal", productService.findHotDealProduct());
         return "/index";
     }
 

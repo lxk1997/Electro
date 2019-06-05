@@ -49,11 +49,9 @@
                                     <del class="product-old-price">$${orderitem.product.price}</del>
                                 </h4>
                                 <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <c:forEach begin="1" end="${orderitem.product.productDetails.rating / 20}">
+                                        <i class="fa fa-star"></i>
+                                    </c:forEach>
                                 </div>
                                 <div class="product-btns">
                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span

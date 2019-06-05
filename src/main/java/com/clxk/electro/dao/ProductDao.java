@@ -20,6 +20,8 @@ public interface ProductDao {
 
     int update(Product product);
 
+    List<Product> findHotDealProduct();
+
     List<Product> findAll();
 
     List<Product> findByCategory(String catogoryId);

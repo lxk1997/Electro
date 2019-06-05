@@ -21,6 +21,8 @@ public interface CartItemDao {
 
     int update(CartItem cartItem);
 
+    int deleteByUid(String uid);
+
     CartItem findByCiid(String ciid);
 
     List<CartItem> findByUid(String uid);

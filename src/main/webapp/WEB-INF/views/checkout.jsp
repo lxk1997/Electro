@@ -91,6 +91,7 @@
                 </div>
                 <!-- /SEARCH BAR -->
 
+                <<div id="account">
                 <!-- ACCOUNT -->
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
@@ -105,7 +106,6 @@
                             </a>
                         </div>
                         <!-- /Wishlist -->
-
                         <!-- Cart -->
                         <div class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -126,7 +126,7 @@
                                             <h5>SUBTOTAL: $0.00</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="<c:url value='/user/toLogin.do'/> ">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </c:when>
@@ -142,7 +142,7 @@
                                                         <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
                                                         <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
                                                     </div>
-                                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                                    <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
                                                 </div>
                                             </c:forEach>
                                         </div>
@@ -151,7 +151,8 @@
                                             <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
+                                            <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </c:otherwise>
@@ -159,7 +160,6 @@
 
                         </div>
                         <!-- /Cart -->
-
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
                             <a href="#">
@@ -171,6 +171,7 @@
                     </div>
                 </div>
                 <!-- /ACCOUNT -->
+            </div>
             </div>
             <!-- row -->
         </div>
@@ -547,6 +548,49 @@
         if(${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/checkout"/> </c:url>';
         }
+    }
+
+    function deleteCartItem(ciid) {
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/cart/deleteCartItem.do"/> ',
+            dataType: 'text',
+            data: {
+                ciid: ciid
+            },
+            success: function (data) {
+                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+            }
+        })
+    }
+
+    {
+        if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
+        window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
+    }
+    }
+
+    function addToCast(pid) {
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/cart/addCartItem.do"/> ',
+            dataType: 'text',
+            data: {
+                pid: pid
+            },
+            success: function (data) {
+                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('添加成功', {
+                        icon: 1,
+                        time: 1000
+                    });
+                });
+            }
+        })
     }
 
     function placeOrder() {

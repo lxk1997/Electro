@@ -1,9 +1,10 @@
 <!DOCTYPE web-app PUBLIC
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
@@ -11,6 +12,10 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>com.clxk.electro.listener.MySessionListener</listener-class>
+  </listener>
+
 
   <!-- 配置DispatcherServlet-->
   <servlet>
@@ -28,5 +33,8 @@
     <!--默认匹配所有请求-->
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
 
 </web-app>

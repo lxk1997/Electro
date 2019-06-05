@@ -35,7 +35,7 @@ public class ProductDaoTest extends BaseJunit4Test {
         ProductDetails productDetails = new ProductDetails(uuid,url,url,url,url,
                 "新品上市】索尼（SONY）Xperia 1 骁龙855 三摄手机 6GB+128GB 6.5英寸屏 夜黑",
                 "新品上市】索尼（SONY）Xperia 1 骁龙855 三摄手机 6GB+128GB 6.5英寸屏 夜黑",
-                "0,0,0,0,0");
+                100);
         productDao.insert(product);
 
     }

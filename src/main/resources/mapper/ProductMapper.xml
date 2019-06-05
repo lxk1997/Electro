@@ -118,4 +118,8 @@
         select * from product, product_details
         where product.pid = product_details.pdid and product.category_id = #{categoryId} order by product.date desc limit 0, 8;
     </select>
+
+    <select id="findHotDealProduct" resultMap="productMap">
+        select * from product where product.discount <![CDATA[<]]> 1;
+    </select>
 </mapper>
