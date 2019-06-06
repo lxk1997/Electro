@@ -355,34 +355,13 @@
                 </div>
                 <div class="payment-method">
                     <div class="input-radio">
-                        <input type="radio" name="payment" id="payment-1">
+                        <input type="radio" name="payment" id="payment-1" value="1">
                         <label for="payment-1">
                             <span></span>
-                            Direct Bank Transfer
+                            Direct Bank Transfer(ICBC)
                         </label>
                         <div class="caption">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                    <div class="input-radio">
-                        <input type="radio" name="payment" id="payment-2">
-                        <label for="payment-2">
-                            <span></span>
-                            Cheque Payment
-                        </label>
-                        <div class="caption">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                    <div class="input-radio">
-                        <input type="radio" name="payment" id="payment-3">
-                        <label for="payment-3">
-                            <span></span>
-                            Paypal System
-                        </label>
-                        <div class="caption">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
+                            <p>(Test) Pay 0.01 CNY</div>
                     </div>
                 </div>
                 <div class="input-checkbox">
@@ -402,42 +381,6 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->
 
 <!-- FOOTER -->
 <footer id="footer">
@@ -596,7 +539,9 @@
     function placeOrder() {
         if(!$("#terms").get(0).checked) {
             $("span[name='errorstatus']").text("Please Confirm You Have Read The Terms First!");
-        } else {
+        } else if($("input[name='payment']:checked").val() == null){
+            $("span[name='errorstatus']").text("Please Tick Method of Payment First!");
+        }else {
             var firstname = $("input[name='first-name']").val();
             var lastname = $("input[name='last-name']").val();
             var email = $("input[name='email']").val();
@@ -609,7 +554,6 @@
             alert(firstname + " " + lastname + " " + email + " " + address + " " + city + " " + country + " " + zipcode + " " + telphone);
             var addresstype = null;
             if(!$("#shiping-address").get(0).checked) {
-                alert("aaa");
                 if(firstname == "") {
                     $("span[name='errorstatus']").text("Null First Name!");
                 } else if(lastname == "") {
@@ -682,7 +626,7 @@
                         if(data != "SUCCESS") {
                             $("span[name='errorstatus']").text(data);
                         } else {
-                            window.location.href = '<c:url value="/index.jsp"/> ';
+                            window.location.href = '<c:url value="/checkout/pay.do"/> ';
                         }
                     }
                 });

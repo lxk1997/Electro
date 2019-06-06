@@ -22,6 +22,8 @@ public interface OrderItemDao {
 
     int update(OrderItem orderItem);
 
+    int updateStatus(@Param("uid") String uid, @Param("status") int status);
+
     OrderItem findByOiid(String oiid);
 
     List<OrderItem> findAll();

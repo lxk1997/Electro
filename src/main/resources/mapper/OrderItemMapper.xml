@@ -59,6 +59,10 @@
           values (#{oiid}, #{uid}, #{product.pid}, #{count}, #{date}, #{status}, #{notes}, #{address.aid});
     </insert>
 
+    <update id="updateStatus" parameterType="Map">
+        update order_items set status = #{status} where uid = #{uid};
+    </update>
+
     <update id="update" parameterType="com.clxk.electro.model.OrderItem">
         update order_items
         <set>

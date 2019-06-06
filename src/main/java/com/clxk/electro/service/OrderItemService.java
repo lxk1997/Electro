@@ -1,6 +1,7 @@
 package com.clxk.electro.service;
 
 import com.clxk.electro.model.OrderItem;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface OrderItemService {
     int delete(OrderItem orderItem);
 
     int update(OrderItem orderItem);
+
+    int updateStatus(String uid, int status);
 
     OrderItem findByOiid(String oiid);
 

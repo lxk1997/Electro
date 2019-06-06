@@ -28,8 +28,12 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/toLogin.do")
-    public String toLogin() {
-        return "/WEB-INF/views/login";
+    public String toLogin(HttpSession session) {
+        if(session.getAttribute("user") != null) {
+            return "/WEB-INF/views/my-account";
+        } else {
+            return "/WEB-INF/views/login";
+        }
     }
 
     @RequestMapping("/toRegiste.do")
@@ -92,6 +96,12 @@ public class UserController {
             return "/WEB-INF/views/manager/editable-table-user";
         }
         return "/WEB-INF/views/manager/table-user";
+    }
+
+    @RequestMapping("/logout.do")
+    public String logout(HttpSession session, HttpServletRequest request) {
+        session.removeAttribute("user");
+        return "/index";
     }
 
 }

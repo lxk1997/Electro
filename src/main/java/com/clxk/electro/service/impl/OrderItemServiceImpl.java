@@ -37,6 +37,11 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public int updateStatus(String uid, int status) {
+        return orderItemDao.updateStatus(uid, status);
+    }
+
+    @Override
     public OrderItem findByOiid(String oiid) {
         return orderItemDao.findByOiid(oiid);
     }

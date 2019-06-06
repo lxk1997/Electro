@@ -38,6 +38,9 @@ public class OrderItemController {
     public String placeOrder(Address address, String addressType, HttpSession session, HttpServletRequest request) {
         User user = (User) session.getAttribute("user");
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cart");
+        if(cartItems == null || cartItems.size() == 0) {
+            return "No Product!!!";
+        }
         if(!address.getEmail().matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
             return "Error Email";
         } else {
@@ -50,9 +53,6 @@ public class OrderItemController {
                 OrderItem oi = new OrderItem(Utils.uuid(), user.getUid(), item.getProduct(), item.getCount(),address, new Date(), OrderItem.UN_PAID);
                 orderItemService.insert(oi);
             }
-            session.setAttribute("cart", new ArrayList<CartItem>());
-            session.setAttribute("cartTotal", 0);
-            session.setAttribute("cartCnt", 0);
             return "SUCCESS";
         }
     }
@@ -68,7 +68,6 @@ public class OrderItemController {
         if(status.equals("0")) orders = orderItemService.findAll();
         else orders = orderItemService.findByStatus(Integer.valueOf(status));
         request.setAttribute("ordersTable", orders);
-        System.out.println(orders.get(0));
         url += "table-order";
         return url;
     }

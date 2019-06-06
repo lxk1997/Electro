@@ -102,49 +102,74 @@
     </script>
 </head>
 <body>
-<table class="table table-bordered table-responsive">
-    <thead>
-    <tr>
-        <th class="product-thumbnail">Item</th>
-        <th class="product-name">Product Name</th>
-        <th class="product-quantity">Quantity</th>
-        <th class="product-unit-price">Unit Price</th>
-        <th class="product-subtotal">Total</th>
-        <th class="product-remove">Remove</th>
-    </tr>
-    </thead>
+<!-- Cart -->
+<div class="woocommerce-cart container-fluid no-left-padding no-right-padding">
+    <!-- Cart Table -->
+    <div class="cart-table">
+        <table class="table table-bordered table-responsive">
+            <thead>
+            <tr>
+                <th class="product-thumbnail">Item</th>
+                <th class="product-name">Product Name</th>
+                <th class="product-quantity">Quantity</th>
+                <th class="product-unit-price">Unit Price</th>
+                <th class="product-subtotal">Total</th>
+                <th class="product-remove">Remove</th>
+            </tr>
+            </thead>
 
-    <tbody>
-    <c:forEach items="${sessionScope.cart}" var="item">
-        <tr class="cart_item">
-            <td data-title="Item" class="product-thumbnail"><a href="#"><img
-                    src="<c:url value='/imgs${item.product.productDetails.avatar1}'/> "
-                    alt="Product"/></a></td>
-            <td data-title="Product Name"><a
-                    href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${item.product.pid}"/></c:url>">${item.product.pname}</a>
-            </td>
-            <td data-title="Quantity" class="product-quantity">
-                <div class="prd-quantity" data-title="Quantity">
-                    <input value="-" class="qtyminus btn"
-                           onclick="deleteCartItem('${item.ciid}','cart')" type="button">
-                    <input name="quantity1" value="${item.count}" class="qty" type="text">
-                    <input value="+" class="qtyplus btn"
-                           onclick="addToCast('${item.product.pid}','cart')" type="button">
-                </div>
-            </td>
-            <td data-title="Unit Price" class="product-unit-price">$<fmt:formatNumber
-                    type="number"
-                    value='${item.product.price * item.product.discount}'
-                    pattern="#.00"/></td>
-            <td data-title="Total" class="product-subtotal">$${item.subTotal}</td>
-            <td data-title="Remove" class="product-remove">
-                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" onclick="deleteAllCartItem('${item.ciid}');">
-                    <i class="layui-icon de">DELETE</i>
-                </button>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+            <tbody>
+            <c:forEach items="${sessionScope.cart}" var="item">
+                <tr class="cart_item">
+                    <td data-title="Item" class="product-thumbnail"><a href="#"><img
+                            src="<c:url value='/imgs${item.product.productDetails.avatar1}'/> "
+                            alt="Product"/></a></td>
+                    <td data-title="Product Name"><a
+                            href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${item.product.pid}"/></c:url>">${item.product.pname}</a>
+                    </td>
+                    <td data-title="Quantity" class="product-quantity">
+                        <div class="prd-quantity" data-title="Quantity">
+                            <input value="-" class="qtyminus btn"
+                                   onclick="deleteCartItem('${item.ciid}','cart')" type="button">
+                            <input name="quantity1" value="${item.count}" class="qty" type="text">
+                            <input value="+" class="qtyplus btn"
+                                   onclick="addToCast('${item.product.pid}','cart')" type="button">
+                        </div>
+                    </td>
+                    <td data-title="Unit Price" class="product-unit-price">$<fmt:formatNumber
+                            type="number"
+                            value='${item.product.price * item.product.discount}'
+                            pattern="#.00"/></td>
+                    <td data-title="Total" class="product-subtotal">$${item.subTotal}</td>
+                    <td data-title="Remove" class="product-remove">
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" onclick="deleteAllCartItem('${item.ciid}');">
+                            <i class="layui-icon de">DELETE</i>
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <!-- Cart Table /- -->
+    <div class="col-md-4 col-sm-6 col-xs-6 cart-collaterals" style="float:right">
+        <div class="cart_totals">
+            <h3>cart totals</h3>
+            <table>
+                <tr>
+                    <th>Sub Total</th>
+                    <td>$${sessionScope.cartTotal}</td>
+                </tr>
+                <tr>
+                    <th>Shipping</th>
+                    <td>Free</td>
+                </tr>
+            </table>
+            <div class="wc-proceed-to-checkout">
+                <a href="<c:url value='/checkout/toCheckout.do'/> " class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+</div><!-- Cart /- -->
 </body>
 </html>

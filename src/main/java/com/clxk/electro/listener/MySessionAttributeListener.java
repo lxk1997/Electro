@@ -32,6 +32,10 @@ public class MySessionAttributeListener implements HttpSessionAttributeListener 
                     cartItemService.insert(item);
                 }
             }
+            event.getSession().removeAttribute("cart");
+            event.getSession().removeAttribute("cartCnt");
+            event.getSession().removeAttribute("cartTotal");
+            event.getSession().removeAttribute("haveCart");
         }
     }
 
