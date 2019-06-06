@@ -67,7 +67,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="<c:url value='/index.jsp'/> " class="logo">
                             <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
@@ -191,12 +191,12 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Hot Deals</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Laptops</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">Accessories</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>
@@ -794,41 +794,6 @@
 </div>
 <!-- /Section -->
 
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->
 
 <!-- FOOTER -->
 <footer id="footer">

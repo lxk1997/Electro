@@ -41,6 +41,20 @@ public class UserController {
         return "/WEB-INF/views/register";
     }
 
+    @RequestMapping("/restoryPassword.do")
+    @ResponseBody
+    public String restoryPassword(HttpSession session, String oldP, String newP) {
+        User user = (User) session.getAttribute("user");
+        if(!user.getPassword().equals(oldP)) {
+            return "Input Error Of Original Password!!!";
+        } else {
+            user.setPassword(Utils.escapeXml(newP));
+            userService.update(user);
+            session.setAttribute("user",user);
+            return "SUCCESS";
+        }
+    }
+
     @RequestMapping("/login.do")
     @ResponseBody
     public String login(HttpSession session, @RequestParam("uname") String uname, @RequestParam("password") String password, @RequestParam("vcode") String code) {

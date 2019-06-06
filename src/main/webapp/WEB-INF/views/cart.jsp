@@ -144,7 +144,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="<c:url value='/index.jsp'/> " class="logo">
                             <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
@@ -204,8 +204,7 @@
                                                 <h5>SUBTOTAL: $0.00</h5>
                                             </div>
                                             <div class="cart-btns">
-                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login
-                                                    <i class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:when>
@@ -215,34 +214,23 @@
                                                 <c:forEach items="${cart}" var="cartitem">
                                                     <div class="product-widget">
                                                         <div class="product-img">
-                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>"
-                                                                 alt="">
+                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
                                                         </div>
                                                         <div class="product-body">
-                                                            <h3 class="product-name"><a
-                                                                    href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a>
-                                                            </h3>
-                                                            <h4 class="product-price"><span
-                                                                    class="qty">${cartitem.count}x</span>$<fmt:formatNumber
-                                                                    type="number"
-                                                                    value="${cartitem.product.price * cartitem.product.discount}"
-                                                                    pattern="#.00"/></h4>
+                                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
+                                                            <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
                                                         </div>
-                                                        <button class="delete"
-                                                                onclick="deleteCartItem('${cartitem.ciid}')"><i
-                                                                class="fa fa-close"></i></button>
+                                                        <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
                                                     </div>
                                                 </c:forEach>
                                             </div>
                                             <div class="cart-summary">
                                                 <small>${cartCnt} Item(s) selected</small>
-                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}"
-                                                                                 pattern="#.00"/></h5>
+                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
                                             </div>
                                             <div class="cart-btns">
                                                 <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
-                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i
-                                                        class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:otherwise>
@@ -280,12 +268,12 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Hot Deals</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Laptops</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">Accessories</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>

@@ -61,7 +61,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="<c:url value='/index.jsp'/>" class="logo">
+                        <a href="<c:url value='/index.jsp'/> " class="logo">
                             <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
@@ -184,13 +184,13 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="<c:url value='/index.jsp'/>">Home</a></li>
-                <li><a href="#">Hot Deals</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Laptops</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">Accessories</a></li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>

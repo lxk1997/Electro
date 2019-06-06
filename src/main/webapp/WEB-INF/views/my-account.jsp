@@ -63,7 +63,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="<c:url value='/index.jsp'/> " class="logo">
                             <img src="<c:url value='/img/logo.png'/>" alt="">
                         </a>
                     </div>
@@ -187,12 +187,12 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Hot Deals</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Laptops</a></li>
-                <li><a href="#">Smartphones</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">Accessories</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>
@@ -231,10 +231,10 @@
             <!-- BEGIN SIDEBAR -->
             <div class="sidebar col-md-3 col-sm-3">
                 <ul class="list-group margin-bottom-25 sidebar-menu">
-                    <li class="list-group-item clearfix"><a href="javascript:void(0);" onclick="trasformFrame('my-account')"><i class="fa fa-angle-right"></i> My account</a></li>
-                    <li class="list-group-item clearfix"><a href="javascript:void(0);" onclick="trasformFrame('restore-password')"><i class="fa fa-angle-right"></i> Restore Password</a></li>
-                    <li class="list-group-item clearfix"><a href="javascript:void(0);" onclick="trasformFrame('address-book')"><i class="fa fa-angle-right"></i> Address book</a></li>
-                    <li class="list-group-item clearfix"><a href="javascript:void(0);" onclick="trasformFrame('orders')"><i class="fa fa-angle-right"></i>My Orders</a></li>
+                    <li class="list-group-item clearfix"><a href="javascript:trasformFrame('my-account');"><i class="fa fa-angle-right"></i> My account</a></li>
+                    <li class="list-group-item clearfix"><a href="javascript:trasformFrame('restory-password');"><i class="fa fa-angle-right"></i> Restore Password</a></li>
+                    <li class="list-group-item clearfix"><a href="javascript:trasformFrame('address-book');"><i class="fa fa-angle-right"></i> Address book</a></li>
+                    <li class="list-group-item clearfix"><a href="javascript:trasformFrame('my-orders');"><i class="fa fa-angle-right"></i>My Orders</a></li>
                     <li class="list-group-item clearfix"><a href="<c:url value='/user/logout.do'/> "><i class="fa fa-angle-right"></i> Logout</a></li>
                 </ul>
             </div>
@@ -358,6 +358,15 @@
 <script src="<c:url value='/js/main.js'/>"></script>
 
 <script type="text/javascript">
+
+    trasformFrame = function (view) {
+        switch (view) {
+            case "restory-password":
+                $("#content").load('<c:url value="/ajax/restory-password.jsp"/>');
+                break;
+        }
+    }
+
     window.onload = function () {
         if(${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
