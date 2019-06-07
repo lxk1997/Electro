@@ -242,7 +242,19 @@
 
             <!-- BEGIN CONTENT -->
             <div class="col-md-9 col-sm-7" id="content">
+                <h1>MY ACCOUNT</h1>
 
+                <div class="form-group">
+                    <input class="input" style="width: 600px" type="text" name="uname" placeholder="User Name" readonly="readonly" value="${sessionScope.user.uname}">
+                </div>
+                <div class="form-group">
+                    <input class="input" style="width: 600px" type="text" name="email" placeholder="Email" value="${sessionScope.user.email}">
+                </div>
+                <div class="form-group">
+                    <input class="input" style="width: 600px" type="text" name="telphone" placeholder="Telphone" value="${sessionScope.user.phone}">
+                </div>
+                <a href="javascript:updateAccount();" class="btn btn-default" style="margin-left: 2px">UPDATE</a>
+                <span style="color: red;margin-left: 3px;" name="errorstatus"></span>
             </div>
             <!-- END CONTENT -->
         </div>
@@ -364,7 +376,38 @@
             case "restory-password":
                 $("#content").load('<c:url value="/ajax/restory-password.jsp"/>');
                 break;
+            case "my-account":
+                $("#content").load('<c:url value="/ajax/my-account.jsp"/>');
+                break;
+            case "address-book":
+                $("#content").load('<c:url value="/ajax/address-book.jsp"/>');
+                break;
+            case "my-orders":
+                $("#content").load('<c:url value="/ajax/my-orders.jsp"/>');
+                break;
         }
+    }
+
+    updateAccount = function () {
+        var email = $("input[name='email']").val();
+        var phone = $("input[name='telphone']").val();
+
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/user/updateAccount.do"/> ',
+            dataType: 'text',
+            data: {
+                email: email,
+                phone, phone
+            },
+            success: function (data) {
+                if(data != "SUCCESS") {
+                    $("span[name='errorstatus']").text(data);
+                } else {
+                    alert("修改成功!");
+                }
+            }
+        })
     }
 
     window.onload = function () {

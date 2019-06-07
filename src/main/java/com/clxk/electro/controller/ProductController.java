@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,13 +47,43 @@ public class ProductController {
         if(categoryId == null || categoryId.equals("0")) {
             List<Product> productList = productService.findAll();
             session.setAttribute("store",productList);
-            request.setAttribute("category","Laptops（" + productList.size() + "RESULTS)");
+            request.setAttribute("category","Categories（" + productList.size() + "RESULTS)");
         }
         else {
             List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
             session.setAttribute("store",productList);
             request.setAttribute("category", categoryService.findByCid(categoryId).getCname() + "(" + productList.size() + "RESULTS)");
         }
+        return "/WEB-INF/views/store";
+    }
+
+    @RequestMapping("/search.do")
+    public String search(HttpSession session, HttpServletRequest request) {
+        String name = request.getParameter("name");
+        String categoryId = request.getParameter("categoryId");
+        System.out.println("name: " + name + "   " + "categoryId: " + categoryId);
+        List<Product> ansList = new ArrayList<>();
+        if(categoryId.equals("0")) {
+            List<Product> productList = productService.findAll();
+            for(Product product : productList) {
+                if(product.getPname().toLowerCase().contains(name.toLowerCase())) {
+                    ansList.add(product);
+                }
+            }
+            session.setAttribute("store",ansList);
+            request.setAttribute("category","Categories（" + ansList.size() + "RESULTS)");
+        }
+        else {
+            List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
+            for(Product product : productList) {
+                if(product.getPname().indexOf(name) > -1) {
+                    ansList.add(product);
+                }
+            }
+            session.setAttribute("store",ansList);
+            request.setAttribute("category", categoryService.findByCid(categoryId).getCname() + "(" + ansList.size() + "RESULTS)");
+        }
+
         return "/WEB-INF/views/store";
     }
 

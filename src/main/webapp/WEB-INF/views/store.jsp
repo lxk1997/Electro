@@ -662,12 +662,6 @@
         })
     }
 
-    {
-        if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
-        window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
-    }
-    }
-
     function addToCast(pid) {
         $.ajax({
             type: 'post',

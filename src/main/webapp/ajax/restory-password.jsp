@@ -64,6 +64,7 @@
 
 </head>
 <body>
+<h1>RESTORY PASSWORD</h1>
 <div class="form-group">
     <input class="input" style="width: 600px" type="password" name="oldPassword" placeholder="Old Password">
 </div>

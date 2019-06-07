@@ -26,6 +26,8 @@ public interface OrderItemDao {
 
     OrderItem findByOiid(String oiid);
 
+    int deleteByUid(String uid);
+
     List<OrderItem> findAll();
 
     List<OrderItem> findByUid(String uid);

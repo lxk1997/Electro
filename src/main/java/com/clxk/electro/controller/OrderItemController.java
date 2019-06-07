@@ -72,4 +72,33 @@ public class OrderItemController {
         return url;
     }
 
+    @RequestMapping("/deleteOrder.do")
+    @ResponseBody
+    public String deleteOrder(HttpSession session, String oiid) {
+        List<OrderItem> orders = (List<OrderItem>) session.getAttribute("orders");
+        for(OrderItem item : orders) {
+            if(item.getOiid().equals(oiid)) {
+                orders.remove(item);
+                break;
+            }
+        }
+        session.setAttribute("orders", orders);
+        return "SUCCESS";
+    }
+
+    @RequestMapping("/confirmReceipt.do")
+    @ResponseBody
+    public String confirmReceipt(HttpSession session, String oiid) {
+        List<OrderItem> orders = (List<OrderItem>) session.getAttribute("orders");
+        for(OrderItem item : orders) {
+            if(item.getOiid().equals(oiid)) {
+                item.setStatus(OrderItem.CONFIRMED);
+                break;
+            }
+        }
+        session.setAttribute("orders", orders);
+        return "SUCCESS";
+    }
+
+
 }

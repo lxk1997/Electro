@@ -42,6 +42,11 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public int deleteByUid(String uid) {
+        return orderItemDao.deleteByUid(uid);
+    }
+
+    @Override
     public OrderItem findByOiid(String oiid) {
         return orderItemDao.findByOiid(oiid);
     }

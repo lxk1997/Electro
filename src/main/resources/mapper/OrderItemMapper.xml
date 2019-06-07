@@ -142,5 +142,9 @@
         order by sum(count) desc
     </select>
 
+    <delete id="deleteByUid" parameterType="String">
+        delete from order_items where uid = #{uid};
+    </delete>
+
 
 </mapper>

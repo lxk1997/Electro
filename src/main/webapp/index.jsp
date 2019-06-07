@@ -32,12 +32,12 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
     <!-- layui-->
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/layui.css'/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/layui/css/layui.css'/>"/>
 
 
     <!-- jQuery Plugins -->
     <script src="<c:url value='/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/js/layui.js'/>"></script>
+    <script src="<c:url value='/layui/layui.js'/>"></script>
 
     <script type="text/javascript">
 
@@ -80,6 +80,10 @@
                     ciid: ciid
                 },
                 success: function (data) {
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('Delete Successful', {icon: 1});
+                    });
                     $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
 
                 }
@@ -93,22 +97,37 @@
         }
 
         function addToCast(pid) {
+            if(${sessionScope.user eq null}) {
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('Please Login First');
+                });
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '<c:url value="/cart/addCartItem.do"/> ',
+                    dataType: 'text',
+                    data: {
+                        pid: pid
+                    },
+                    success: function (data) {
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('Add Successful', {icon: 1});
+                        });
+                        $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+                    }
+                })
+            }
+        }
 
-            layui.use('layer', function(){
-                var $ = layui.jquery, layer = layui.layer;
-                layer.msg('Add Successful!');
-            });
-            $.ajax({
-                type: 'post',
-                url: '<c:url value="/cart/addCartItem.do"/> ',
-                dataType: 'text',
-                data: {
-                    pid: pid
-                },
-                success: function (data) {
-                    $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
-                }
-            })
+        searchProduct = function() {
+            var context = $("#search").val();
+            var url = '<c:url value="/product/search.do"/>';
+            url += '?categoryId='+ $("#category").select().val();
+            url += '&name=' + context;
+            alert(url);
+            window.location.href = url;
         }
     </script>
 </head>
@@ -151,15 +170,15 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <select class="input-select">
+                            <select id="category" class="input-select">
                                 <option value="0">All Categories</option>
                                 <option value="1">Laptops</option>
                                 <option value="2">Smartphones</option>
                                 <option value="3">Cameras</option>
                                 <option value="4">Accessories</option>
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input id="search" class="input" placeholder="Search here">
+                            <button class="search-btn" onclick="searchProduct()">Search</button>
                         </form>
                     </div>
                 </div>
@@ -598,7 +617,7 @@
                                             </div>
                                             <div class="add-to-cart">
                                                 <button class="add-to-cart-btn"
-                                                        onclick="addToCast(${orderitem.product.pid})"><i
+                                                        onclick="addToCast('${orderitem.product.pid}')"><i
                                                         class="fa fa-shopping-cart"></i> add to cart
                                                 </button>
                                             </div>

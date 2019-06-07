@@ -1,7 +1,9 @@
 package com.clxk.electro.controller;
 
 import com.clxk.electro.common.Utils;
+import com.clxk.electro.model.OrderItem;
 import com.clxk.electro.model.User;
+import com.clxk.electro.service.OrderItemService;
 import com.clxk.electro.service.UserService;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private OrderItemService orderItemService;
 
     @RequestMapping("/toLogin.do")
     public String toLogin(HttpSession session) {
@@ -70,6 +74,8 @@ public class UserController {
             return "Password Error!";
         } else {
             session.setAttribute("user", u);
+            List<OrderItem> orders = orderItemService.findByUid(u.getUid());
+            session.setAttribute("orders", orders);
             return "SUCCESS";
         }
     }
@@ -110,6 +116,18 @@ public class UserController {
             return "/WEB-INF/views/manager/editable-table-user";
         }
         return "/WEB-INF/views/manager/table-user";
+    }
+
+    @RequestMapping("/updateAccount.do")
+    @ResponseBody
+    public String updateAccount(HttpSession session, String email, String phone) {
+        User user = (User) session.getAttribute("user");
+        if(!email.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
+            return "Error Email!!!";
+        }
+        user.setEmail(email);
+        user.setPhone(phone);
+        return "SUCCESS";
     }
 
     @RequestMapping("/logout.do")

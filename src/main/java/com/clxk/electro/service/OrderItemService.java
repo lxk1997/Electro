@@ -21,6 +21,8 @@ public interface OrderItemService {
 
     int updateStatus(String uid, int status);
 
+    int deleteByUid(String uid);
+
     OrderItem findByOiid(String oiid);
 
     List<OrderItem> findAll();

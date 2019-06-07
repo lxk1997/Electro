@@ -15,6 +15,9 @@
   <listener>
     <listener-class>com.clxk.electro.listener.MySessionListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>com.clxk.electro.listener.MySessionAttributeListener</listener-class>
+  </listener>
 
 
   <!-- 配置DispatcherServlet-->
