@@ -23,6 +23,8 @@ public interface OrderItemService {
 
     int deleteByUid(String uid);
 
+    int deleteByOiid(String oiid);
+
     OrderItem findByOiid(String oiid);
 
     List<OrderItem> findAll();

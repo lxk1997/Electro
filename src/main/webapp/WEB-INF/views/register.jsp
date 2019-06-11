@@ -460,7 +460,7 @@
     }
 
     function changeVerifyCode(o) {
-        var url = '/electro/verifycode/getCode.do?'+Math.random();
+        var url = '<c:url value="/verifycode/getCode.do?"/>'+Math.random();
         o.src = url;
     }
 

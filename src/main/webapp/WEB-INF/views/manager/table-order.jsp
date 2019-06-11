@@ -426,7 +426,7 @@
 <script type="text/javascript">
 
     function edit(o) {
-        window.location.href='<c:url value="/category/table/getCategory.do?type=editable"/> ';
+        window.location.href='<c:url value="/orderItem/table/getOrderTable.do?type=editable&status=${requestScope.status}"/> ';
     }
 </script>
 </body>

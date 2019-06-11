@@ -1,5 +1,6 @@
 package com.clxk.electro.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -93,20 +94,6 @@ public class OrderItem {
         BigDecimal count = new BigDecimal(getCount()+"");
         subTotal = price.multiply(discount).multiply(count);
         return subTotal.doubleValue();
-    }
-
-    @Override
-    public String toString() {
-        return "OrderItem{" +
-                "oiid='" + oiid + '\'' +
-                ", uid='" + uid + '\'' +
-                ", product=" + product +
-                ", count=" + count +
-                ", date=" + date +
-                ", status=" + status +
-                ", notes='" + notes + '\'' +
-                ", address=" + address +
-                '}';
     }
 
     public String getNotes() {

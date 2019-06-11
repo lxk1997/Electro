@@ -47,12 +47,12 @@
                 <li><a href="<c:url value='/user/table/getUserTable.do'/>"><i class="ti-layout-grid4-alt"></i> 用户管理 </a></li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 商品管理 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=all&type=simple'/>">所有分类</a></li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=all&type=simple'/>">所有分类</a></li>
 
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=1&type=simple'/>">电脑</a></li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=2&type=simple'/>">智能手机</a></li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=3&type=simple'/>">相机 </a></li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=4&type=simple'/>">附件 </a></li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=1&type=simple'/>">电脑</a></li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=2&type=simple'/>">智能手机</a></li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=3&type=simple'/>">相机 </a></li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=4&type=simple'/>">附件 </a></li>
                     </ul>
                 </li>
                 <li><a href="<c:url value='/department/table/getDepartment.do?type=simple'/>"><i class="ti-layout-grid4-alt"></i> 部门管理 </a></li>

@@ -42,6 +42,16 @@
     <script type="text/javascript">
 
 
+        function searchProduct() {
+            var name = $("#search").val();
+            var categoryId = $("#category").select().val();
+            var url = '<c:url value="/product/searchProduct.do"/>';
+            url += '?categoryId=' + categoryId + '&name=' + name;
+            alert(url);
+            location.href = url;
+            return false;
+        }
+
         function updateHotDealTime() {
             var date = new Date();
             $("#days").html((7 - date.getDay()) % 7);//0-6 now 周三 ，还有 4天， 显示 3
@@ -92,8 +102,8 @@
 
         {
             if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
-            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
-        }
+                window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
+            }
         }
 
         function addToCast(pid) {
@@ -119,15 +129,6 @@
                     }
                 })
             }
-        }
-
-        searchProduct = function() {
-            var context = $("#search").val();
-            var url = '<c:url value="/product/search.do"/>';
-            url += '?categoryId='+ $("#category").select().val();
-            url += '&name=' + context;
-            alert(url);
-            window.location.href = url;
         }
     </script>
 </head>
@@ -178,7 +179,7 @@
                                 <option value="4">Accessories</option>
                             </select>
                             <input id="search" class="input" placeholder="Search here">
-                            <button class="search-btn" onclick="searchProduct()">Search</button>
+                            <button class="search-btn" onclick="return searchProduct()">Search</button>
                         </form>
                     </div>
                 </div>

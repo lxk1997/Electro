@@ -45,59 +45,31 @@
     <update id="update" parameterType="com.clxk.electro.model.Product">
         update product
         <set>
-            <choose>
-                <when test="pname != null and pname != ''">
-                    pname = #{pname},
-                </when>
-                <when test="category_id != null and category_id != ''">
-                    category_id = #{categoryId},
-                </when>
-                <when test="price != null and price != ''">
-                    price = #{price},
-                </when>
-                <when test="firstcost != null and firstcost != ''">
-                    firstcost = #{firstcost},
-                </when>
-                <when test="discount != null and discount != ''">
-                    discount = #{discount},
-                </when>
-                <when test="stock != null and stock != ''">
-                    stock = #{stock},
-                </when>
-                <when test="date != null and date != ''">
-                    date = #{date},
-                </when>
-            </choose>
+
+            <if test="pname != null and pname != ''">
+                pname = #{pname},
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                category_id = #{categoryId},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price},
+            </if>
+            <if test="firstcost != null and firstcost != ''">
+                firstcost = #{firstcost},
+            </if>
+            <if test="discount != null and discount != ''">
+                discount = #{discount},
+            </if>
+            <if test="stock != null and stock != ''">
+                stock = #{stock},
+            </if>
+            <if test="date != null and date != ''">
+                date = #{date},
+            </if>
+
         </set>
         where pid = #{pid};
-
-        update product_details
-        <set>
-            <choose>
-                <when test="avatar1 != null and avatar1 != ''">
-                    avatar1 = #{productDetails.avatar1},
-                </when>
-                <when test="avatar2 != null and avatar2 != ''">
-                    avatar2 = #{productDetails.avatar2},
-                </when>
-                <when test="avatar3 != null and avatar3 != ''">
-                    avatar3 = #{productDetails.avatar3},
-                </when>
-                <when test="avatar4 != null and avatar4 != ''">
-                    avatar4 = #{productDetails.avatar4},
-                </when>
-                <when test="description != null and description != ''">
-                    description = #{productDetails.description},
-                </when>
-                <when test="details != null and details != ''">
-                    details = #{productDetails.details},
-                </when>
-                <when test="rating != null and rating != ''">
-                    rating = #{productDetails.rating},
-                </when>
-            </choose>
-        </set>
-        where pdid = #{pdid};
     </update>
 
     <select id="findAll" resultMap="productMap">
@@ -122,4 +94,9 @@
     <select id="findHotDealProduct" resultMap="productMap">
         select * from product where product.discount <![CDATA[<]]> 1;
     </select>
+
+    <delete id="deleteByPid" parameterType="String">
+        delete from product where pid=#{pid};
+        delete from product_details where pdid=#{pid};
+    </delete>
 </mapper>

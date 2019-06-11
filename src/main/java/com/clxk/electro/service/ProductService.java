@@ -17,6 +17,8 @@ public interface ProductService {
 
     int update(Product product);
 
+    int deleteByPid(String pid);
+
     List<Product> findAll();
 
     List<Product> findHotDealProduct();

@@ -1,13 +1,18 @@
 package com.clxk.electro.controller;
 
 import com.clxk.electro.common.Utils;
+import com.clxk.electro.model.OrderItem;
 import com.clxk.electro.model.Product;
 import com.clxk.electro.model.ProductDetails;
 import com.clxk.electro.service.CategoryService;
 import com.clxk.electro.service.ProductService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -57,10 +62,8 @@ public class ProductController {
         return "/WEB-INF/views/store";
     }
 
-    @RequestMapping("/search.do")
-    public String search(HttpSession session, HttpServletRequest request) {
-        String name = request.getParameter("name");
-        String categoryId = request.getParameter("categoryId");
+    @RequestMapping("/searchProduct.do")
+    public String searchProduct(String name, String categoryId, HttpSession session, HttpServletRequest request) {
         System.out.println("name: " + name + "   " + "categoryId: " + categoryId);
         List<Product> ansList = new ArrayList<>();
         if(categoryId.equals("0")) {
@@ -88,25 +91,58 @@ public class ProductController {
     }
 
     @RequestMapping("/table/getProductTable.do")
-    public String getProductTable(HttpServletRequest request) {
+    public String getProductTable(HttpServletRequest request, String categoryId, String type) {
 
-        String queryString = request.getQueryString();
         String url = "/WEB-INF/views/manager/table-product";
-        if(queryString != null && queryString.contains("editable")) {
+        if(type != null && type.equals("editable")) {
             url = "/WEB-INF/views/manager/editable-table-product";
         }
-        if(queryString == null || queryString.contains("all")) {
+        if(categoryId == null || categoryId.equals("all")) {
             request.setAttribute("productTable", productService.findAll());
-        } else if(queryString.contains("1")) {
-            request.setAttribute("productTable", productService.findByCategory("1"));
-        } else if(queryString.contains("2")) {
-            request.setAttribute("productTable", productService.findByCategory("2"));
-        } else if(queryString.contains("3")) {
-            request.setAttribute("productTable", productService.findByCategory("3"));
-        } else if(queryString.contains("4")) {
-            request.setAttribute("productTable", productService.findByCategory("4"));
+        } else {
+            request.setAttribute("productTable", productService.findByCategory(categoryId));
         }
+        request.setAttribute("categoryId", request.getParameter("categoryId"));
         return url;
+    }
+
+    @RequestMapping("/table/loadDataToGrad.do")
+    @ResponseBody
+    public String loadDataToGrad(HttpServletRequest request) throws JSONException {
+        List<Product> products = null;
+        String categoryId = request.getParameter("categoryId");
+        if(categoryId == null || categoryId == "" || categoryId.equals("0")) products = productService.findAll();
+        else products = productService.findByCategory(categoryId);
+        JSONArray data = new JSONArray();
+        for(Product p : products) {
+            JSONObject product = new JSONObject();
+            product.put("Product Id",p.getPid());
+            product.put("Product Name", p.getPname());
+            product.put("Category Id", p.getCategoryId());
+            product.put("Price", p.getPrice());
+            product.put("Firstcost", p.getFirstcost());
+            product.put("Discount",p.getDiscount());
+            product.put("Stock", p.getStock());
+            product.put("Date", p.getDate().toString());
+            data.put(product);
+        }
+        return data.toString();
+    }
+
+    @RequestMapping("/deleteProduct.do")
+    @ResponseBody
+    public String deleteProduct(HttpSession session, String pid, String type) {
+        if(type != null && type.equals("editable")) {
+            productService.deleteByPid(pid);
+        }
+        return "SUCCESS";
+    }
+
+    @RequestMapping("/updateProduct.do")
+    @ResponseBody
+    public String updateProduct(Product product) {
+        productService.update(product);
+        return "SUCCESS";
     }
 
     @RequestMapping("/toAdd.do")
@@ -153,6 +189,6 @@ public class ProductController {
                 Utils.saveFile(avatar3),Utils.saveFile(avatar4),description,details,100);
         product.setProductDetails(pd);
         productService.insert(product);
-        return getProductTable(request);
+        return getProductTable(request,null, null);
     }
 }

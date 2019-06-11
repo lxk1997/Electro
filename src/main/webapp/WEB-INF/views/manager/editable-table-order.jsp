@@ -7,8 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin-ProductTable</title>
+    <title>Admin-Editable-ManagerTable</title>
     <!-- ================= Favicon ================== -->
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
     <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
@@ -24,7 +26,8 @@
     <!-- Styles -->
     <link href="<c:url value='/assets/css/lib/font-awesome.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/lib/themify-icons.css'/>" rel="stylesheet">
-    <link href="<c:url value='/assets/css/lib/data-table/buttons.bootstrap.min.css'/>" rel="stylesheet" />
+    <link href="<c:url value='/assets/css/lib/jsgrid/jsgrid-theme.min.css'/>" rel="stylesheet"/>
+    <link href="<c:url value='/assets/css/lib/jsgrid/jsgrid.min.css'/>" type="text/css" rel="stylesheet"/>
     <link href="<c:url value='/assets/css/lib/menubar/sidebar.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/lib/bootstrap.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/assets/css/lib/helper.css'/>" rel="stylesheet">
@@ -37,33 +40,52 @@
     <div class="nano">
         <div class="nano-content">
             <ul>
-                <div class="logo"><a href="<c:url value='/admin_index.jsp'/> "><!-- <img src="assets/images/logo.png" alt="" /> --><span>Electro</span></a></div>
+                <div class="logo"><a href="<c:url value='/admin_index.jsp'/> ">
+                    <!-- <img src="assets/images/logo.png" alt="" /> --><span>Electro</span></a></div>
                 <li class="label">Main</li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> 总览</a></li>
 
                 <li class="label">Table</li>
-                <li><a href="<c:url value='/user/table/getUserTable.do'/>"><i class="ti-layout-grid4-alt"></i> 用户管理 </a></li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 商品管理 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a href="<c:url value='/user/table/getUserTable.do'/>"><i class="ti-layout-grid4-alt"></i> 用户管理 </a>
+                </li>
+                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 商品管理 <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=all&type=simple'/>">所有分类</a></li>
+                        <li>
+                            <a href="<c:url value='/product/table/getProductTable.do?category=all&type=simple'/>">所有分类</a>
+                        </li>
 
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=1&type=simple'/>">电脑</a></li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=2&type=simple'/>">智能手机</a></li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=3&type=simple'/>">相机 </a></li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=4&type=simple'/>">穿戴设备 </a></li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?category=1&type=simple'/>">电脑</a>
+                        </li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?category=2&type=simple'/>">智能手机</a>
+                        </li>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?category=3&type=simple'/>">相机 </a>
+                        </li>
+                        <li>
+                            <a href="<c:url value='/product/table/getProductTable.do?category=4&type=simple'/>">穿戴设备 </a>
+                        </li>
                     </ul>
                 </li>
-                <li><a href="<c:url value='/department/table/getDepartment.do?type=simple'/>"><i class="ti-layout-grid4-alt"></i> 部门管理 </a></li>
-                <li><a href="<c:url value='/manager/table/getManagerTable.do?type=simple'/>"><i class="ti-layout-grid4-alt"></i> 管理员管理 </a></li>
-                <li><a href="<c:url value='/category/table/getCategory.do?type=simple'/>"><i class="ti-layout-grid4-alt"></i> 商品分类管理 </a></li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 订单管理 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a href="<c:url value='/department/table/getDepartment.do?type=simple'/>"><i
+                        class="ti-layout-grid4-alt"></i> 部门管理 </a></li>
+                <li><a href="<c:url value='/manager/table/getManagerTable.do?type=simple'/>"><i
+                        class="ti-layout-grid4-alt"></i> 管理员管理 </a></li>
+                <li><a href="<c:url value='/category/table/getCategory.do?type=simple'/>"><i
+                        class="ti-layout-grid4-alt"></i> 商品分类管理 </a></li>
+                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> 订单管理 <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=0'/>">所有分类</a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=0'/>">所有分类</a>
+                        </li>
 
-                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=1'/>">未付款</a></li>
-                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=2'/>">未发货</a></li>
-                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=3'/>">未收货 </a></li>
-                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=4'/>">已完成 </a></li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=1'/>">未付款</a>
+                        </li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=2'/>">未发货</a>
+                        </li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=3'/>">未收货 </a>
+                        </li>
+                        <li><a href="<c:url value='/orderItem/table/getOrderTable.do?type=simple&status=4'/>">已完成 </a>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="app-event-calender.html"><i class="ti-calendar"></i> Calender </a></li>
@@ -71,7 +93,8 @@
                 <li><a href="app-profile.html"><i class="ti-user"></i> Profile</a></li>
                 <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
                 <li class="label">Features</li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="ui-typography.html">Typography</a></li>
                         <li><a href="ui-alerts.html">Alerts</a></li>
@@ -84,12 +107,14 @@
 
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="uc-calendar.html">Calendar</a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="table-basic.html">Basic</a></li>
 
@@ -98,12 +123,14 @@
                         <li><a href="table-jsgrid.html">Editable </a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="font-themify.html">Themify</a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-map"></i> Maps <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-map"></i> Maps <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="vector-map.html">Vector Map</a></li>
                     </ul>
@@ -111,12 +138,14 @@
                 <li class="label">Form</li>
                 <li><a href="form-basic.html"><i class="ti-view-list-alt"></i> Basic Form </a></li>
                 <li class="label">Extra</li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-files"></i> Invoice <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-files"></i> Invoice <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="invoice.html">Basic</a></li>
                     </ul>
                 </li>
-                <li><a class="sidebar-sub-toggle"><i class="ti-target"></i> Pages <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                <li><a class="sidebar-sub-toggle"><i class="ti-target"></i> Pages <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="page-login.html">Login</a></li>
                         <li><a href="page-register.html">Register</a></li>
@@ -153,17 +182,19 @@
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/3.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">5 members joined today </div>
+                                                    <div class="notification-text">5 members joined today</div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/3.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mariam</div>
@@ -173,21 +204,27 @@
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/3.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Tasnim</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                        ...
+                                                    </div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/3.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                        ...
+                                                    </div>
                                                 </div>
                                             </a>
                                         </li>
@@ -213,41 +250,53 @@
                                     <ul>
                                         <li class="notification-unread">
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/1.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/1.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Michael Qin</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                        ...
+                                                    </div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li class="notification-unread">
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/2.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                        ...
+                                                    </div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/3.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Michael Qin</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                        ...
+                                                    </div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
+                                                <img class="pull-left m-r-10 avatar-img"
+                                                     src="assets/images/avatar/2.jpg" alt=""/>
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                    <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                        ...
+                                                    </div>
                                                 </div>
                                             </a>
                                         </li>
@@ -332,7 +381,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">User-Table</li>
+                                <li class="breadcrumb-item active">Editable-Manager-Table</li>
                             </ol>
                         </div>
                     </div>
@@ -340,40 +389,12 @@
                 <!-- /# column -->
             </div>
             <!-- /# row -->
-            <section id="main-content">
+            <div id="main-content">
                 <div class="row">
-                    <button type="button" class="btn btn-default m-b-10"  style="width: 80px;height: 30px;margin-left: 10px;" onclick="edit(this)">Edit</button>
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="bootstrap-data-table-panel">
-                                <div class="table-responsive">
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th>Category Id</th>
-                                            <th>Price</th>
-                                            <th>Firstcost</th>
-                                            <th>Discount</th>
-                                            <th>Stock</th>
-                                            <th>Date</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach items="${requestScope.productTable}" var="product">
-                                            <tr>
-                                                <td>${product.pname}</td>
-                                                <td>${product.categoryId}</td>
-                                                <td>${product.price}</td>
-                                                <td>${product.firstcost}</td>
-                                                <td>${product.discount}</td>
-                                                <td>${product.stock}</td>
-                                                <td>${product.date}</td>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="jsgrid-table-panel">
+                                <div id="jsGrid"></div>
                             </div>
                         </div>
                         <!-- /# card -->
@@ -385,14 +406,17 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer">
-                            <p>2018 © Admin Board. - <a href="#">example.com</a> / More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+                            <p>2018 © Admin Board. - <a href="#">example.com</a> / More Templates <a
+                                    href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from
+                                <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!-- jquery vendor -->
 <script src="<c:url value='/assets/js/lib/jquery.min.js'/>"></script>
@@ -404,24 +428,103 @@
 
 <!-- bootstrap -->
 
-<script src="<c:url value='/assets/js/lib/bootstrap.min.js'/>"></script><script src="assets/js/scripts.js'/>"></script>
+
+<!-- JS Grid Scripts Start-->
+<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.core.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.load-indicator.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.load-strategies.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.sort-strategies.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.field.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.text.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.number.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.select.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.checkbox.js'/>"></script>
+<script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.control.js'/>"></script>
+<!-- JS Grid Scripts End-->
+
+<script src="<c:url value='/assets/js/lib/bootstrap.min.js'/>"></script>
+<script src="<c:url value='/assets/js/scripts.js'/>"></script>
 <!-- scripit init-->
-<script src="<c:url value='/assets/js/lib/data-table/datatables.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/dataTables.buttons.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/buttons.flash.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/jszip.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/pdfmake.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/vfs_fonts.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/buttons.html5.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/buttons.print.min.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/data-table/datatables-init.js'/>"></script>
-</body>
 
 <script type="text/javascript">
-    function edit(o) {
-        window.location.href='<c:url value="/product/table/getProductTable.do?type=editable&categoryId=${requestScope.categoryId}"/> ';
+    window.onload = function () {
+        var orders;
+        var db = {
+
+            loadData: function (filter) {
+                  $.ajax({
+                    type: "post",
+                    url: "<c:url value='/orderItem/table/loadDataToGrad.do?status=${requestScope.status}'/>",
+                    dataType: 'json',
+                      async: false,
+                    success: function (data) {
+                        orders = eval("(" + data + ")");
+                    }
+                });
+                 return orders;
+            },
+
+            updateItem: function (updatingClient) {
+                $.ajax({
+                    type: 'post',
+                    url: '<c:url value="/orderItem/updateOrder.do?type=editable"/> ',
+                    data: {
+                        oiid: updatingClient["Order Id"],
+                        count: updatingClient["Count"],
+                        notes: updatingClient["Notes"],
+                        status: updatingClient["Status"]
+                    }
+                })
+            },
+
+            deleteItem: function (deletingClient) {
+                var clientIndex = $.inArray(deletingClient, this.clients);
+                $.ajax({
+                    type: 'post',
+                    url: '<c:url value="/orderItem/deleteOrder.do?type=editable"/> ',
+                    data: {
+                        oiid: deletingClient["Order Id"]
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        if(data == "SUCCESS") {
+                            this.clients.splice(clientIndex, 1);
+                        }
+                    }
+                })
+            }
+
+        };
+
+        $("#jsGrid").jsGrid({
+            height: "100%",
+            width: "100%",
+            filtering: false,
+            editing: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageCount: 15,
+            pageButtonCount: 10,
+            deleteConfirm: "Do you really want to delete the item?",
+            controller: db,
+            fields: [
+                {name: "Order Id", type: "text", width: 100, editing: false},
+                {name: "User Id", type: "text", width: 100, editing: false},
+                {name: "Product Id", type: "text", width: 100, editing: false},
+                {name: "Product Name", type: "text", editing: false},
+                {name: "Count", type: "text", width: 50},
+                {name: "Notes", type: "text", width: 200},
+                {name: "Address Id", type: "text", width: 100, editing: false},
+                {name: "Status", type: "text", width: 50},
+                {name: "Date", type: "text", editing: false},
+                {type: "control"}
+            ]
+        })
     }
 </script>
+
+</body>
 
 </html>
 

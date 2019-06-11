@@ -485,20 +485,20 @@
             },
             success: function (data) {
                 if(data == 'SUCCESS') {
-                    window.location.href='/electro/index.jsp';
+                    window.location.href='<c:url value="/index.jsp"/>';
                 } else {
                     $("span[name='errorstatus']").html(data);
                     $("input[name='uname']").val('');
                     $("input[name='password']").val('');
                     $("input[name='verifycode']").val('');
-                    $("img[name='vcode']").attr("src","/electro/verifycode/getCode.do?"+Math.random());
+                    $("img[name='vcode']").attr("src","<c:url value='/verifycode/getCode.do?'/>"+Math.random());
                 }
             }
         })
     }
 
     function changeVerifyCode(o) {
-        var url = '/electro/verifycode/getCode.do?'+Math.random();
+        var url = '<c:url value="/verifycode/getCode.do?"/>'+Math.random();
         o.src = url;
     }
 </script>

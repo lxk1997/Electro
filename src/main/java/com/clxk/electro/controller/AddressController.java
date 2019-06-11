@@ -3,7 +3,6 @@ package com.clxk.electro.controller;
 import com.clxk.electro.model.Address;
 import com.clxk.electro.model.User;
 import com.clxk.electro.service.AddressService;
-import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

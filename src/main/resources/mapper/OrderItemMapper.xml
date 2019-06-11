@@ -66,29 +66,18 @@
     <update id="update" parameterType="com.clxk.electro.model.OrderItem">
         update order_items
         <set>
-            <choose>
-                <when test="uid != null and uid != ''">
-                    uid = #{uid},
-                </when>
-                <when test="pid != null and pid != ''">
-                    pid = #{pid},
-                </when>
-                <when test="count != null and count != ''">
-                    count = #{count},
-                </when>
-                <when test="date != null and date != ''">
-                    date = #{date},
-                </when>
-                <when test="status != null and status != ''">
-                    status = #{status},
-                </when>
-                <when test="notes != null and notes != ''">
-                    notes = #{notes},
-                </when>
-                <when test="address_id != null and address_id != ''">
-                    address_id = #{address.aid},
-                </when>
-            </choose>
+            <if test="count != null and count != ''">
+                count = #{count},
+            </if>
+            <if test="date != null and date != ''">
+                date = #{date},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="notes != null and notes != ''">
+                notes = #{notes},
+            </if>
         </set>
         where oiid = #{oiid};
     </update>
@@ -144,6 +133,10 @@
 
     <delete id="deleteByUid" parameterType="String">
         delete from order_items where uid = #{uid};
+    </delete>
+
+    <delete id="deleteByOiid" parameterType="String">
+        delete from order_items where oiid = #{oiid};
     </delete>
 
 

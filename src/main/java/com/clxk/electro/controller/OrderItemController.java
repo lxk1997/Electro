@@ -7,6 +7,9 @@ import com.clxk.electro.model.OrderItem;
 import com.clxk.electro.model.User;
 import com.clxk.electro.service.AddressService;
 import com.clxk.electro.service.OrderItemService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,9 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Description 订单条目控制器
@@ -61,20 +62,49 @@ public class OrderItemController {
     public String getOrderTable(HttpServletRequest request) {
         String url = "/WEB-INF/views/manager/";
         List<OrderItem> orders = null;
-        if(request.getParameter("type") == "editable") {
+        if(request.getParameter("type").equals("editable")) {
             url += "editable-";
         }
         String status = request.getParameter("status");
-        if(status.equals("0")) orders = orderItemService.findAll();
+        if(status == "" || status.equals("0")) orders = orderItemService.findAll();
         else orders = orderItemService.findByStatus(Integer.valueOf(status));
         request.setAttribute("ordersTable", orders);
+        request.setAttribute("status", status);
         url += "table-order";
         return url;
     }
 
+    @RequestMapping("/table/loadDataToGrad.do")
+    @ResponseBody
+    public String loadDataToGrad(HttpServletRequest request) throws JSONException {
+        List<OrderItem> orders = null;
+        String status = request.getParameter("status");
+        if(status == null || status == "" || status.equals("0")) orders = orderItemService.findAll();
+        else orders = orderItemService.findByStatus(Integer.valueOf(status));
+        JSONArray data = new JSONArray();
+        for(OrderItem item : orders) {
+            JSONObject order = new JSONObject();
+            order.put("Order Id",item.getOiid());
+            order.put("Product Id", item.getProduct().getPid());
+            order.put("User Id", item.getUid());
+            order.put("Product Name", item.getProduct().getPname());
+            order.put("Count", item.getCount());
+            order.put("Date",item.getDate().toString());
+            order.put("Notes", item.getNotes());
+            order.put("Address Id", item.getAddress().getAid());
+            order.put("Status", item.getStatus());
+            data.put(order);
+        }
+        return data.toString();
+    }
+
     @RequestMapping("/deleteOrder.do")
     @ResponseBody
-    public String deleteOrder(HttpSession session, String oiid) {
+    public String deleteOrder(HttpSession session, String oiid, String type) {
+        if(type != null && type.equals("editable")) {
+            orderItemService.deleteByOiid(oiid);
+            return "SUCCESS";
+        }
         List<OrderItem> orders = (List<OrderItem>) session.getAttribute("orders");
         for(OrderItem item : orders) {
             if(item.getOiid().equals(oiid)) {
@@ -83,6 +113,13 @@ public class OrderItemController {
             }
         }
         session.setAttribute("orders", orders);
+        return "SUCCESS";
+    }
+
+    @RequestMapping("/updateOrder.do")
+    @ResponseBody
+    public String updateOrder(OrderItem item) {
+        orderItemService.update(item);
         return "SUCCESS";
     }
 

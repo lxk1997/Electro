@@ -18,6 +18,8 @@ public interface ProductDao {
 
     int delete(Product product);
 
+    int deleteByPid(String pid);
+
     int update(Product product);
 
     List<Product> findHotDealProduct();

@@ -409,8 +409,6 @@
 
 <!-- bootstrap -->
 
-
-
 <!-- JS Grid Scripts Start-->
 <script src="<c:url value='/assets/js/lib/jsgrid/db.js'/>"></script>
 <script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.core.js'/>"></script>

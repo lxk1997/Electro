@@ -36,6 +36,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public int deleteByPid(String pid) {
+        return productDao.deleteByPid(pid);
+    }
+
+    @Override
     public List<Product> findAll() {
         return productDao.findAll();
     }
