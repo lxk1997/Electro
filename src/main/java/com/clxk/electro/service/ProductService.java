@@ -1,6 +1,8 @@
 package com.clxk.electro.service;
 
 import com.clxk.electro.model.Product;
+import org.json.JSONException;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -34,4 +36,11 @@ public interface ProductService {
     String showCategory(List<Product> products, String categoryId);
 
     List<Product> searchProduct(String name, String categoryId);
+
+    String loadDataToGrad(String categoryId) throws JSONException;
+
+    Product checkAndCreate(String pname, String description, String details, String rating,
+                           MultipartFile avatar1, MultipartFile avatar2, MultipartFile avatar3,
+                           MultipartFile avatar4, String categoryId, String price,
+                           String firstcost, String discount, String stock, String path);
 }

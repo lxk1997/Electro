@@ -197,7 +197,7 @@
                 <ul class="breadcrumb-tree">
                     <li><a href="<c:url value='/index.jsp'/>">Home</a></li>
                     <li><a href="<c:url value='/product/toStore.do?categoryId=0'/> ">All Categories</a></li>
-                    <li class="active">${requestScope.category}</li>
+                    <li class="active">${category}</li>
                 </ul>
             </div>
         </div>
@@ -611,7 +611,8 @@
             url: '<c:url value="/cart/deleteCartItem.do"/> ',
             dataType: 'json',
             data: {
-                ciid: ciid
+                ciid: ciid,
+                is_all: 0
             },
             success: function (data) {
                 $("#account").load('<c:url value="/ajax/cart.jsp"/> ');

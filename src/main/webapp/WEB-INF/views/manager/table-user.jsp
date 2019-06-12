@@ -357,7 +357,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${requestScope.userTable}" var="user">
+                                        <c:forEach items="${userTable}" var="user">
                                             <tr>
                                                 <td>${user.uname}</td>
                                                 <td>${user.password}</td>

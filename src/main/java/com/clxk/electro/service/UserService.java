@@ -1,6 +1,7 @@
 package com.clxk.electro.service;
 
 import com.clxk.electro.model.User;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -21,4 +22,14 @@ public interface UserService {
     User findByUname(String uname);
 
     User findByUid(String uid);
+
+    User restoryPassword(User user, String oldP, String newP);
+
+    String login(String uname, String password, String code, String vcode);
+
+    String registe(User user, String confirmpass, String code, String vcode);
+
+    String loadDataToGrad() throws JSONException;
+
+    String updateAccount(User user, String email, String phone);
 }

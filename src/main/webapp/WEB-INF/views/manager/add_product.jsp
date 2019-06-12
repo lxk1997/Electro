@@ -346,30 +346,30 @@
                 <div class="row" style="text-align: center">
                     <form id="form" action="<c:url value='/product/upload.do'/> " method="POST" enctype="multipart/form-data">
                         <input type="text" class="form-control input-default"
-                               name="pname" placeholder="Product Name*" style="margin-bottom: 20px;" value="${requestScope.pname}">
-                        <select name="categoryId" class="form-control" style="margin-bottom: 20px;" value="${requestScope.categoryId}">
+                               name="pname" placeholder="Product Name*" style="margin-bottom: 20px;" value="${pname}">
+                        <select name="categoryId" class="form-control" style="margin-bottom: 20px;" value="${categoryId}">
                             <option value="1">Laptops</option>
                             <option value="2">Smartphones</option>
                             <option value="3">Cameras</option>
                             <option value="4">Accessories</option>
                         </select>
                         <input type="text" class="form-control input-default"
-                               name="price" placeholder="Product Price*" style="margin-bottom: 20px;" value="${requestScope.price}">
+                               name="price" placeholder="Product Price*" style="margin-bottom: 20px;" value="${price}">
                         <input type="text" class="form-control input-default"
-                               name="firstcost" placeholder="Firstcost*" style="margin-bottom: 20px;" value="${requestScope.firstcost}">
+                               name="firstcost" placeholder="Firstcost*" style="margin-bottom: 20px;" value="${firstcost}">
                         <input type="text" class="form-control input-default"
-                               name="discount" placeholder="Discount*" style="margin-bottom: 20px;" value="${requestScope.discount}">
+                               name="discount" placeholder="Discount*" style="margin-bottom: 20px;" value="${discount}">
                         <input type="number" class="form-control input-default"
-                               name="stock" placeholder="Stock*" style="margin-bottom: 20px;" value="${requestScope.stock}">
+                               name="stock" placeholder="Stock*" style="margin-bottom: 20px;" value="${stock}">
                         <input type="hidden" name="date" value="<%=new Date()%>">
                         Avatar: <input type="file" class="file-input" name="img1" style="margin-bottom: 20px;">
                         <input type="file" class="file-input" name="img2" style="margin-bottom: 20px;">
                         <input type="file" class="file-input" name="img3" style="margin-bottom: 20px;">
                         <input type="file" class="file-input" name="img4" style="margin-bottom: 20px;">
-                        <textarea class="form-control" rows="3" name="description" placeholder="Description*" style="margin-bottom: 20px;">${requestScope.description}</textarea>
-                        <textarea class="form-control" rows="3" name="details" placeholder="Details*" style="margin-bottom: 20px;" >${requestScope.details}</textarea>
+                        <textarea class="form-control" rows="3" name="description" placeholder="Description*" style="margin-bottom: 20px;">${description}</textarea>
+                        <textarea class="form-control" rows="3" name="details" placeholder="Details*" style="margin-bottom: 20px;" >${details}</textarea>
                         <input type="hidden" name="ratings"><br>
-                        <a  href="#" id="msg" style="color: red">${requestScope.msg}</a><br>
+                        <a  href="#" id="msg" style="color: red">${msg}</a><br>
                         <input type="button" class="btn btn-primary" value="Upload" style="margin-right: 120px;" onclick="upload();">
                         <input type="reset" class="btn btn-primary" value="Reset">
                     </form>

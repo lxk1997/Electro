@@ -42,8 +42,13 @@ public class OrderItemController {
 
     @RequestMapping("/table/loadDataToGrad.do")
     @ResponseBody
-    public String loadDataToGrad(String status) throws JSONException {
-        return orderItemService.loadDataToGrad(status);
+    public String loadDataToGrad(String status) {
+        try {
+            return orderItemService.loadDataToGrad(status);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @RequestMapping("/deleteOrder.do")

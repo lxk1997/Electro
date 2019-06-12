@@ -193,23 +193,23 @@
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="uname" placeholder="Username*" value="${requestScope.username}">
+                        <input class="input" type="text" name="uname" placeholder="Username*">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="password" name="password" placeholder="Password*" value="${requestScope.password}">
+                        <input class="input" type="password" name="password" placeholder="Password*">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="password" name="confirmpass" placeholder="Confirm Password*" value="${requestScope.confirmpass}">
+                        <input class="input" type="password" name="confirmpass" placeholder="Confirm Password*">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="phone" placeholder="Telephone" value="${requestScope.phone}">
+                        <input class="input" type="text" name="phone" placeholder="Telephone">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="email" placeholder="Email" value="${requestScope.email}">
+                        <input class="input" type="text" name="email" placeholder="Email">
                     </div>
 
                     <div class="form-group">

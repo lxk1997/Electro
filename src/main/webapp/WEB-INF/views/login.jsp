@@ -210,10 +210,10 @@
                     </p>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="uname" placeholder="Username", value="${requestScope.username}">
+                        <input class="input" type="text" name="uname" placeholder="Username">
                     </div>
                     <div class="form-group">
-                        <input class="input" type="password" name="password" placeholder="Password", value="${requestScope.password}">
+                        <input class="input" type="password" name="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <input class="input" style="display: inline;width: 130px;" type="text" name="verifycode" placeholder="Verifycode">

@@ -360,7 +360,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${requestScope.productTable}" var="product">
+                                        <c:forEach items="${productTable}" var="product">
                                             <tr>
                                                 <td>${product.pname}</td>
                                                 <td>${product.categoryId}</td>
@@ -419,7 +419,7 @@
 
 <script type="text/javascript">
     function edit(o) {
-        window.location.href='<c:url value="/product/table/getProductTable.do?type=editable&categoryId=${requestScope.categoryId}"/> ';
+        window.location.href='<c:url value="/product/table/getProductTable.do?type=editable&categoryId=${categoryId}"/> ';
     }
 </script>
 

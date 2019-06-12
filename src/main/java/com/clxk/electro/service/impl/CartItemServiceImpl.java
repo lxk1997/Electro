@@ -113,6 +113,7 @@ public class CartItemServiceImpl implements CartItemService {
                 if (all || item.getCount() == 1) {
                     cartItemDao.delete(item);
                     carts.remove(item);
+                    break;
                 } else {
                     item.setCount(item.getCount() - 1);
                     cartItemDao.changeCount(ciid, -1);

@@ -26,7 +26,7 @@ public interface ProductDao {
 
     List<Product> findAll();
 
-    List<Product> findByCategory(String catogoryId);
+    List<Product> findByCategory(String categoryId);
 
     Product findByPid(String pid);
 

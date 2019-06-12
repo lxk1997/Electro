@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * @Description TODO
+ * @Description 用户控制层
  * @Author Clxk
  * @Date 2019/3/31 20:04
  * @Version 1.0
@@ -36,31 +37,22 @@ public class UserController {
 
     @RequestMapping("/toLogin.do")
     public String toLogin(HttpSession session) {
-        if(session.getAttribute("user") != null) {
-            return "/WEB-INF/views/my-account";
-        } else {
-            return "/WEB-INF/views/login";
-        }
+        return "/WEB-INF/views/" + (session.getAttribute("user") != null ? "my-account" : "login");
     }
 
     @RequestMapping("/toRegiste.do")
     public String toRegiste(HttpSession session) {
-        if(session.getAttribute("user") != null) {
-            return "/WEB-INF/views/my-account";
-        } else {
-            return "/WEB-INF/views/register";
-        }
+        return "/WEB-INF/views/" + (session.getAttribute("user") != null ? "my-account" : "register");
     }
 
     @RequestMapping("/restoryPassword.do")
     @ResponseBody
     public String restoryPassword(HttpSession session, String oldP, String newP) {
         User user = (User) session.getAttribute("user");
-        if(!user.getPassword().equals(oldP)) {
+        user = userService.restoryPassword(user, oldP, newP);
+        if(user == null) {
             return "Input Error Of Original Password!!!";
         } else {
-            user.setPassword(Utils.escapeXml(newP));
-            userService.update(user);
             session.setAttribute("user",user);
             return "SUCCESS";
         }
@@ -68,81 +60,40 @@ public class UserController {
 
     @RequestMapping("/login.do")
     @ResponseBody
-    public String login(HttpSession session, @RequestParam("uname") String uname, @RequestParam("password") String password, @RequestParam("vcode") String code) {
-
-        if(uname == null || uname.trim().isEmpty()) return "Null Username!";
-        if(password == null || password.trim().isEmpty()) return "Null Password!";
-        if(code == null || code.trim().isEmpty()) return "Null VerifyCode!";
-        User u = userService.findByUname(uname);
-        if(!code.toLowerCase().equals(session.getAttribute("vcode").toString().toLowerCase())) {
-            return "VerifyCode Error!";
-        } else if(u == null) {
-            return "Not Exist Username!";
-        } else if(!u.getPassword().equals(password)) {
-            return "Password Error!";
-        } else {
-            session.setAttribute("user", u);
-            List<OrderItem> orders = orderItemService.findByUid(u.getUid());
+    public String login(HttpSession session, @RequestParam("uname") String uname,
+                        @RequestParam("password") String password, @RequestParam("vcode") String code) {
+        User user = (User) session.getAttribute("user");
+        String msg = userService.login(uname, password, code, (String) session.getAttribute("vcode"));
+        if(msg.equals("SUCCESS")) {
+            session.setAttribute("user", userService.findByUname(uname));
+            List<OrderItem> orders = orderItemService.findByUid(user.getUid());
             session.setAttribute("orders", orders);
-            return "SUCCESS";
         }
+        return msg;
     }
 
     @RequestMapping("/registe.do")
     @ResponseBody
-    public String registe(HttpSession session, User user, @RequestParam("confirmpass") String confirmpass, @RequestParam("vcode") String code) {
-
-        if(user.getUname() == null || user.getUname().trim().isEmpty()) return "Null Username!";
-        if(user.getPassword() == null || user.getPassword().trim().isEmpty()) return "Null Password!";
-        if(confirmpass == null || confirmpass.trim().isEmpty()) return "Null Confirm Password!";
-        if(code == null || code.trim().isEmpty()) return "Null VerifyCode!";
-        if(!code.toLowerCase().equals(session.getAttribute("vcode").toString().toLowerCase())) {
-            return "VerifyCode Error!";
-        } else if(!confirmpass.equals(user.getPassword())) {
-            return "Inconsistent Password!";
-        } else if(user.getEmail() != null && !user.getEmail().matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
-            return "Email Format Error!";
-        } else if(userService.findByUname(user.getUname()) != null) {
-            return "User Name Already Exists!";
-        } else {
-            if(user.getUname() != null && !user.getUname().trim().isEmpty())user.setUname(Utils.escapeXml(user.getUname()));
-            if(user.getPassword() != null && !user.getPassword().trim().isEmpty())user.setPassword(Utils.escapeXml(user.getPassword()));
-            if(user.getEmail() != null && !user.getEmail().trim().isEmpty())user.setEmail(Utils.escapeXml(user.getEmail()));
-            if(user.getPhone() != null && !user.getPhone().trim().isEmpty())user.setPhone(Utils.escapeXml(user.getPhone()));
-            user.setUid(Utils.uuid());
-            userService.insert(user);
-            return "SUCCESS";
-        }
+    public String registe(HttpSession session, User user, @RequestParam("confirmpass") String confirmpass,
+                          @RequestParam("vcode") String code) {
+        return userService.registe(user, confirmpass, code, (String)session.getAttribute("vcode"));
     }
 
     @RequestMapping("/table/getUserTable.do")
-    public String getUserTable(HttpServletRequest request) {
-        List<User> all = userService.findAll();
-        request.setAttribute("userTable", all);
-        String queryString = request.getQueryString();
-        System.out.println(queryString);
-        if(queryString != null && queryString.contains("editable")) {
-            return "/WEB-INF/views/manager/editable-table-user";
-        }
-        return "/WEB-INF/views/manager/table-user";
+    public String getUserTable(Model model, String type) {
+        model.addAttribute("userTable", userService.findAll());
+        return "/WEB-INF/views/manager/" + (type != null && type.equals("editable") ? "editable-table-user" : "table-user");
     }
 
     @RequestMapping("/table/loadDataToGrad.do")
     @ResponseBody
-    public String loadDataToGrad(HttpServletRequest request) throws JSONException {
-        List<User> users = null;
-        users = userService.findAll();
-        JSONArray data = new JSONArray();
-        for(User u : users) {
-            JSONObject user = new JSONObject();
-            user.put("User Id", u.getUid());
-            user.put("User Name", u.getUname());
-            user.put("Password", u.getPassword());
-            user.put("Email",u.getEmail());
-            user.put("Telphone", u.getPhone());
-            data.put(user);
+    public String loadDataToGrad(){
+        try {
+            return userService.loadDataToGrad();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return data.toString();
+        return null;
     }
 
     @RequestMapping("/updateUser.do")
@@ -156,16 +107,15 @@ public class UserController {
     @ResponseBody
     public String updateAccount(HttpSession session, String email, String phone) {
         User user = (User) session.getAttribute("user");
-        if(!email.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
-            return "Error Email!!!";
+        String msg = userService.updateAccount(user, email, phone);
+        if(msg.equals("SUCCESS")){
+            session.setAttribute("user", userService.findByUid(user.getUid()));
         }
-        user.setEmail(email);
-        user.setPhone(phone);
-        return "SUCCESS";
+        return msg;
     }
 
     @RequestMapping("/logout.do")
-    public String logout(HttpSession session, HttpServletRequest request) {
+    public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "/index";
     }

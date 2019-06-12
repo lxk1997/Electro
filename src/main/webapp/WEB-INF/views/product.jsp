@@ -202,20 +202,20 @@
                     <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
                     <li><a href="<c:url value='/product/toStore.do?categoryId=0'/> ">All Categories</a></li>
                     <c:choose>
-                        <c:when test="${requestScope.productDetails.categoryId eq '1'}">
+                        <c:when test="${productDetails.categoryId eq '1'}">
                             <li><a href="<c:url value='/product/toStore.do?categoryId=1'/>">Laptops</a></li>
                         </c:when>
-                        <c:when test="${requestScope.productDetails.categoryId eq '2'}">
+                        <c:when test="${productDetails.categoryId eq '2'}">
                             <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
                         </c:when>
-                        <c:when test="${requestScope.productDetails.categoryId eq '3'}">
+                        <c:when test="${productDetails.categoryId eq '3'}">
                             <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
                         </c:when>
-                        <c:when test="${requestScope.productDetails.categoryId eq '4'}">
+                        <c:when test="${productDetails.categoryId eq '4'}">
                             <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
                         </c:when>
                     </c:choose>
-                    <li class="active">${requestScope.productDetails.pname}</li>
+                    <li class="active">${productDetails.pname}</li>
                 </ul>
             </div>
         </div>
@@ -235,19 +235,19 @@
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar1}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar1}'/>" alt="">
                     </div>
 
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar2}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar2}'/>" alt="">
                     </div>
 
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar3}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar3}'/>" alt="">
                     </div>
 
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar4}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar4}'/>" alt="">
                     </div>
                 </div>
             </div>
@@ -257,19 +257,19 @@
             <div class="col-md-2 col-md-pull-5">
                 <div id="product-imgs">
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar1}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar1}'/>" alt="">
                     </div>
 
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar2}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar2}'/>" alt="">
                     </div>
 
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar3}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar3}'/>" alt="">
                     </div>
 
                     <div class="product-preview">
-                        <img src="<c:url value='/imgs${requestScope.productDetails.productDetails.avatar4}'/>" alt="">
+                        <img src="<c:url value='/imgs${productDetails.productDetails.avatar4}'/>" alt="">
                     </div>
                 </div>
             </div>
@@ -278,11 +278,11 @@
             <!-- Product details -->
             <div class="col-md-5">
                 <div class="product-details">
-                    <h2 class="product-name">${requestScope.productDetails.pname}</h2>
+                    <h2 class="product-name">${productDetails.pname}</h2>
                     <div>
                         <div class="product-rating">
                             <c:choose>
-                                <c:when test="${fn:substring(requestScope.productDetails.productDetails.rating, 0, 0)} == '1'">
+                                <c:when test="${fn:substring(productDetails.productDetails.rating, 0, 0)} == '1'">
                                     <i class="fa fa-star"></i>
                                 </c:when>
                                 <c:otherwise>
@@ -290,7 +290,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:choose>
-                                <c:when test="${fn:substring(requestScope.productDetails.productDetails.rating, 2, 2)} == '1'">
+                                <c:when test="${fn:substring(productDetails.productDetails.rating, 2, 2)} == '1'">
                                     <i class="fa fa-star"></i>
                                 </c:when>
                                 <c:otherwise>
@@ -298,7 +298,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:choose>
-                                <c:when test="${fn:substring(requestScope.productDetails.productDetails.rating, 4, 4)} == '1'">
+                                <c:when test="${fn:substring(productDetails.productDetails.rating, 4, 4)} == '1'">
                                     <i class="fa fa-star"></i>
                                 </c:when>
                                 <c:otherwise>
@@ -306,7 +306,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:choose>
-                                <c:when test="${fn:substring(requestScope.productDetails.productDetails.rating, 6, 6)} == '1'">
+                                <c:when test="${fn:substring(productDetails.productDetails.rating, 6, 6)} == '1'">
                                     <i class="fa fa-star"></i>
                                 </c:when>
                                 <c:otherwise>
@@ -314,7 +314,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:choose>
-                                <c:when test="${fn:substring(requestScope.productDetails.productDetails.rating, 8, 8)} == '1'">
+                                <c:when test="${fn:substring(productDetails.productDetails.rating, 8, 8)} == '1'">
                                     <i class="fa fa-star"></i>
                                 </c:when>
                                 <c:otherwise>
@@ -327,12 +327,12 @@
                     </div>
                     <div>
                         <h3 class="product-price">$<fmt:formatNumber type="number"
-                                                                     value="${requestScope.productDetails.price * requestScope.productDetails.discount}"
+                                                                     value="${productDetails.price * productDetails.discount}"
                                                                      pattern="#.00"/>
-                            <del class="product-old-price">$${requestScope.productDetails.price}</del>
+                            <del class="product-old-price">$${productDetails.price}</del>
                         </h3>
                         <c:choose>
-                            <c:when test="${requestScope.productDetails.stock > 0}">
+                            <c:when test="${productDetails.stock > 0}">
                                 <span class="product-available">In Stock</span>
                             </c:when>
                             <c:otherwise>
@@ -341,7 +341,7 @@
                         </c:choose>
 
                     </div>
-                    <p>${requestScope.productDetails.productDetails.description}</p>
+                    <p>${productDetails.productDetails.description}</p>
 
                     <div class="add-to-cart">
                         <div class="qty-label">
@@ -352,22 +352,22 @@
                                 <span class="qty-down">-</span>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn" onclick="addToCast('${requestScope.productDetails.pid}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCast('${productDetails.pid}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
                     </div>
 
                     <ul class="product-links">
                         <li>Category:</li>
                         <c:choose>
-                            <c:when test="${requestScope.productDetails.categoryId eq '1'}">
+                            <c:when test="${productDetails.categoryId eq '1'}">
                                 <li><a href="#">Laptops</a></li>
                             </c:when>
-                            <c:when test="${requestScope.productDetails.categoryId eq '2'}">
+                            <c:when test="${productDetails.categoryId eq '2'}">
                                 <li><a href="#">Smartphones</a></li>
                             </c:when>
-                            <c:when test="${requestScope.productDetails.categoryId eq '3'}">
+                            <c:when test="${productDetails.categoryId eq '3'}">
                                 <li><a href="#">Cameras</a></li>
                             </c:when>
-                            <c:when test="${requestScope.productDetails.categoryId eq '4'}">
+                            <c:when test="${productDetails.categoryId eq '4'}">
                                 <li><a href="#">Accessories</a></li>
                             </c:when>
                         </c:choose>
@@ -402,7 +402,7 @@
                         <div id="tab1" class="tab-pane fade in active">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>${requestScope.productDetails.productDetails.description}</p>
+                                    <p>${productDetails.productDetails.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -413,7 +413,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>
-                                    <p>${requestScope.productDetails.productDetails.details}</p></p>
+                                    <p>${productDetails.productDetails.details}</p></p>
                                 </div>
                             </div>
                         </div>
@@ -883,7 +883,8 @@
             url: '<c:url value="/cart/deleteCartItem.do"/> ',
             dataType: 'json',
             data: {
-                ciid: ciid
+                ciid: ciid,
+                is_all: 0
             },
             success: function (data) {
                 $("#account").load('<c:url value="/ajax/cart.jsp"/> ');

@@ -402,7 +402,8 @@
             url: '<c:url value="/cart/deleteCartItem.do"/> ',
             dataType: 'json',
             data: {
-                ciid: ciid
+                ciid: ciid,
+                is_all: 0
             },
             success: function (data) {
                 $("#account").load('<c:url value="/ajax/cart.jsp"/> ');

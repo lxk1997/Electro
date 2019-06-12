@@ -27,10 +27,14 @@
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>">
 
+    <!-- layui-->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/layui/css/layui.css'/>"/>
+
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
     <script src="<c:url value='/js/jquery.min.js'/>"></script>
+    <script src="<c:url value='/layui/layui.js'/>"></script>
 
     <script type="text/javascript">
 
@@ -53,8 +57,11 @@
                         if(data != "SUCCESS") {
                             $("span[name='errorstatus']").text(data);
                         } else {
-                            alert("密码修改成功!");
-                            window.location.href = '<c:url value="/WEB-INF/views/my-account.jsp"/> ';
+                            layui.use('layer', function(){
+                                var layer = layui.layer;
+                                layer.msg('Restore Successful!');
+                            });
+                            window.location.href = '<c:url value="/user/toLogin.do"/> ';
                         }
                     }
                 })

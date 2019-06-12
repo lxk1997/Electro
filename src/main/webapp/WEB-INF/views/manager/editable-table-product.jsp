@@ -52,17 +52,17 @@
                         class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li>
-                            <a href="<c:url value='/product/table/getProductTable.do?category=all&type=simple'/>">所有分类</a>
+                            <a href="<c:url value='/product/table/getProductTable.do?categoryId=0&type=simple'/>">所有分类</a>
                         </li>
 
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=1&type=simple'/>">电脑</a>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=1&type=simple'/>">电脑</a>
                         </li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=2&type=simple'/>">智能手机</a>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=2&type=simple'/>">智能手机</a>
                         </li>
-                        <li><a href="<c:url value='/product/table/getProductTable.do?category=3&type=simple'/>">相机 </a>
+                        <li><a href="<c:url value='/product/table/getProductTable.do?categoryId=3&type=simple'/>">相机 </a>
                         </li>
                         <li>
-                            <a href="<c:url value='/product/table/getProductTable.do?category=4&type=simple'/>">穿戴设备 </a>
+                            <a href="<c:url value='/product/table/getProductTable.do?categoryId=4&type=simple'/>">穿戴设备 </a>
                         </li>
                     </ul>
                 </li>
@@ -454,7 +454,7 @@
             loadData: function (filter) {
                   $.ajax({
                     type: "post",
-                    url: "<c:url value='/product/table/loadDataToGrad.do?categoryId=${requestScope.categoryId}'/>",
+                    url: "<c:url value='/product/table/loadDataToGrad.do?categoryId=${categoryId}'/>",
                     dataType: 'json',
                       async: false,
                     success: function (data) {

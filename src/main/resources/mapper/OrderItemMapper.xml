@@ -60,9 +60,6 @@
             <if test="count != null and count != ''">
                 count = #{count},
             </if>
-            <if test="date != null and date != ''">
-                date = #{date},
-            </if>
             <if test="status != null and status != ''">
                 status = #{status},
             </if>

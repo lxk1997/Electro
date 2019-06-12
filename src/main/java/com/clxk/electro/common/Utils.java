@@ -61,8 +61,7 @@ public class Utils {
         return null;
     }
 
-    public static String saveFile(MultipartFile file) {
-        String path="D:\\Electro\\src\\main\\webapp\\imgs\\";
+    public static String saveFile(MultipartFile file, String path) {
         String filename = file.getOriginalFilename();
         String savename = Utils.uuid() + "_" + filename;
         int code = filename.hashCode();
