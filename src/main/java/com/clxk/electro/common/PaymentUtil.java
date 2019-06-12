@@ -1,6 +1,10 @@
 package com.clxk.electro.common;
 
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * 易宝MD5验证类
  */
@@ -8,27 +12,26 @@ public class PaymentUtil {
     /**
      * 生成hmac方法
      *
-     * @param p0_Cmd 业务类型
-     * @param p1_MerId 商户编号
-     * @param p2_Order 商户订单号
-     * @param p3_Amt 支付金额
-     * @param p4_Cur 交易币种
-     * @param p5_Pid 商品名称
-     * @param p6_Pcat 商品种类
-     * @param p7_Pdesc 商品描述
-     * @param p8_Url 商户接收支付成功数据的地址
-     * @param p9_SAF 送货地址
-     * @param pa_MP 商户扩展信息
-     * @param pd_FrpId 银行编码
+     * @param p0_Cmd          业务类型
+     * @param p1_MerId        商户编号
+     * @param p2_Order        商户订单号
+     * @param p3_Amt          支付金额
+     * @param p4_Cur          交易币种
+     * @param p5_Pid          商品名称
+     * @param p6_Pcat         商品种类
+     * @param p7_Pdesc        商品描述
+     * @param p8_Url          商户接收支付成功数据的地址
+     * @param p9_SAF          送货地址
+     * @param pa_MP           商户扩展信息
+     * @param pd_FrpId        银行编码
      * @param pr_NeedResponse 应答机制
-     * @param keyValue 商户密钥
+     * @param keyValue        商户密钥
      * @return
      */
-    public static String buildHmac(String p0_Cmd,String p1_MerId,String p2_Order,
-                                   String p3_Amt,String p4_Cur,String p5_Pid,String p6_Pcat,String p7_Pdesc,
-                                   String p8_Url,String p9_SAF,String pa_MP,String pd_FrpId,
-                                   String pr_NeedResponse,String keyValue)
-    {
+    public static String buildHmac(String p0_Cmd, String p1_MerId, String p2_Order,
+                                   String p3_Amt, String p4_Cur, String p5_Pid, String p6_Pcat, String p7_Pdesc,
+                                   String p8_Url, String p9_SAF, String pa_MP, String pd_FrpId,
+                                   String pr_NeedResponse, String keyValue) {
         StringBuffer sValue = new StringBuffer();
         //业务类型
         sValue.append(p0_Cmd);
@@ -56,7 +59,7 @@ public class PaymentUtil {
         sValue.append(pd_FrpId);
         //应答机制
         sValue.append(pr_NeedResponse);
-        String sNewString = DigestUtil.hmacSign(sValue.toString(),keyValue);
+        String sNewString = DigestUtil.hmacSign(sValue.toString(), keyValue);
         return sNewString;
     }
 
@@ -64,24 +67,23 @@ public class PaymentUtil {
     /**
      * 返回校验hmac方法
      *
-     * @param hmac 支付网关发来的加密验证码
+     * @param hmac     支付网关发来的加密验证码
      * @param p1_MerId 商户编号
-     * @param r0_Cmd 业务类型
-     * @param r1_Code 支付结果
+     * @param r0_Cmd   业务类型
+     * @param r1_Code  支付结果
      * @param r2_TrxId 易宝支付交易流水号
-     * @param r3_Amt 支付金额
-     * @param r4_Cur 交易币种
-     * @param r5_Pid 商品名称
+     * @param r3_Amt   支付金额
+     * @param r4_Cur   交易币种
+     * @param r5_Pid   商品名称
      * @param r6_Order 商户订单号
-     * @param r7_Uid 易宝支付会员ID
-     * @param r8_MP 商户扩展信息
+     * @param r7_Uid   易宝支付会员ID
+     * @param r8_MP    商户扩展信息
      * @param r9_BType 交易结果返回类型
      * @param keyValue 密钥
      * @return
      */
-    public static boolean verifyCallback(String hmac,String p1_MerId,String r0_Cmd,String r1_Code,String r2_TrxId,String r3_Amt,String r4_Cur,String r5_Pid,String r6_Order,String r7_Uid,
-                                         String r8_MP,String r9_BType,String keyValue)
-    {
+    public static boolean verifyCallback(String hmac, String p1_MerId, String r0_Cmd, String r1_Code, String r2_TrxId, String r3_Amt, String r4_Cur, String r5_Pid, String r6_Order, String r7_Uid,
+                                         String r8_MP, String r9_BType, String keyValue) {
         StringBuffer sValue = new StringBuffer();
         //商户编号
         sValue.append(p1_MerId);
@@ -106,14 +108,59 @@ public class PaymentUtil {
         //交易结果返回类型
         sValue.append(r9_BType);
 
-        String sNewString = DigestUtil.hmacSign(sValue.toString(),keyValue);
+        String sNewString = DigestUtil.hmacSign(sValue.toString(), keyValue);
 
-        if(hmac.equals(sNewString))
-        {
+        if (hmac.equals(sNewString)) {
             return true;
         }
         return false;
 
+    }
+
+    public static String getResponseUrl(String ciid) throws IOException {
+        Properties properties = new Properties();
+        InputStream is = properties.getClass().getClassLoader().getResourceAsStream("merchantInfo.properties");
+        properties.load(is);
+        String p0_Cmd = "Buy";
+        String p1_MerId = properties.getProperty("p1_MerId");
+        String p2_Order = ciid;
+        String p3_Amt = "0.01";
+        String p4_Cur = "CNY";
+        String p5_Pid = "";
+        String p6_Pcat = "";
+        String p7_Pdesc = "";
+        String p8_Url = properties.getProperty("p8_Url");
+        String p9_SAF = "";
+        String pa_MP = "";
+        String pd_FrpId = "ICBC-NET-B2C";
+        String pr_NeedResponse = "1";
+        String keyValue = properties.getProperty("keyValue");
+        String hmac = PaymentUtil.buildHmac(p0_Cmd, p1_MerId, p2_Order, p3_Amt, p4_Cur, p5_Pid, p6_Pcat, p7_Pdesc, p8_Url, p9_SAF, pa_MP, pd_FrpId, pr_NeedResponse, keyValue);
+        StringBuilder url = new StringBuilder(properties.getProperty("url"));
+        url.append("?p0_Cmd=").append(p0_Cmd);
+        url.append("&p1_MerId=").append(p1_MerId);
+        url.append("&p2_Order=").append(p2_Order);
+        url.append("&p3_Amt=").append(p3_Amt);
+        url.append("&p4_Cur=").append(p4_Cur);
+        url.append("&p5_Pid=").append(p5_Pid);
+        url.append("&p6_Pcat=").append(p6_Pcat);
+        url.append("&p7_Pdesc=").append(p7_Pdesc);
+        url.append("&p8_Url=").append(p8_Url);
+        url.append("&p9_SAF=").append(p9_SAF);
+        url.append("&pa_MP=").append(pa_MP);
+        url.append("&pd_FrpId=").append(pd_FrpId);
+        url.append("&pr_NeedResponse=").append(pr_NeedResponse);
+        url.append("&hmac=").append(hmac);
+        System.out.println("url: " + url.toString());
+        return url.toString();
+    }
+
+    public static String getKeyValue() throws IOException {
+        Properties properties = new Properties();
+        InputStream is = properties.getClass().getClassLoader().getResourceAsStream("merchantInfo.properties");
+        properties.load(is);
+        String keyValue = properties.getProperty("keyValue");
+        return keyValue;
     }
 
 }

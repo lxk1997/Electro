@@ -87,5 +87,9 @@ public class Utils {
         return "/" + s.charAt(0) + "/" + s.charAt(1) + "/" + savename;
     }
 
+    public static boolean matchEmail(String email) {
+        return email.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$");
+    }
+
 
 }

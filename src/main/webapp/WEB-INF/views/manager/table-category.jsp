@@ -355,7 +355,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${requestScope.categoryTable}" var="category">
+                                        <c:forEach items="${categoryTable}" var="category">
                                             <tr>
                                                 <td>${category.cid}</td>
                                                 <td>${category.cname}</td>

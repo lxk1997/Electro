@@ -2,10 +2,10 @@ package com.clxk.electro.controller;
 
 import com.clxk.electro.service.DepartmentService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description Department控制层
@@ -17,16 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/department")
 public class DepartmentController {
 
-    @Resource
-    private DepartmentService departmentService;
+    @Resource private DepartmentService departmentService;
 
     @RequestMapping("/table/getDepartment.do")
-    public String getDepartmentTable(HttpServletRequest request) {
-        String url = "/WEB-INF/views/manager/table-department";
-        if(request.getQueryString() != null && request.getQueryString().contains("editable")) {
-            url = "/WEB-INF/views/manager/editable-table-department";
-        }
-        request.setAttribute("departmentTable", departmentService.findAll());
-        return url;
+    public String getDepartmentTable(String type, Model model) {
+        model.addAttribute("departmentTable", departmentService.findAll());
+        return "/WEB-INF/views/manager/" + (type != null && type.equals("editable") ? "editable-table-department" : "table-department");
     }
 }

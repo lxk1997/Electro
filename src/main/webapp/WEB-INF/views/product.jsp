@@ -200,7 +200,7 @@
             <div class="col-md-12">
                 <ul class="breadcrumb-tree">
                     <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
-                    <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">All Categories</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=0'/> ">All Categories</a></li>
                     <c:choose>
                         <c:when test="${requestScope.productDetails.categoryId eq '1'}">
                             <li><a href="<c:url value='/product/toStore.do?categoryId=1'/>">Laptops</a></li>

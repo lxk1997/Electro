@@ -27,4 +27,12 @@ public interface CartItemService {
     CartItem findByCiid(String ciid);
 
     List<CartItem> findByUid(String uid);
+
+    double getSubTotalByUid(String uid);
+
+    int getCartItemCount(String uid);
+
+    List<CartItem> addCartItem(String pid, String uid);
+
+    List<CartItem> deleteCartItem(String ciid, String uid, boolean all);
 }

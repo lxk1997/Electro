@@ -2,10 +2,10 @@ package com.clxk.electro.controller;
 
 import com.clxk.electro.service.ManagerService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description Manager控制层
@@ -21,12 +21,8 @@ public class ManagerController {
     private ManagerService managerService;
 
     @RequestMapping("/table/getManagerTable.do")
-    public String getManagerTable(HttpServletRequest request) {
-        String url = "/WEB-INF/views/manager/table-manager";
-        if(request.getQueryString() != null && request.getQueryString().contains("editable")) {
-            url = "/WEB-INF/views/manager/editable-table-manager";
-        }
-        request.setAttribute("managerTable", managerService.findAll());
-        return url;
+    public String getManagerTable(String type, Model model) {
+        model.addAttribute("managerTable", managerService.findAll());
+        return "/WEB-INF/views/manager/" + (type != null && type.equals("editable") ? "editable-table-manager" : "table-manager");
     }
 }

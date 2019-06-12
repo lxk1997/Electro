@@ -355,7 +355,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${requestScope.departmentTable}" var="department">
+                                        <c:forEach items="${departmentTable}" var="department">
                                             <tr>
                                                 <td>${department.did}</td>
                                                 <td>${department.dname}</td>

@@ -91,10 +91,11 @@
         function deleteAllCartItem(ciid) {
             $.ajax({
                 type: 'post',
-                url: '<c:url value="/cart/deleteAllCartItem.do"/> ',
+                url: '<c:url value="/cart/deleteCartItem.do"/> ',
                 dataType: 'json',
                 data: {
-                    ciid: ciid
+                    ciid: ciid,
+                    is_all: 1
                 },
                 success: function (data) {
                     $("#cart").load('<c:url value="/ajax/cart-home.jsp"/> ');

@@ -2,16 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clxk.electro.dao.OrderItemDao">
-    <sql id="order_item_field">
-        ${pre}.oiid as "oiid",
-        ${pre}.uid as "uid",
-        ${pre}.pid as "pid",
-        ${pre}.count as "count",
-        ${pre}.date as "date",
-        ${pre}.status as "status",
-        ${pre}.notes as "notes"
-        ${pre}.address_id ad "address_id"
-    </sql>
+
 
     <resultMap id="orderItemMap" type="com.clxk.electro.model.OrderItem">
         <id property="oiid" column="oiid"/>

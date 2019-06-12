@@ -454,7 +454,7 @@
             loadData: function (filter) {
                   $.ajax({
                     type: "post",
-                    url: "<c:url value='/orderItem/table/loadDataToGrad.do?status=${requestScope.status}'/>",
+                    url: "<c:url value='/orderItem/table/loadDataToGrad.do?status=${status}'/>",
                     dataType: 'json',
                       async: false,
                     success: function (data) {

@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,58 +39,25 @@ public class ProductController {
     private CategoryService categoryService;
 
     @RequestMapping("/toProductDetails.do")
-    public String toProductDetails(HttpSession session, HttpServletRequest request) {
-        String pid = request.getParameter("pid");
-        Product product = productService.findByPid(pid);
-        request.setAttribute("productDetails", product);
+    public String toProductDetails(String pid, Model model) {
+        model.addAttribute("productDetails", productService.findByPid(pid));
         return "/WEB-INF/views/product";
     }
 
 
     @RequestMapping("/toStore.do")
-    public String toStore(String categoryId, HttpSession session, HttpServletRequest request) {
-        if(categoryId == null || categoryId.equals("0")) {
-            List<Product> productList = productService.findAll();
-            session.setAttribute("store",productList);
-            request.setAttribute("category","Categories（" + productList.size() + "RESULTS)");
-        } else if(categoryId.equals("-1")) {
-            List<Product> productList = productService.findHotDealProduct();
-            session.setAttribute("store",productList);
-            request.setAttribute("category", "Hot deals (" + productList.size() + "RESULTS)");
-        }
-        else {
-            List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
-            session.setAttribute("store",productList);
-            request.setAttribute("category", categoryService.findByCid(categoryId).getCname() + "(" + productList.size() + "RESULTS)");
-        }
+    public String toStore(String categoryId, HttpSession session, Model model) {
+        List<Product> products = productService.toStore(categoryId);
+        session.setAttribute("store", products);
+        model.addAttribute("category", productService.showCategory(products, categoryId));
         return "/WEB-INF/views/store";
     }
 
     @RequestMapping("/searchProduct.do")
-    public String searchProduct(String name, String categoryId, HttpSession session, HttpServletRequest request) {
-        List<Product> ansList = new ArrayList<>();
-        if(categoryId == null || categoryId.equals("0")) {
-            List<Product> productList = productService.findAll();
-            for(Product product : productList) {
-                if(product.getPname().toLowerCase().contains(name.toLowerCase())) {
-                    ansList.add(product);
-                }
-            }
-            session.setAttribute("store",ansList);
-            request.setAttribute("category","Categories（" + ansList.size() + "RESULTS)");
-        }
-        else {
-            List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
-            for(Product product : productList) {
-                if(product.getPname().toLowerCase().contains(name.toLowerCase())) {
-                    ansList.add(product);
-                }
-            }
-            System.out.println(ansList.size());
-            session.setAttribute("store",ansList);
-            request.setAttribute("category", categoryService.findByCid(categoryId).getCname() + "(" + ansList.size() + "RESULTS)");
-        }
-
+    public String searchProduct(String name, String categoryId, HttpSession session, Model model) {
+        List<Product> products = productService.searchProduct(name, categoryId);
+        session.setAttribute("store",products);
+        model.addAttribute("category",productService.showCategory(products, categoryId));
         return "/WEB-INF/views/store";
     }
 

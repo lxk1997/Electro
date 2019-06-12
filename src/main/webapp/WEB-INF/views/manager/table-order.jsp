@@ -358,7 +358,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${requestScope.ordersTable}" var="order">
+                                        <c:forEach items="${ordersTable}" var="order">
                                             <tr>
                                                 <td>${order.uid}</td>
                                                 <td>${order.product.pid}</td>
@@ -426,7 +426,7 @@
 <script type="text/javascript">
 
     function edit(o) {
-        window.location.href='<c:url value="/orderItem/table/getOrderTable.do?type=editable&status=${requestScope.status}"/> ';
+        window.location.href='<c:url value="/orderItem/table/getOrderTable.do?type=editable&status=${status}"/> ';
     }
 </script>
 </body>

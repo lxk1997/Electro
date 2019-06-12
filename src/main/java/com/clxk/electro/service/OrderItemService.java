@@ -1,7 +1,9 @@
 package com.clxk.electro.service;
 
+import com.clxk.electro.model.Address;
 import com.clxk.electro.model.OrderItem;
-import org.apache.ibatis.annotations.Param;
+import org.aspectj.weaver.ast.Or;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -36,4 +38,14 @@ public interface OrderItemService {
     List<OrderItem>findTopSellingByCategory(String categoryId);
 
     List<OrderItem> findByStatus(int status);
+
+    String palceOrder(String uid, Address address, String addressType);
+
+    List<OrderItem> getOrderByStatus(String status);
+
+    String loadDataToGrad(String status) throws JSONException;
+
+    List<OrderItem> deleteOrder(String oiid, String type, String uid);
+
+    List<OrderItem> confirmReceipt(String oiid, String uid);
 }

@@ -361,7 +361,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${requestScope.managerTable}" var="manager">
+                                        <c:forEach items="${managerTable}" var="manager">
                                             <tr>
                                                 <td>${manager.mname}</td>
                                                 <td>${manager.password}</td>

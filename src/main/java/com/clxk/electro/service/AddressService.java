@@ -21,4 +21,6 @@ public interface AddressService {
     Address findByAid(String aid);
 
     List<Address> findByUid(String uid);
+
+    String getAddressByUid(String uid);
 }

@@ -28,4 +28,10 @@ public interface ProductService {
     Product findByPid(String pid);
 
     List<Product> findByDateOrderAndCategory(String category);
+
+    List<Product> toStore(String categoryId);
+
+    String showCategory(List<Product> products, String categoryId);
+
+    List<Product> searchProduct(String name, String categoryId);
 }
