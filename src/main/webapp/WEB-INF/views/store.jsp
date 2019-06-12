@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro</title>
+    <title>Electro - Store</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -30,9 +30,6 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
-
-
-
 </head>
 <body>
 <!-- HEADER -->
@@ -41,7 +38,7 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
@@ -73,15 +70,15 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <select class="input-select">
+                            <select id="category" class="input-select">
                                 <option value="0">All Categories</option>
                                 <option value="1">Laptops</option>
                                 <option value="2">Smartphones</option>
                                 <option value="3">Cameras</option>
                                 <option value="4">Accessories</option>
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input id="search" class="input" placeholder="Search here">
+                            <button class="search-btn" onclick="return searchProduct()">Search</button>
                         </form>
                     </div>
                 </div>
@@ -91,17 +88,6 @@
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="#">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div class="qty">0</div>
-                                    </c:if>
-                                </a>
-                            </div>
-                            <!-- /Wishlist -->
                             <!-- Cart -->
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -185,9 +171,9 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
@@ -209,8 +195,8 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">All Categories</a></li>
+                    <li><a href="<c:url value='/index.jsp'/>">Home</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=0'/> ">All Categories</a></li>
                     <li class="active">${requestScope.category}</li>
                 </ul>
             </div>
@@ -269,24 +255,6 @@
                                 <small>(578)</small>
                             </label>
                         </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-5">
-                            <label for="category-5">
-                                <span></span>
-                                Laptops
-                                <small>(120)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-6">
-                            <label for="category-6">
-                                <span></span>
-                                Smartphones
-                                <small>(740)</small>
-                            </label>
-                        </div>
                     </div>
                 </div>
                 <!-- /aside Widget -->
@@ -324,14 +292,6 @@
                             </label>
                         </div>
                         <div class="input-checkbox">
-                            <input type="checkbox" id="brand-2">
-                            <label for="brand-2">
-                                <span></span>
-                                LG
-                                <small>(125)</small>
-                            </label>
-                        </div>
-                        <div class="input-checkbox">
                             <input type="checkbox" id="brand-3">
                             <label for="brand-3">
                                 <span></span>
@@ -343,23 +303,15 @@
                             <input type="checkbox" id="brand-4">
                             <label for="brand-4">
                                 <span></span>
-                                SAMSUNG
+                                HUAWEI
                                 <small>(578)</small>
-                            </label>
-                        </div>
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="brand-5">
-                            <label for="brand-5">
-                                <span></span>
-                                LG
-                                <small>(125)</small>
                             </label>
                         </div>
                         <div class="input-checkbox">
                             <input type="checkbox" id="brand-6">
                             <label for="brand-6">
                                 <span></span>
-                                SONY
+                                MI
                                 <small>(755)</small>
                             </label>
                         </div>
@@ -444,29 +396,38 @@
                             <div class="product-img">
                                 <img src="<c:url value='/imgs${product.productDetails.avatar1}'/>" alt="">
                                 <div class="product-label">
-                                    <span class="sale">-30%</span>
-                                    <span class="new">NEW</span>
+                                    <c:if test="${product.discount != 1}">
+                                                    <span class="sale">-<fmt:formatNumber type="number"
+                                                                                          value="${(1 - product.discount) * 100}"
+                                                                                          pattern="#"/> %</span>
+                                    </c:if>
                                 </div>
                             </div>
                             <div class="product-body">
-                                <p class="product-category">Laptops</p>
+                                <c:choose>
+                                    <c:when test="${product.categoryId eq '1'}">
+                                        <p class="product-category">Laptops</p>
+                                    </c:when>
+                                    <c:when test="${product.categoryId eq '2'}">
+                                        <p class="product-category">Smartphones</p>
+                                    </c:when>
+                                    <c:when test="${product.categoryId eq '3'}">
+                                        <p class="product-category">Cameras</p>
+                                    </c:when>
+                                    <c:when test="${product.categoryId eq '4'}">
+                                        <p class="product-category">Accessories</p>
+                                    </c:when>
+                                </c:choose>
                                 <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a></h3>
-                                <h4 class="product-price">$${product.price} <del class="product-old-price">$<fmt:formatNumber type="number" value="${product.price * product.discount}" pattern="#.00"/> </del></h4>
+                                <h4 class="product-price">$<fmt:formatNumber type="number" value="${product.price * product.discount}" pattern="#.00"/> <del class="product-old-price">$${product.price}</del></h4>
                                 <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                    <c:forEach begin="1" end="${product.productDetails.rating / 20}">
+                                        <i class="fa fa-star"></i>
+                                    </c:forEach>
                                 </div>
                             </div>
                             <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                <button class="add-to-cart-btn" onclick="addToCast('${product.pid}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -498,42 +459,6 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->
 
 <!-- FOOTER -->
 <footer id="footer">
@@ -642,44 +567,55 @@
 <script type="text/javascript">
     window.onload = function () {
         if(${sessionScope.user != null and sessionScope.haveCart == null}) {
-            console.log("加载购物车");
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/store"/> </c:url>';
         }
+    }
+
+    function addToCast(pid) {
+        if(${sessionScope.user eq null}) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('Please Login First');
+            });
+        } else {
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/cart/addCartItem.do"/> ',
+                dataType: 'json',
+                data: {
+                    pid: pid
+                },
+                success: function (data) {
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('Add Successful', {icon: 1});
+                    });
+                    $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+                }
+            })
+        }
+    }
+
+    function searchProduct() {
+        var name = $("#search").val();
+        var categoryId = $("#category").select().val();
+        var url = '<c:url value="/product/searchProduct.do"/>';
+        url += '?categoryId=' + categoryId + '&name=' + name;
+        location.href = url;
+        return false;
     }
 
     function deleteCartItem(ciid) {
         $.ajax({
             type: 'post',
             url: '<c:url value="/cart/deleteCartItem.do"/> ',
-            dataType: 'text',
+            dataType: 'json',
             data: {
                 ciid: ciid
             },
             success: function (data) {
                 $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
 
-            }
-        })
-    }
-
-    function addToCast(pid) {
-        $.ajax({
-            type: 'post',
-            url: '<c:url value="/cart/addCartItem.do"/> ',
-            dataType: 'text',
-            data: {
-                pid: pid
-            },
-            success: function (data) {
-                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
-
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('添加成功', {
-                        icon: 1,
-                        time: 1000
-                    });
-                });
             }
         })
     }

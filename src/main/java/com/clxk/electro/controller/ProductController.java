@@ -47,12 +47,15 @@ public class ProductController {
 
 
     @RequestMapping("/toStore.do")
-    public String toStore(HttpSession session, HttpServletRequest request) {
-        String categoryId = request.getParameter("categoryId");
+    public String toStore(String categoryId, HttpSession session, HttpServletRequest request) {
         if(categoryId == null || categoryId.equals("0")) {
             List<Product> productList = productService.findAll();
             session.setAttribute("store",productList);
             request.setAttribute("category","Categories（" + productList.size() + "RESULTS)");
+        } else if(categoryId.equals("-1")) {
+            List<Product> productList = productService.findHotDealProduct();
+            session.setAttribute("store",productList);
+            request.setAttribute("category", "Hot deals (" + productList.size() + "RESULTS)");
         }
         else {
             List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
@@ -64,9 +67,8 @@ public class ProductController {
 
     @RequestMapping("/searchProduct.do")
     public String searchProduct(String name, String categoryId, HttpSession session, HttpServletRequest request) {
-        System.out.println("name: " + name + "   " + "categoryId: " + categoryId);
         List<Product> ansList = new ArrayList<>();
-        if(categoryId.equals("0")) {
+        if(categoryId == null || categoryId.equals("0")) {
             List<Product> productList = productService.findAll();
             for(Product product : productList) {
                 if(product.getPname().toLowerCase().contains(name.toLowerCase())) {
@@ -79,10 +81,11 @@ public class ProductController {
         else {
             List<Product> productList = productService.findByDateOrderAndCategory(categoryId);
             for(Product product : productList) {
-                if(product.getPname().indexOf(name) > -1) {
+                if(product.getPname().toLowerCase().contains(name.toLowerCase())) {
                     ansList.add(product);
                 }
             }
+            System.out.println(ansList.size());
             session.setAttribute("store",ansList);
             request.setAttribute("category", categoryService.findByCid(categoryId).getCname() + "(" + ansList.size() + "RESULTS)");
         }

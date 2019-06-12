@@ -24,17 +24,15 @@
     <update id="update" parameterType="com.clxk.electro.model.User">
         update tb_user
         <set>
-            <choose>
-                <when test="password != null and password != ''">
+                <if test="password != null and password != ''">
                     password = #{password},
-                </when>
-                <when test="email != null and email != ''">
+                </if>
+                <if test="email != null and email != ''">
                     email = #{email},
-                </when>
-                <when test="phone != null and phone != ''">
+                </if>
+                <if test="phone != null and phone != ''">
                     phone = #{phone},
-                </when>
-            </choose>
+                </if>
         </set>
         where uid = #{uid}
     </update>

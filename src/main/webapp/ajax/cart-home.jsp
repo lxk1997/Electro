@@ -25,6 +25,8 @@
     <!-- nouislider -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/nouislider.min.css'/>"/>
 
+    <link type="text/css" rel="stylesheet" href="<c:url value='/layui/css/layui.css'/> ">
+
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>"/>
 
@@ -37,7 +39,7 @@
     <script src="<c:url value='/js/nouislider.min.js'/>"></script>
     <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
     <script src="<c:url value='/js/main.js'/>"></script>
-    <script src="<c:url value='/js/layui.js'/>"></script>
+    <script src="<c:url value='/layui/layui.js'/>"></script>
 
 
     <script type="text/javascript">
@@ -46,7 +48,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/cart/deleteCartItem.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     ciid: ciid
                 },
@@ -71,7 +73,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/cart/addCartItem.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     pid: pid
                 },
@@ -90,7 +92,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/cart/deleteAllCartItem.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     ciid: ciid
                 },

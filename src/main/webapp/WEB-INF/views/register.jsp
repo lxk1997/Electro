@@ -3,13 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro - Registe</title>
+    <title>Electro - Regist</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -27,10 +28,12 @@
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>">
 
+    <!-- layui-->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/layui/css/layui.css'/>"/>
+
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
-    <![endif]-->
 
 </head>
 <body>
@@ -40,8 +43,8 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="https://mailto:clxk1997@163.com"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
             <ul class="header-links pull-right">
@@ -72,15 +75,15 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <select class="input-select">
+                            <select id="category" class="input-select">
                                 <option value="0">All Categories</option>
                                 <option value="1">Laptops</option>
                                 <option value="2">Smartphones</option>
                                 <option value="3">Cameras</option>
                                 <option value="4">Accessories</option>
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input id="search" class="input" placeholder="Search here">
+                            <button class="search-btn" onclick="return searchProduct()">Search</button>
                         </form>
                     </div>
                 </div>
@@ -90,68 +93,25 @@
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="#">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div class="qty">0</div>
-                                    </c:if>
-                                </a>
-                            </div>
-                            <!-- /Wishlist -->
                             <!-- Cart -->
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Your Cart</span>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div class="qty">${cartCnt}</div>
-                                    </c:if>
                                 </a>
-                                <c:choose>
-                                    <c:when test="${sessionScope.user eq null}">
-                                        <div class="cart-dropdown">
-                                            <div class="cart-list">
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
 
-                                            </div>
-                                            <div class="cart-summary">
-                                                <small>0 Item(s) selected</small>
-                                                <h5>SUBTOTAL: $0.00</h5>
-                                            </div>
-                                            <div class="cart-btns">
-                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="cart-dropdown">
-                                            <div class="cart-list">
-                                                <c:forEach items="${cart}" var="cartitem">
-                                                    <div class="product-widget">
-                                                        <div class="product-img">
-                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
-                                                        </div>
-                                                        <div class="product-body">
-                                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
-                                                            <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
-                                                        </div>
-                                                        <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-                                            <div class="cart-summary">
-                                                <small>${cartCnt} Item(s) selected</small>
-                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
-                                            </div>
-                                            <div class="cart-btns">
-                                                <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
-                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
+                                    </div>
+                                    <div class="cart-summary">
+                                        <small>0 Item(s) selected</small>
+                                        <h5>SUBTOTAL: $0.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+
 
                             </div>
                             <!-- /Cart -->
@@ -184,9 +144,9 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
@@ -233,23 +193,23 @@
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="uname" placeholder="Username*">
+                        <input class="input" type="text" name="uname" placeholder="Username*" value="${requestScope.username}">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="password" name="password" placeholder="Password*">
+                        <input class="input" type="password" name="password" placeholder="Password*" value="${requestScope.password}">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="password" name="confirmpass" placeholder="Confirm Password*">
+                        <input class="input" type="password" name="confirmpass" placeholder="Confirm Password*" value="${requestScope.confirmpass}">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="phone" placeholder="Telephone">
+                        <input class="input" type="text" name="phone" placeholder="Telephone" value="${requestScope.phone}">
                     </div>
 
                     <div class="form-group">
-                        <input class="input" type="text" name="email" placeholder="Email">
+                        <input class="input" type="text" name="email" placeholder="Email" value="${requestScope.email}">
                     </div>
 
                     <div class="form-group">
@@ -268,42 +228,6 @@
 </div>
 <!-- /SECTION -->
 
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                    </form>
-                    <ul class="newsletter-follow">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->
-
 <!-- FOOTER -->
 <footer id="footer">
     <!-- top footer -->
@@ -318,10 +242,12 @@
                         <ul class="footer-links">
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
-                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="http://mailto:clxk1997@163.com"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i
+                                    class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
-                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -330,11 +256,11 @@
                     <div class="footer">
                         <h3 class="footer-title">Categories</h3>
                         <ul class="footer-links">
-                            <li><a href="#">Hot deals</a></li>
-                            <li><a href="#">Laptops</a></li>
-                            <li><a href="#">Smartphones</a></li>
-                            <li><a href="#">Cameras</a></li>
-                            <li><a href="#">Accessories</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot deals</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Laptops</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=1'/>">Smartphones</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Cameras</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Accessories</a></li>
                         </ul>
                     </div>
                 </div>
@@ -358,9 +284,8 @@
                     <div class="footer">
                         <h3 class="footer-title">Service</h3>
                         <ul class="footer-links">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="<c:url value='/user/toLogin.do'/>">My Account</a></li>
+                            <li><a href="<c:url value='/user/toLogin.do'/> ">View Cart</a></li>
                             <li><a href="#">Track My Order</a></li>
                             <li><a href="#">Help</a></li>
                         </ul>
@@ -407,56 +332,23 @@
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
 <script src="<c:url value='/js/main.js'/>"></script>
+<script src="<c:url value='/layui/layui.js'/>"></script>
 
 <script type="text/javascript">
 
     window.onload = function () {
-        if(${sessionScope.user != null and sessionScope.haveCart == null}) {
-            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/register"/> </c:url>';
+        if(${sessionScope.user != null}) {
+            window.location.href = '<c:url value="/user/toRegiste.do"></c:url>';
         }
     }
 
-    function deleteCartItem(ciid) {
-        $.ajax({
-            type: 'post',
-            url: '<c:url value="/cart/deleteCartItem.do"/> ',
-            dataType: 'text',
-            data: {
-                ciid: ciid
-            },
-            success: function (data) {
-                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
-
-            }
-        })
-    }
-
-    {
-        if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
-        window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
-    }
-    }
-
-    function addToCast(pid) {
-        $.ajax({
-            type: 'post',
-            url: '<c:url value="/cart/addCartItem.do"/> ',
-            dataType: 'text',
-            data: {
-                pid: pid
-            },
-            success: function (data) {
-                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
-
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('添加成功', {
-                        icon: 1,
-                        time: 1000
-                    });
-                });
-            }
-        })
+    function searchProduct() {
+        var name = $("#search").val();
+        var categoryId = $("#category").select().val();
+        var url = '<c:url value="/product/searchProduct.do"/>';
+        url += '?categoryId=' + categoryId + '&name=' + name;
+        location.href = url;
+        return false;
     }
 
     function changeVerifyCode(o) {
@@ -474,7 +366,7 @@
         $.ajax({
             type: 'post',
             url: '<c:url value="/user/registe.do"/>',
-            dataType: 'text',
+            dataType: 'json',
             data: {
                 uname: uname,
                 password: password,
@@ -485,15 +377,13 @@
             },
             success: function (data) {
                 if(data == "SUCCESS") {
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('Regist Successful');
+                    });
                     window.location.href="<c:url value='/index.jsp'/>";
                 } else {
                     $("span[name='errorstatus']").html(data);
-                    $("input[name='uname']").val('');
-                    $("input[name='password']").val('');
-                    $("input[name='confirmpass']").val('');
-                    $("input[name='phone']").val('');
-                    $("input[name='email']").val('');
-                    $("input[name='verifycode']").val();
                     $("img[name='vcode']").attr("src","<c:url value='/verifycode/getCode.do?+Math.random()'/>");
                 }
 

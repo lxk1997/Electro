@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro</title>
+    <title>Electro - Product Details</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -25,18 +25,14 @@
     <!-- nouislider -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/nouislider.min.css'/>"/>
 
+    <!-- layui-->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/layui/css/layui.css'/>"/>
+
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>">
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 <body>
@@ -46,7 +42,7 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
@@ -78,15 +74,15 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <select class="input-select">
+                            <select id="category" class="input-select">
                                 <option value="0">All Categories</option>
                                 <option value="1">Laptops</option>
                                 <option value="2">Smartphones</option>
                                 <option value="3">Cameras</option>
                                 <option value="4">Accessories</option>
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input id="search" class="input" placeholder="Search here">
+                            <button class="search-btn" onclick="return searchProduct()">Search</button>
                         </form>
                     </div>
                 </div>
@@ -96,17 +92,6 @@
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="#">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div class="qty">0</div>
-                                    </c:if>
-                                </a>
-                            </div>
-                            <!-- /Wishlist -->
                             <!-- Cart -->
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -190,9 +175,9 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
@@ -214,23 +199,22 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">All Categories</a></li>
+                    <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">All Categories</a></li>
                     <c:choose>
                         <c:when test="${requestScope.productDetails.categoryId eq '1'}">
-                            <li><a href="#">Laptops</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=1'/>">Laptops</a></li>
                         </c:when>
                         <c:when test="${requestScope.productDetails.categoryId eq '2'}">
-                            <li><a href="#">Smartphones</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
                         </c:when>
                         <c:when test="${requestScope.productDetails.categoryId eq '3'}">
-                            <li><a href="#">Cameras</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
                         </c:when>
                         <c:when test="${requestScope.productDetails.categoryId eq '4'}">
-                            <li><a href="#">Accessories</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
                         </c:when>
                     </c:choose>
-                    </c>
                     <li class="active">${requestScope.productDetails.pname}</li>
                 </ul>
             </div>
@@ -363,18 +347,13 @@
                         <div class="qty-label">
                             Qty
                             <div class="input-number">
-                                <input type="number" value="1">
+                                <input type="number" value="1" id="qty">
                                 <span class="qty-up">+</span>
                                 <span class="qty-down">-</span>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCast('${requestScope.productDetails.pid}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
                     </div>
-
-                    <ul class="product-btns">
-                        <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-                        <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-                    </ul>
 
                     <ul class="product-links">
                         <li>Category:</li>
@@ -771,14 +750,6 @@
                         </h4>
                         <div class="product-rating">
                         </div>
-                        <div class="product-btns">
-                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
-                            </button>
-                            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
-                            </button>
-                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
-                            </button>
-                        </div>
                     </div>
                     <div class="add-to-cart">
                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
@@ -898,6 +869,7 @@
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
 <script src="<c:url value='/js/main.js'/>"></script>
+<script src="<c:url value='/layui/layui.js'/>"></script>
 
 <script type="text/javascript">
     window.onload = function () {
@@ -909,7 +881,7 @@
         $.ajax({
             type: 'post',
             url: '<c:url value="/cart/deleteCartItem.do"/> ',
-            dataType: 'text',
+            dataType: 'json',
             data: {
                 ciid: ciid
             },
@@ -926,26 +898,42 @@
     }
     }
 
-    function addToCast(pid) {
-        $.ajax({
-            type: 'post',
-            url: '<c:url value="/cart/addCartItem.do"/> ',
-            dataType: 'text',
-            data: {
-                pid: pid
-            },
-            success: function (data) {
-                $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+    function searchProduct() {
+        var name = $("#search").val();
+        var categoryId = $("#category").select().val();
+        var url = '<c:url value="/product/searchProduct.do"/>';
+        url += '?categoryId=' + categoryId + '&name=' + name;
+        location.href = url;
+        return false;
+    }
 
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('添加成功', {
-                        icon: 1,
-                        time: 1000
+    function addToCast(pid) {
+        if(${sessionScope.user eq null}) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('Pleasr Login First!');
+            });
+        } else {
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/cart/addCartItem.do"/> ',
+                dataType: 'json',
+                data: {
+                    pid: pid
+                },
+                success: function (data) {
+                    $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
+
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('添加成功', {
+                            icon: 1,
+                            time: 1000
+                        });
                     });
-                });
-            }
-        })
+                }
+            })
+        }
     }
 </script>
 

@@ -47,7 +47,6 @@
             var categoryId = $("#category").select().val();
             var url = '<c:url value="/product/searchProduct.do"/>';
             url += '?categoryId=' + categoryId + '&name=' + name;
-            alert(url);
             location.href = url;
             return false;
         }
@@ -67,7 +66,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/init/newProductRefresh.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     number: number,
                     type: model
@@ -85,7 +84,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/cart/deleteCartItem.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     ciid: ciid
                 },
@@ -116,7 +115,7 @@
                 $.ajax({
                     type: 'post',
                     url: '<c:url value="/cart/addCartItem.do"/> ',
-                    dataType: 'text',
+                    dataType: 'json',
                     data: {
                         pid: pid
                     },
@@ -139,8 +138,8 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="https://mailto:clxk1997@163.com"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
             <ul class="header-links pull-right">
@@ -189,17 +188,6 @@
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="#">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div class="qty">0</div>
-                                    </c:if>
-                                </a>
-                            </div>
-                            <!-- /Wishlist -->
                             <!-- Cart -->
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -284,8 +272,8 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
+                <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
@@ -445,15 +433,6 @@
                                                         <i class="fa fa-star"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span
-                                                            class="tooltipp">add to wishlist</span></button>
-                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span
-                                                            class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span
-                                                            class="tooltipp">quick view</span>
-                                                    </button>
-                                                </div>
                                             </div>
                                             <div class="add-to-cart">
                                                 <button class="add-to-cart-btn" onclick="addToCast('${product.pid}')"><i
@@ -516,8 +495,8 @@
                         </li>
                     </ul>
                     <h2 class="text-uppercase">hot deal this week</h2>
-                    <p>New Collection Up to 20% OFF</p>
-                    <a class="primary-btn cta-btn" href="<c:url value=''/> ">Shop now</a>
+                    <p>New Collection Up to 30% OFF</p>
+                    <a class="primary-btn cta-btn" href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Shop now</a>
                 </div>
             </div>
         </div>
@@ -606,15 +585,6 @@
                                                         <i class="fa fa-star"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span
-                                                            class="tooltipp">add to wishlist</span></button>
-                                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span
-                                                            class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span
-                                                            class="tooltipp">quick view</span>
-                                                    </button>
-                                                </div>
                                             </div>
                                             <div class="add-to-cart">
                                                 <button class="add-to-cart-btn"
@@ -641,336 +611,7 @@
 </div>
 <!-- /SECTION -->
 
-<!-- SECTION -->
-<div class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-4 col-xs-6">
-                <div class="section-title">
-                    <h4 class="title">Top selling</h4>
-                    <div class="section-nav">
-                        <div id="slick-nav-3" class="products-slick-nav"></div>
-                    </div>
-                </div>
-
-                <div class="products-widget-slick" data-nav="#slick-nav-3">
-                    <div>
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product07.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product08.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product09.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- product widget -->
-                    </div>
-
-                    <div>
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product01.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product02.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product03.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- product widget -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-xs-6">
-                <div class="section-title">
-                    <h4 class="title">Top selling</h4>
-                    <div class="section-nav">
-                        <div id="slick-nav-4" class="products-slick-nav"></div>
-                    </div>
-                </div>
-
-                <div class="products-widget-slick" data-nav="#slick-nav-4">
-                    <div>
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product04.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product05.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product06.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- product widget -->
-                    </div>
-
-                    <div>
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product07.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product08.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product09.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- product widget -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="clearfix visible-sm visible-xs"></div>
-
-            <div class="col-md-4 col-xs-6">
-                <div class="section-title">
-                    <h4 class="title">Top selling</h4>
-                    <div class="section-nav">
-                        <div id="slick-nav-5" class="products-slick-nav"></div>
-                    </div>
-                </div>
-
-                <div class="products-widget-slick" data-nav="#slick-nav-5">
-                    <div>
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product01.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product02.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product03.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- product widget -->
-                    </div>
-
-                    <div>
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product04.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product05.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- /product widget -->
-
-                        <!-- product widget -->
-                        <div class="product-widget">
-                            <div class="product-img">
-                                <img src="<c:url value='/img/product06.png'/>" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00
-                                    <del class="product-old-price">$990.00</del>
-                                </h4>
-                            </div>
-                        </div>
-                        <!-- product widget -->
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /SECTION -->
-
+<br><br><br>
 <!-- FOOTER -->
 <footer id="footer">
     <!-- top footer -->
@@ -985,7 +626,7 @@
                         <ul class="footer-links">
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
+                            <li><a href="http://mailto:clxk1997@163.com"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
                             <li><a href="https://blog.csdn.net/l1832876815"><i
                                     class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
@@ -999,11 +640,11 @@
                     <div class="footer">
                         <h3 class="footer-title">Categories</h3>
                         <ul class="footer-links">
-                            <li><a href="#">Hot deals</a></li>
-                            <li><a href="#">Laptops</a></li>
-                            <li><a href="#">Smartphones</a></li>
-                            <li><a href="#">Cameras</a></li>
-                            <li><a href="#">Accessories</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot deals</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Laptops</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=1'/>">Smartphones</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Cameras</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Accessories</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1027,9 +668,13 @@
                     <div class="footer">
                         <h3 class="footer-title">Service</h3>
                         <ul class="footer-links">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="<c:url value='/user/toLogin.do'/>">My Account</a></li>
+                            <c:if test="${sessionScope.user eq null}">
+                                <li><a href="<c:url value='/user/toLogin.do'/> ">View Cart</a></li>
+                            </c:if>
+                            <c:if test="${sessionScope.user != null}">
+                                <li><a href="<c:url value='/cart/toCart.do'/> ">View Cart</a></li>
+                            </c:if>
                             <li><a href="#">Track My Order</a></li>
                             <li><a href="#">Help</a></li>
                         </ul>

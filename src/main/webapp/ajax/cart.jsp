@@ -42,17 +42,6 @@
 <!-- ACCOUNT -->
 <div class="col-md-3 clearfix">
     <div class="header-ctn">
-        <!-- Wishlist -->
-        <div>
-            <a href="#">
-                <i class="fa fa-heart-o"></i>
-                <span>Your Wishlist</span>
-                <c:if test="${sessionScope.user != null}">
-                    <div class="qty">0</div>
-                </c:if>
-            </a>
-        </div>
-        <!-- /Wishlist -->
         <!-- Cart -->
         <div class="dropdown open">
             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

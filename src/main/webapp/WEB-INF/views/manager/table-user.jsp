@@ -354,12 +354,6 @@
                                             <th>Password</th>
                                             <th>PhoneNum</th>
                                             <th>Email</th>
-                                            <th>FirstName</th>
-                                            <th>LastName</th>
-                                            <th>Address</th>
-                                            <th>City</th>
-                                            <th>Country</th>
-                                            <th>ZipCode</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -369,12 +363,6 @@
                                                 <td>${user.password}</td>
                                                 <td>${user.phone}</td>
                                                 <td>${user.email}</td>
-                                                <td>${user.firstname}</td>
-                                                <td>${user.lastname}</td>
-                                                <td>${user.address}</td>
-                                                <td>${user.city}</td>
-                                                <td>${user.country}</td>
-                                                <td>${user.zipcode}</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>

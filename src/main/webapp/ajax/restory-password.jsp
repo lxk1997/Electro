@@ -44,7 +44,7 @@
                 $.ajax({
                     type: 'post',
                     url: '<c:url value="/user/restoryPassword.do"/>',
-                    dataType: 'text',
+                    dataType: 'json',
                     data : {
                         oldP : oldP,
                         newP: newP

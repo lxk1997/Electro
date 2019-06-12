@@ -117,7 +117,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/orderItem/deleteOrder.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     oiid: oiid
                 },
@@ -133,7 +133,7 @@
         $.ajax({
             type: 'post',
             url: '<c:url value="/orderItem/confirmReceipt.do"/> ',
-            dataType: 'text',
+            dataType: 'json',
             data: {
                 oiid: oiid
             },

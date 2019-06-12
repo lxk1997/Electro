@@ -412,7 +412,6 @@
 
 
 <!-- JS Grid Scripts Start-->
-<script src="<c:url value='/assets/js/lib/jsgrid/db.js'/>"></script>
 <script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.core.js'/>"></script>
 <script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.load-indicator.js'/>"></script>
 <script src="<c:url value='/assets/js/lib/jsgrid/jsgrid.load-strategies.js'/>"></script>
@@ -423,12 +422,69 @@
 <script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.select.js'/>"></script>
 <script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.checkbox.js'/>"></script>
 <script src="<c:url value='/assets/js/lib/jsgrid/fields/jsgrid.field.control.js'/>"></script>
-<script src="<c:url value='/assets/js/lib/jsgrid/jsgrid-init.js'/>"></script>
 <!-- JS Grid Scripts End-->
 
 <script src="<c:url value='/assets/js/lib/bootstrap.min.js'/>"></script><script src="<c:url value='/assets/js/scripts.js'/>"></script>
 <!-- scripit init-->
 
+<script type="text/javascript">
+    window.onload = function () {
+        var users;
+        var db = {
+
+            loadData: function (filter) {
+                $.ajax({
+                    type: "post",
+                    url: "<c:url value='/user/table/loadDataToGrad.do'/>",
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        users = eval("(" + data + ")");
+                    }
+                });
+                return users;
+            },
+
+            updateItem: function (updatingClient) {
+                $.ajax({
+                    type: 'post',
+                    url: '<c:url value="/user/updateUser.do?type=editable"/> ',
+                    data: {
+                        uid: updatingClient["User Id"],
+                        uname: updatingClient["User Name"],
+                        password: updatingClient["Password"],
+                        email: updatingClient["Email"],
+                        phone: updatingClient["Telphone"],
+                    }
+                })
+            },
+
+
+        };
+
+        $("#jsGrid").jsGrid({
+            height: "100%",
+            width: "100%",
+            filtering: false,
+            editing: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageCount: 15,
+            pageButtonCount: 10,
+            deleteConfirm: "Do you really want to delete the item?",
+            controller: db,
+            fields: [
+                {name: "User Id", type: "text", editing: false},
+                {name: "User Name", type: "text", editing: false},
+                {name: "Password", type: "text"},
+                {name: "Email", type: "text"},
+                {name: "Telphone", type: "text"},
+                {type: "control"}
+            ]
+        })
+    }
+</script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro</title>
+    <title>Electro - Checkout</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -30,13 +30,6 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 <body>
 <!-- HEADER -->
@@ -45,8 +38,8 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="<c:url value='/product/toAdd.do'/> "><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i> +86-178-6421-3754</a></li>
+                <li><a href="https://mailto:clxk1997@163.com"><i class="fa fa-envelope-o"></i> clxk1997@163.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
             <ul class="header-links pull-right">
@@ -77,15 +70,15 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <select class="input-select">
+                            <select id="category" class="input-select">
                                 <option value="0">All Categories</option>
                                 <option value="1">Laptops</option>
                                 <option value="2">Smartphones</option>
                                 <option value="3">Cameras</option>
                                 <option value="4">Accessories</option>
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input id="search" class="input" placeholder="Search here">
+                            <button class="search-btn" onclick="return searchProduct()">Search</button>
                         </form>
                     </div>
                 </div>
@@ -95,42 +88,14 @@
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="#">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Your Wishlist</span>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div class="qty">0</div>
-                                    </c:if>
-                                </a>
-                            </div>
-                            <!-- /Wishlist -->
                             <!-- Cart -->
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Your Cart</span>
-                                    <c:if test="${sessionScope.user != null}">
                                         <div class="qty">${cartCnt}</div>
-                                    </c:if>
                                 </a>
-                                <c:choose>
-                                    <c:when test="${sessionScope.user eq null}">
-                                        <div class="cart-dropdown">
-                                            <div class="cart-list">
 
-                                            </div>
-                                            <div class="cart-summary">
-                                                <small>0 Item(s) selected</small>
-                                                <h5>SUBTOTAL: $0.00</h5>
-                                            </div>
-                                            <div class="cart-btns">
-                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
                                         <div class="cart-dropdown">
                                             <div class="cart-list">
                                                 <c:forEach items="${cart}" var="cartitem">
@@ -155,8 +120,7 @@
                                                 <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
-                                    </c:otherwise>
-                                </c:choose>
+
 
                             </div>
                             <!-- /Cart -->
@@ -188,14 +152,14 @@
         <!-- responsive-nav -->
         <div id="responsive-nav">
             <!-- NAV -->
-            <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/> ">Hot Deals</a></li>
-                <li><a href="<c:url value='/product/toStore.do'/>">Categories</a></li>
-                <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
-                <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
-                <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
-                <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
+                <ul class="main-nav nav navbar-nav">
+                    <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Smartphones</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Cameras</a></li>
+                    <li><a href="<c:url value='/product/toStore.do?categoryId=4'/>">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>
@@ -214,7 +178,7 @@
             <div class="col-md-12">
                 <h3 class="breadcrumb-header">Checkout</h3>
                 <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
                     <li class="active">Checkout</li>
                 </ul>
             </div>
@@ -262,19 +226,7 @@
                     <div class="form-group">
                         <input class="input" type="tel" name="tel" placeholder="Telephone">
                     </div>
-                    <div class="form-group">
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="create-account">
-                            <label for="create-account">
-                                <span></span>
-                                Create Account?
-                            </label>
-                            <div class="caption">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                                <input class="input" type="password" name="password" placeholder="Enter Your Password">
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- /Billing Details -->
 
@@ -396,10 +348,12 @@
                         <ul class="footer-links">
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
-                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="http://mailto:clxk1997@163.com"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i
+                                    class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
-                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -408,11 +362,11 @@
                     <div class="footer">
                         <h3 class="footer-title">Categories</h3>
                         <ul class="footer-links">
-                            <li><a href="#">Hot deals</a></li>
-                            <li><a href="#">Laptops</a></li>
-                            <li><a href="#">Smartphones</a></li>
-                            <li><a href="#">Cameras</a></li>
-                            <li><a href="#">Accessories</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot deals</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Laptops</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=1'/>">Smartphones</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=2'/>">Cameras</a></li>
+                            <li><a href="<c:url value='/product/toStore.do?categoryId=3'/>">Accessories</a></li>
                         </ul>
                     </div>
                 </div>
@@ -436,9 +390,8 @@
                     <div class="footer">
                         <h3 class="footer-title">Service</h3>
                         <ul class="footer-links">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="<c:url value='/user/toLogin.do'/>">My Account</a></li>
+                            <li><a href="<c:url value='/cart/toCart.do'/> ">View Cart</a></li>
                             <li><a href="#">Track My Order</a></li>
                             <li><a href="#">Help</a></li>
                         </ul>
@@ -490,14 +443,25 @@
     window.onload = function () {
         if(${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/checkout"/> </c:url>';
+        } else if(${sessionScope.user == null}) {
+            window.location.href = '<c:url value="/index.jsp"/>';
         }
+    }
+
+    function searchProduct() {
+        var name = $("#search").val();
+        var categoryId = $("#category").select().val();
+        var url = '<c:url value="/product/searchProduct.do"/>';
+        url += '?categoryId=' + categoryId + '&name=' + name;
+        location.href = url;
+        return false;
     }
 
     function deleteCartItem(ciid) {
         $.ajax({
             type: 'post',
             url: '<c:url value="/cart/deleteCartItem.do"/> ',
-            dataType: 'text',
+            dataType: 'json',
             data: {
                 ciid: ciid
             },
@@ -518,7 +482,7 @@
         $.ajax({
             type: 'post',
             url: '<c:url value="/cart/addCartItem.do"/> ',
-            dataType: 'text',
+            dataType: 'json',
             data: {
                 pid: pid
             },
@@ -609,7 +573,7 @@
                 $.ajax({
                     type: 'post',
                     url: '<c:url value="/orderItem/placeOrder.do"/> ',
-                    dataType: 'text',
+                    dataType: 'json',
                     data: {
                         firstname: firstname,
                         lastname: lastname,

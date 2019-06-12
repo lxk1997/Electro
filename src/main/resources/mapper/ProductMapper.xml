@@ -92,7 +92,7 @@
     </select>
 
     <select id="findHotDealProduct" resultMap="productMap">
-        select * from product where product.discount <![CDATA[<]]> 1;
+        select * from product, product_details where product_details.pdid=product.pid and product.discount <![CDATA[<]]> 1;
     </select>
 
     <delete id="deleteByPid" parameterType="String">

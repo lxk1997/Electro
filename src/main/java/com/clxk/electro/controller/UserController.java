@@ -5,6 +5,9 @@ import com.clxk.electro.model.OrderItem;
 import com.clxk.electro.model.User;
 import com.clxk.electro.service.OrderItemService;
 import com.clxk.electro.service.UserService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +44,12 @@ public class UserController {
     }
 
     @RequestMapping("/toRegiste.do")
-    public String toRegiste() {
-        return "/WEB-INF/views/register";
+    public String toRegiste(HttpSession session) {
+        if(session.getAttribute("user") != null) {
+            return "/WEB-INF/views/my-account";
+        } else {
+            return "/WEB-INF/views/register";
+        }
     }
 
     @RequestMapping("/restoryPassword.do")
@@ -62,6 +69,7 @@ public class UserController {
     @RequestMapping("/login.do")
     @ResponseBody
     public String login(HttpSession session, @RequestParam("uname") String uname, @RequestParam("password") String password, @RequestParam("vcode") String code) {
+
         if(uname == null || uname.trim().isEmpty()) return "Null Username!";
         if(password == null || password.trim().isEmpty()) return "Null Password!";
         if(code == null || code.trim().isEmpty()) return "Null VerifyCode!";
@@ -83,16 +91,17 @@ public class UserController {
     @RequestMapping("/registe.do")
     @ResponseBody
     public String registe(HttpSession session, User user, @RequestParam("confirmpass") String confirmpass, @RequestParam("vcode") String code) {
+
         if(user.getUname() == null || user.getUname().trim().isEmpty()) return "Null Username!";
         if(user.getPassword() == null || user.getPassword().trim().isEmpty()) return "Null Password!";
         if(confirmpass == null || confirmpass.trim().isEmpty()) return "Null Confirm Password!";
         if(code == null || code.trim().isEmpty()) return "Null VerifyCode!";
         if(!code.toLowerCase().equals(session.getAttribute("vcode").toString().toLowerCase())) {
             return "VerifyCode Error!";
-
-        } else
-        if(!confirmpass.equals(user.getPassword())) {
+        } else if(!confirmpass.equals(user.getPassword())) {
             return "Inconsistent Password!";
+        } else if(user.getEmail() != null && !user.getEmail().matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
+            return "Email Format Error!";
         } else if(userService.findByUname(user.getUname()) != null) {
             return "User Name Already Exists!";
         } else {
@@ -116,6 +125,31 @@ public class UserController {
             return "/WEB-INF/views/manager/editable-table-user";
         }
         return "/WEB-INF/views/manager/table-user";
+    }
+
+    @RequestMapping("/table/loadDataToGrad.do")
+    @ResponseBody
+    public String loadDataToGrad(HttpServletRequest request) throws JSONException {
+        List<User> users = null;
+        users = userService.findAll();
+        JSONArray data = new JSONArray();
+        for(User u : users) {
+            JSONObject user = new JSONObject();
+            user.put("User Id", u.getUid());
+            user.put("User Name", u.getUname());
+            user.put("Password", u.getPassword());
+            user.put("Email",u.getEmail());
+            user.put("Telphone", u.getPhone());
+            data.put(user);
+        }
+        return data.toString();
+    }
+
+    @RequestMapping("/updateUser.do")
+    @ResponseBody
+    public String updateUser(User user) {
+        userService.update(user);
+        return "SUCCESS";
     }
 
     @RequestMapping("/updateAccount.do")

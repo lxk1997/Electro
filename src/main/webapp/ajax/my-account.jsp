@@ -41,7 +41,7 @@
             $.ajax({
                 type: 'post',
                 url: '<c:url value="/user/updateAccount.do"/> ',
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     email: email,
                     phone, phone
