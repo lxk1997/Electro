@@ -112,7 +112,8 @@
                                                 <h5>SUBTOTAL: $0.00</h5>
                                             </div>
                                             <div class="cart-btns">
-                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login
+                                                    <i class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:when>
@@ -122,23 +123,34 @@
                                                 <c:forEach items="${cart}" var="cartitem">
                                                     <div class="product-widget">
                                                         <div class="product-img">
-                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>"
+                                                                 alt="">
                                                         </div>
                                                         <div class="product-body">
-                                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
-                                                            <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                            <h3 class="product-name"><a
+                                                                    href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a>
+                                                            </h3>
+                                                            <h4 class="product-price"><span
+                                                                    class="qty">${cartitem.count}x</span>$<fmt:formatNumber
+                                                                    type="number"
+                                                                    value="${cartitem.product.price * cartitem.product.discount}"
+                                                                    pattern="#.00"/></h4>
                                                         </div>
-                                                        <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
+                                                        <button class="delete"
+                                                                onclick="deleteCartItem('${cartitem.ciid}')"><i
+                                                                class="fa fa-close"></i></button>
                                                     </div>
                                                 </c:forEach>
                                             </div>
                                             <div class="cart-summary">
                                                 <small>${cartCnt} Item(s) selected</small>
-                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}"
+                                                                                 pattern="#.00"/></h5>
                                             </div>
                                             <div class="cart-btns">
                                                 <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
-                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i
+                                                        class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:otherwise>
@@ -175,7 +187,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
@@ -281,49 +293,12 @@
                     <h2 class="product-name">${productDetails.pname}</h2>
                     <div>
                         <div class="product-rating">
-                            <c:choose>
-                                <c:when test="${fn:substring(productDetails.productDetails.rating, 0, 0)} == '1'">
-                                    <i class="fa fa-star"></i>
-                                </c:when>
-                                <c:otherwise>
-                                    <i class="fa fa-star-o"></i>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${fn:substring(productDetails.productDetails.rating, 2, 2)} == '1'">
-                                    <i class="fa fa-star"></i>
-                                </c:when>
-                                <c:otherwise>
-                                    <i class="fa fa-star-o"></i>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${fn:substring(productDetails.productDetails.rating, 4, 4)} == '1'">
-                                    <i class="fa fa-star"></i>
-                                </c:when>
-                                <c:otherwise>
-                                    <i class="fa fa-star-o"></i>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${fn:substring(productDetails.productDetails.rating, 6, 6)} == '1'">
-                                    <i class="fa fa-star"></i>
-                                </c:when>
-                                <c:otherwise>
-                                    <i class="fa fa-star-o"></i>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${fn:substring(productDetails.productDetails.rating, 8, 8)} == '1'">
-                                    <i class="fa fa-star"></i>
-                                </c:when>
-                                <c:otherwise>
-                                    <i class="fa fa-star-o"></i>
-                                </c:otherwise>
-                            </c:choose>
-
+                            <c:forEach begin="1" end="${productDetails.productDetails.rating / 20}">
+                                <i class="fa fa-star"></i>
+                            </c:forEach>
                         </div>
-                        <a class="review-link" href="#">10 Review(s) | Add your review</a>
+                        <a class="review-link" href="#reviews">${fn:length(productReviews)} Review(s) | Add your
+                            review</a>
                     </div>
                     <div>
                         <h3 class="product-price">$<fmt:formatNumber type="number"
@@ -352,7 +327,9 @@
                                 <span class="qty-down">-</span>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn" onclick="addToCast('${productDetails.pid}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCast('${productDetails.pid}')"><i
+                                class="fa fa-shopping-cart"></i> add to cart
+                        </button>
                     </div>
 
                     <ul class="product-links">
@@ -392,7 +369,7 @@
                     <ul class="tab-nav">
                         <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                         <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                        <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+                        <li><a data-toggle="tab" href="#tab3">Reviews (${fn:length(productReviews)})</a></li>
                     </ul>
                     <!-- /product tab nav -->
 
@@ -426,13 +403,16 @@
                                 <div class="col-md-3">
                                     <div id="rating">
                                         <div class="rating-avg">
-                                            <span>4.5</span>
+                                            <span><fmt:formatNumber type="number"
+                                                                    value="${productDetails.productDetails.rating / 20}"
+                                                                    pattern="#"/> </span>
                                             <div class="rating-stars">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
+                                                <c:forEach begin="1" end="${productDetails.productDetails.rating / 20}">
+                                                    <i class="fa fa-star"></i>
+                                                </c:forEach>
+                                                <c:forEach begin="${productDetails.productDetails.rating / 20}" end="4">
+                                                    <i class="fa fa-star-o"></i>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <ul class="rating">
@@ -445,9 +425,9 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                                 <div class="rating-progress">
-                                                    <div style="width: 80%;"></div>
+                                                    <div style="width: ${star5Cnt / fn:length(productReviews)}%;"></div>
                                                 </div>
-                                                <span class="sum">3</span>
+                                                <span class="sum">${star5Cnt}</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -458,9 +438,9 @@
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
                                                 <div class="rating-progress">
-                                                    <div style="width: 60%;"></div>
+                                                    <div style="width: ${star4Cnt / fn:length(productReviews)}%;"></div>
                                                 </div>
-                                                <span class="sum">2</span>
+                                                <span class="sum">${star4Cnt}</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -471,9 +451,9 @@
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
                                                 <div class="rating-progress">
-                                                    <div></div>
+                                                    <div style="width: ${star3Cnt / fn:length(productReviews)}%;"></div>
                                                 </div>
-                                                <span class="sum">0</span>
+                                                <span class="sum">${star3Cnt}</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -484,9 +464,9 @@
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
                                                 <div class="rating-progress">
-                                                    <div></div>
+                                                    <div style="width: ${star2Cnt / fn:length(productReviews)}%;"></div>
                                                 </div>
-                                                <span class="sum">0</span>
+                                                <span class="sum">${star2Cnt}</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -497,9 +477,9 @@
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
                                                 <div class="rating-progress">
-                                                    <div></div>
+                                                    <div style="width: ${star1Cnt / fn:length(productReviews)}%;"></div>
                                                 </div>
-                                                <span class="sum">0</span>
+                                                <span class="sum">${star1Cnt}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -510,57 +490,25 @@
                                 <div class="col-md-6">
                                     <div id="reviews">
                                         <ul class="reviews">
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
+                                            <c:forEach items="${productReviews}" var="review">
+                                                <li>
+                                                    <div class="review-heading">
+                                                        <h5 class="name">${review.name}</h5>
+                                                        <p class="date">${review.date.toString()}</p>
+                                                        <div class="review-rating">
+                                                            <c:forEach begin="1" end="${review.rating / 20}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:forEach>
+                                                            <c:forEach begin="${review.rating / 20}" end="4">
+                                                                <i class="fa fa-star-o empty"></i>
+                                                            </c:forEach>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
+                                                    <div class="review-body">
+                                                        <p>${review.context}</p>
                                                     </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            </c:forEach>
                                         </ul>
                                         <ul class="reviews-pagination">
                                             <li class="active">1</li>
@@ -576,10 +524,11 @@
                                 <!-- Review Form -->
                                 <div class="col-md-3">
                                     <div id="review-form">
-                                        <form class="review-form">
-                                            <input class="input" type="text" placeholder="Your Name">
-                                            <input class="input" type="email" placeholder="Your Email">
-                                            <textarea class="input" placeholder="Your Review"></textarea>
+                                        <form class="review-form" action="<c:url value='/productReviews/addReviews.do'/>">
+                                            <input class="input" type="text" placeholder="Your Name" id="name">
+                                            <input class="input" type="email" placeholder="Your Email" id="email">
+                                            <input class="hidden" id="pid" value="${productDetails.pid}">
+                                            <textarea class="input" placeholder="Your Review" id="review" name="context"></textarea>
                                             <div class="input-rating">
                                                 <span>Your Rating: </span>
                                                 <div class="stars">
@@ -595,7 +544,7 @@
                                                         for="star1"></label>
                                                 </div>
                                             </div>
-                                            <button class="primary-btn">Submit</button>
+                                            <input class="primary-btn" type="button" onclick="addReviews()">Submit</input>
                                         </form>
                                     </div>
                                 </div>
@@ -781,9 +730,11 @@
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
-                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i
+                                    class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
-                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -873,10 +824,46 @@
 
 <script type="text/javascript">
     window.onload = function () {
-        if(${sessionScope.user != null and sessionScope.haveCart == null}) {
+        if (${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/product"/> </c:url>';
         }
     }
+
+    function addReviews() {
+        if(${sessionScope.user eq null}) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg("Please Login First!!!");
+            });
+            return;
+        }
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var context = $("#review").html();
+        var pid = $("#pid").val();
+        var rating = $("input[name='rating']:checked").val() * 20;
+
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/productReviews/addReviews.do"/> ',
+            dataType: 'json',
+            data: {
+                name: name,
+                email: email,
+                context: context,
+                pid: pid,
+                rating: rating
+            },
+            success: function (data) {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.msg('Add Successful!', {icon: 1});
+                });
+                $.reload();
+            }
+        })
+    }
+
     function deleteCartItem(ciid) {
         $.ajax({
             type: 'post',
@@ -894,9 +881,11 @@
     }
 
     {
-        if (${sessionScope.user != null} && ${sessionScope.haveCart == null}) {
-        window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
-    }
+        if (${sessionScope.user != null} &&
+        ${sessionScope.haveCart == null})
+        {
+            window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/index"/> </c:url>';
+        }
     }
 
     function searchProduct() {
@@ -909,8 +898,8 @@
     }
 
     function addToCast(pid) {
-        if(${sessionScope.user eq null}) {
-            layui.use('layer', function(){
+        if (${sessionScope.user eq null}) {
+            layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.msg('Pleasr Login First!');
             });
@@ -925,7 +914,7 @@
                 success: function (data) {
                     $("#account").load('<c:url value="/ajax/cart.jsp"/> ');
 
-                    layui.use('layer', function(){
+                    layui.use('layer', function () {
                         var layer = layui.layer;
                         layer.msg('添加成功', {
                             icon: 1,

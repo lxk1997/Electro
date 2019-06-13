@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clxk.electro.dao.ProductReviewsDao">
+
+    <resultMap id="productReviewsMap" type="com.clxk.electro.model.ProductReviews">
+        <id property="prid" column="prid"/>
+        <result property="uid" column="uid"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="date" column="date"/>
+        <result property="rating" column="rating"/>
+        <result property="context" column="context"/>
+        <result property="pid" column="pid"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.clxk.electro.model.ProductReviews">
+       insert into product_reviews (prid, pid, uid, name, email, date, rating, context) values (#{prid},#{pid},#{uid},#{name},#{email},#{date},#{rating}, #{context});
+    </insert>
+
+
+    <select id="findByPid" parameterType="String" resultMap="productReviewsMap">
+        select * from product_reviews where pid=#{pid};
+    </select>
+
+
+
+    <delete id="delete" parameterType="com.clxk.electro.model.ProductReviews">
+        delete from product_reviews where prid = #{prid};
+    </delete>
+
+</mapper>

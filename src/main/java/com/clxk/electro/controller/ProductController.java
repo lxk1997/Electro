@@ -1,6 +1,7 @@
 package com.clxk.electro.controller;
 
 import com.clxk.electro.model.Product;
+import com.clxk.electro.service.ProductReviewsService;
 import com.clxk.electro.service.ProductService;
 import org.json.JSONException;
 import org.springframework.stereotype.Controller;
@@ -28,11 +29,19 @@ public class ProductController {
     @Resource
     private ProductService productService;
     @Resource
+    private ProductReviewsService productReviewsService;
+    @Resource
     private ServletContext servletContext;
 
     @RequestMapping("/toProductDetails.do")
     public String toProductDetails(String pid, Model model) {
         model.addAttribute("productDetails", productService.findByPid(pid));
+        model.addAttribute("productReviews", productReviewsService.getReviews(pid));
+        model.addAttribute("star5Cnt", productReviewsService.getStarCnt(5, pid));
+        model.addAttribute("star4Cnt", productReviewsService.getStarCnt(4, pid));
+        model.addAttribute("star3Cnt", productReviewsService.getStarCnt(3, pid));
+        model.addAttribute("star2Cnt", productReviewsService.getStarCnt(2, pid));
+        model.addAttribute("star1Cnt", productReviewsService.getStarCnt(1, pid));
         return "/WEB-INF/views/product";
     }
 
@@ -42,6 +51,14 @@ public class ProductController {
         List<Product> products = productService.toStore(categoryId);
         session.setAttribute("store", products);
         model.addAttribute("category", productService.showCategory(products, categoryId));
+        model .addAttribute("laptopCnt", productService.getProductsCount("1", products));
+        model .addAttribute("smartphoneCnt", productService.getProductsCount("2", products));
+        model .addAttribute("cameraCnt", productService.getProductsCount("3", products));
+        model .addAttribute("accessoriesCnt", productService.getProductsCount("4", products));
+        model.addAttribute("samsungCnt", productService.getProductsCountByBrand("sanmsung", products));
+        model.addAttribute("huaweiCnt", productService.getProductsCountByBrand("huawei", products));
+        model.addAttribute("miCnt", productService.getProductsCountByBrand("xiaomi", products));
+        model.addAttribute("sonyCnt", productService.getProductsCountByBrand("sony", products));
         return "/WEB-INF/views/store";
     }
 
@@ -115,5 +132,17 @@ public class ProductController {
             return "/WEB-INF/views/manager/add_product";
         }
         return getProductTable(model, "0", null);
+    }
+
+    @RequestMapping("/productFilter.do")
+    @ResponseBody
+    public String productFilter(String category1, String category2, String category3, String category4
+                                , String brandsony, String brandsamsung, String brandhuawei, String brandxiaomi
+                                , String pricemin, String pricemax,HttpSession session) {
+        List<Product> products = productService.productFilter(category1, category2, category3, category4,
+                brandsony, brandsamsung, brandhuawei, brandxiaomi, pricemin, pricemax,
+                (List<Product>)session.getAttribute("store"));
+        session.setAttribute("filterProducts", products);
+        return "SUCCESS";
     }
 }

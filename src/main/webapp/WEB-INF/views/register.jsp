@@ -144,7 +144,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>

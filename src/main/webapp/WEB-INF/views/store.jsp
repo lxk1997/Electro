@@ -24,6 +24,9 @@
     <!-- nouislider -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/nouislider.min.css'/>"/>
 
+    <!-- layui-->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/layui/css/layui.css'/>"/>
+
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="<c:url value='/css/font-awesome.min.css'/>">
 
@@ -108,7 +111,8 @@
                                                 <h5>SUBTOTAL: $0.00</h5>
                                             </div>
                                             <div class="cart-btns">
-                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login <i class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/user/toLogin.do'/>" style="width: 100%;">Login
+                                                    <i class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:when>
@@ -118,23 +122,34 @@
                                                 <c:forEach items="${cart}" var="cartitem">
                                                     <div class="product-widget">
                                                         <div class="product-img">
-                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>" alt="">
+                                                            <img src="<c:url value='/imgs${cartitem.product.productDetails.avatar1}'/>"
+                                                                 alt="">
                                                         </div>
                                                         <div class="product-body">
-                                                            <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a></h3>
-                                                            <h4 class="product-price"><span class="qty">${cartitem.count}x</span>$<fmt:formatNumber type="number" value="${cartitem.product.price * cartitem.product.discount}" pattern="#.00"/> </h4>
+                                                            <h3 class="product-name"><a
+                                                                    href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${cartitem.product.pid}"/></c:url>">${cartitem.product.pname}</a>
+                                                            </h3>
+                                                            <h4 class="product-price"><span
+                                                                    class="qty">${cartitem.count}x</span>$<fmt:formatNumber
+                                                                    type="number"
+                                                                    value="${cartitem.product.price * cartitem.product.discount}"
+                                                                    pattern="#.00"/></h4>
                                                         </div>
-                                                        <button class="delete" onclick="deleteCartItem('${cartitem.ciid}')"><i class="fa fa-close"></i></button>
+                                                        <button class="delete"
+                                                                onclick="deleteCartItem('${cartitem.ciid}')"><i
+                                                                class="fa fa-close"></i></button>
                                                     </div>
                                                 </c:forEach>
                                             </div>
                                             <div class="cart-summary">
                                                 <small>${cartCnt} Item(s) selected</small>
-                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}" pattern="#.00"/> </h5>
+                                                <h5>SUBTOTAL: $<fmt:formatNumber type="number" value="${cartTotal}"
+                                                                                 pattern="#.00"/></h5>
                                             </div>
                                             <div class="cart-btns">
                                                 <a href="<c:url value='/cart/toCart.do'/>">View Cart</a>
-                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                                <a href="<c:url value='/checkout/toCheckout.do'/>">Checkout <i
+                                                        class="fa fa-arrow-circle-right"></i></a>
                                             </div>
                                         </div>
                                     </c:otherwise>
@@ -171,7 +186,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="<c:url value='/index.jsp'/> ">Home</a></li>
+                <li><a href="<c:url value='/index.jsp'/> ">Home</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=-1'/> ">Hot Deals</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=0'/>">Categories</a></li>
                 <li><a href="<c:url value='/product/toStore.do?categoryId=1'/> ">Laptops</a></li>
@@ -221,38 +236,38 @@
                     <div class="checkbox-filter">
 
                         <div class="input-checkbox">
-                            <input type="checkbox" id="category-1">
-                            <label for="category-1">
+                            <input type="checkbox" id="category-laptops" checked="checked">
+                            <label for="category-laptops">
                                 <span></span>
                                 Laptops
-                                <small>(120)</small>
+                                <small>(${laptopCnt})</small>
                             </label>
                         </div>
 
                         <div class="input-checkbox">
-                            <input type="checkbox" id="category-2">
-                            <label for="category-2">
+                            <input type="checkbox" id="category-smartphones" checked="checked">
+                            <label for="category-smartphones">
                                 <span></span>
                                 Smartphones
-                                <small>(740)</small>
+                                <small>(${smartphoneCnt})</small>
                             </label>
                         </div>
 
                         <div class="input-checkbox">
-                            <input type="checkbox" id="category-3">
-                            <label for="category-3">
+                            <input type="checkbox" id="category-cameras" checked="checked">
+                            <label for="category-cameras">
                                 <span></span>
                                 Cameras
-                                <small>(1450)</small>
+                                <small>(${cameraCnt})</small>
                             </label>
                         </div>
 
                         <div class="input-checkbox">
-                            <input type="checkbox" id="category-4">
-                            <label for="category-4">
+                            <input type="checkbox" id="category-accessories" checked="checked">
+                            <label for="category-accessories">
                                 <span></span>
                                 Accessories
-                                <small>(578)</small>
+                                <small>(${accessoriesCnt})</small>
                             </label>
                         </div>
                     </div>
@@ -284,35 +299,35 @@
                     <h3 class="aside-title">Brand</h3>
                     <div class="checkbox-filter">
                         <div class="input-checkbox">
-                            <input type="checkbox" id="brand-1">
-                            <label for="brand-1">
+                            <input type="checkbox" id="brand-samsung" checked="checked">
+                            <label for="brand-samsung">
                                 <span></span>
                                 SAMSUNG
-                                <small>(578)</small>
+                                <small>(${samsungCnt})</small>
                             </label>
                         </div>
                         <div class="input-checkbox">
-                            <input type="checkbox" id="brand-3">
-                            <label for="brand-3">
+                            <input type="checkbox" id="brand-sony" checked="checked">
+                            <label for="brand-sony">
                                 <span></span>
                                 SONY
-                                <small>(755)</small>
+                                <small>(${sonyCnt})</small>
                             </label>
                         </div>
                         <div class="input-checkbox">
-                            <input type="checkbox" id="brand-4">
-                            <label for="brand-4">
+                            <input type="checkbox" id="brand-huawei" checked="checked">
+                            <label for="brand-huawei">
                                 <span></span>
                                 HUAWEI
-                                <small>(578)</small>
+                                <small>(${huaweiCnt})</small>
                             </label>
                         </div>
                         <div class="input-checkbox">
-                            <input type="checkbox" id="brand-6">
-                            <label for="brand-6">
+                            <input type="checkbox" id="brand-mi" checked="checked">
+                            <label for="brand-mi">
                                 <span></span>
                                 MI
-                                <small>(755)</small>
+                                <small>(${miCnt})</small>
                             </label>
                         </div>
                     </div>
@@ -322,38 +337,37 @@
                 <!-- aside Widget -->
                 <div class="aside">
                     <h3 class="aside-title">Top selling</h3>
-                    <div class="product-widget">
-                        <div class="product-img">
-                            <img src="<c:url value='/img/product01.png'/>" alt="">
+                    <c:forEach items="${sessionScope.ts}" var="item" begin="0" end="2">
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="<c:url value='/imgs${item.product.productDetails.avatar1}'/>" alt="">
+                            </div>
+                            <div class="product-body">
+                                <c:choose>
+                                    <c:when test="${item.product.categoryId eq '1'}">
+                                        <p class="product-category">Laptop</p>
+                                    </c:when>
+                                    <c:when test="${item.product.categoryId eq '2'}">
+                                        <p class="product-category">Smartphone</p>
+                                    </c:when>
+                                    <c:when test="${item.product.categoryId eq '3'}">
+                                        <p class="product-category">Camera</p>
+                                    </c:when>
+                                    <c:when test="${item.product.categoryId eq '4'}">
+                                        <p class="product-category">Accessories</p>
+                                    </c:when>
+                                </c:choose>
+                                <h3 class="product-name"><a
+                                        href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${item.product.pid}"/></c:url>">${item.product.pname}</a>
+                                </h3>
+                                <h4 class="product-price">$<fmt:formatNumber type="number"
+                                                                             value="${item.product.price * item.product.discount}"
+                                                                             pattern="#.00"/>
+                                    <del class="product-old-price">$${item.product.price}</del>
+                                </h4>
+                            </div>
                         </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        </div>
-                    </div>
-
-                    <div class="product-widget">
-                        <div class="product-img">
-                            <img src="<c:url value='/img/product02.png'/>" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        </div>
-                    </div>
-
-                    <div class="product-widget">
-                        <div class="product-img">
-                            <img src="<c:url value='/img/product03.png'/>" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Category</p>
-                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
                 <!-- /aside Widget -->
             </div>
@@ -368,74 +382,76 @@
                             Sort By:
                             <select class="input-select">
                                 <option value="0">Popular</option>
-                                <option value="1">Position</option>
+                                <option value="1">Price</option>
                             </select>
                         </label>
 
-                        <label>
-                            Show:
-                            <select class="input-select">
-                                <option value="0">20</option>
-                                <option value="1">50</option>
-                            </select>
-                        </label>
                     </div>
                     <ul class="store-grid">
                         <li class="active"><i class="fa fa-th"></i></li>
-                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
                     </ul>
                 </div>
                 <!-- /store top filter -->
 
-                <!-- store products -->
-                <div class="row">
-                    <c:forEach items="${requestScope.hotdeal=='1' ? sessionScope.hotDeal:sessionScope.store}" var="product" varStatus="vs">
-                    <!-- product -->
-                    <div class="col-md-4 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="<c:url value='/imgs${product.productDetails.avatar1}'/>" alt="">
-                                <div class="product-label">
-                                    <c:if test="${product.discount != 1}">
+                <div id="store-product">
+                    <!-- store products -->
+                    <div class="row">
+                        <c:forEach items="${sessionScope.store}" var="product" varStatus="vs">
+                            <!-- product -->
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="<c:url value='/imgs${product.productDetails.avatar1}'/>" alt="">
+                                        <div class="product-label">
+                                            <c:if test="${product.discount != 1}">
                                                     <span class="sale">-<fmt:formatNumber type="number"
                                                                                           value="${(1 - product.discount) * 100}"
                                                                                           pattern="#"/> %</span>
-                                    </c:if>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                    <div class="product-body">
+                                        <c:choose>
+                                            <c:when test="${product.categoryId eq '1'}">
+                                                <p class="product-category">Laptops</p>
+                                            </c:when>
+                                            <c:when test="${product.categoryId eq '2'}">
+                                                <p class="product-category">Smartphones</p>
+                                            </c:when>
+                                            <c:when test="${product.categoryId eq '3'}">
+                                                <p class="product-category">Cameras</p>
+                                            </c:when>
+                                            <c:when test="${product.categoryId eq '4'}">
+                                                <p class="product-category">Accessories</p>
+                                            </c:when>
+                                        </c:choose>
+                                        <h3 class="product-name"><a
+                                                href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a>
+                                        </h3>
+                                        <h4 class="product-price">$<fmt:formatNumber type="number"
+                                                                                     value="${product.price * product.discount}"
+                                                                                     pattern="#.00"/>
+                                            <del class="product-old-price">$${product.price}</del>
+                                        </h4>
+                                        <div class="product-rating">
+                                            <c:forEach begin="1" end="${product.productDetails.rating / 20}">
+                                                <i class="fa fa-star"></i>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn" onclick="addToCast('${product.pid}')"><i
+                                                class="fa fa-shopping-cart"></i> add to cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="product-body">
-                                <c:choose>
-                                    <c:when test="${product.categoryId eq '1'}">
-                                        <p class="product-category">Laptops</p>
-                                    </c:when>
-                                    <c:when test="${product.categoryId eq '2'}">
-                                        <p class="product-category">Smartphones</p>
-                                    </c:when>
-                                    <c:when test="${product.categoryId eq '3'}">
-                                        <p class="product-category">Cameras</p>
-                                    </c:when>
-                                    <c:when test="${product.categoryId eq '4'}">
-                                        <p class="product-category">Accessories</p>
-                                    </c:when>
-                                </c:choose>
-                                <h3 class="product-name"><a href="<c:url value='/product/toProductDetails.do'><c:param name="pid" value="${product.pid}"/></c:url>">${product.pname}</a></h3>
-                                <h4 class="product-price">$<fmt:formatNumber type="number" value="${product.price * product.discount}" pattern="#.00"/> <del class="product-old-price">$${product.price}</del></h4>
-                                <div class="product-rating">
-                                    <c:forEach begin="1" end="${product.productDetails.rating / 20}">
-                                        <i class="fa fa-star"></i>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn" onclick="addToCast('${product.pid}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
+                            <c:if test="${vs.index % 3 eq 2}">
+                                <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
+                            </c:if>
+                        </c:forEach>
+                        <!-- /product -->
                     </div>
-                        <c:if test="${vs.index % 3 eq 2}">
-                            <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
-                        </c:if>
-                    </c:forEach>
-                    <!-- /product -->
                 </div>
                 <!-- /store products -->
 
@@ -475,9 +491,11 @@
                             <li><a href="#"><i class="fa fa-map-marker"></i>Shandong Qingdao</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+86-178-6421-3754</a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i>clxk1997@163.com</a></li>
-                            <li><a href="https://blog.csdn.net/l1832876815"><i class="fa fa-star"></i>blog@l1832876815</a></li>
+                            <li><a href="https://blog.csdn.net/l1832876815"><i
+                                    class="fa fa-star"></i>blog@l1832876815</a></li>
                             <li><a href="https://github.com/lxk1997"><i class="fa fa-github"></i>github@lxk1997</a></li>
-                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a></li>
+                            <li><a href="https://github.com/lxk1997"><i class="fa fa-bookmark-o"></i>Resume@lxk1997</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -563,17 +581,73 @@
 <script src="<c:url value='/js/nouislider.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.zoom.min.js'/>"></script>
 <script src="<c:url value='/js/main.js'/>"></script>
+<script src="<c:url value='/layui/layui.js'/>"></script>
 
 <script type="text/javascript">
     window.onload = function () {
-        if(${sessionScope.user != null and sessionScope.haveCart == null}) {
+        if (${sessionScope.user != null and sessionScope.haveCart == null}) {
             window.location.href = '<c:url value="/cart/addCartInit.do"><c:param name="url" value="/WEB-INF/views/store"/> </c:url>';
         }
     }
 
+    function filterProduct() {
+        console.log("load");
+        $.ajax({
+            type: 'post',
+            url: '<c:url value="/product/productFilter.do"/> ',
+            dataType: 'json',
+            data: {
+                category1: $("#category-laptops")[0].checked,
+                category2: $("#category-smartphones")[0].checked,
+                category3: $("#category-cameras")[0].checked,
+                category4: $("#category-accessories")[0].checked,
+                brandsony: $("#brand-sony")[0].checked,
+                brandsamsung: $("#brand-samsung")[0].checked,
+                brandhuawei: $("#brand-huawei")[0].checked,
+                brandxiaomi: $("#brand-mi")[0].checked,
+                pricemin:$("#price-min").val(),
+                pricemax:$("#price-max").val(),
+            },
+            success: function (data) {
+                $("#store-product").load('<c:url value="/ajax/store-product.jsp"/> ');
+            }
+        })
+    }
+
+    $(document).off("change", "#price-min").on("change", "#price-min", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#price-max").on("change", "#price-max", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#brand-samsung").on("change", "#brand-samsung", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#brand-sony").on("change", "#brand-sony", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#brand-huawei").on("change", "#brand-huawei", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#brand-mi").on("change", "#brand-mi", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#category-laptops").on("change", "#category-laptops", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#category-smartphones").on("change", "#category-smartphones", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#category-cameras").on("change", "#category-cameras", function () {
+        filterProduct();
+    });
+    $(document).off("change", "#category-accessories").on("change", "#category-accessories", function () {
+        filterProduct();
+    });
+
     function addToCast(pid) {
-        if(${sessionScope.user eq null}) {
-            layui.use('layer', function(){
+        if (${sessionScope.user eq null}) {
+            layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.msg('Please Login First');
             });
@@ -586,7 +660,7 @@
                     pid: pid
                 },
                 success: function (data) {
-                    layui.use('layer', function(){
+                    layui.use('layer', function () {
                         var layer = layui.layer;
                         layer.msg('Add Successful', {icon: 1});
                     });
@@ -620,6 +694,7 @@
             }
         })
     }
+
 </script>
 
 </body>

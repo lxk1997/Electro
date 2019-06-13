@@ -43,4 +43,12 @@ public interface ProductService {
                            MultipartFile avatar1, MultipartFile avatar2, MultipartFile avatar3,
                            MultipartFile avatar4, String categoryId, String price,
                            String firstcost, String discount, String stock, String path);
+
+    int getProductsCount(String categoryId, List<Product> products);
+
+    int getProductsCountByBrand(String brand, List<Product> products);
+
+    List<Product> productFilter(String category1, String category2, String category3, String category4,
+                                String brandsony, String brandsamsung, String brandhuawei, String brandxiaomi,
+                                String pricemin, String pricemax, List<Product> store);
 }
