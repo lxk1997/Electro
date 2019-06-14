@@ -516,7 +516,6 @@
             var zipcode = $("input[name='zip-code']").val();
             var telphone = $("input[name='tel']").val();
             var notes = $("textarea[name='notes']").val();
-            alert(firstname + " " + lastname + " " + email + " " + address + " " + city + " " + country + " " + zipcode + " " + telphone);
             var addresstype = null;
             if(!$("#shiping-address").get(0).checked) {
                 if(firstname == "") {

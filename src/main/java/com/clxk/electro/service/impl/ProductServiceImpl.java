@@ -33,16 +33,6 @@ public class ProductServiceImpl implements ProductService {
     private CategoryDao categoryDao;
 
     @Override
-    public int insert(Product product) {
-        return productDao.insert(product);
-    }
-
-    @Override
-    public int delete(Product product) {
-        return productDao.delete(product);
-    }
-
-    @Override
     public int update(Product product) {
         return productDao.update(product);
     }
@@ -50,11 +40,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int deleteByPid(String pid) {
         return productDao.deleteByPid(pid);
-    }
-
-    @Override
-    public List<Product> findAll() {
-        return productDao.findAll();
     }
 
     @Override

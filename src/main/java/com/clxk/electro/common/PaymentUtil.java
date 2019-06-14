@@ -118,8 +118,9 @@ public class PaymentUtil {
     }
 
     public static String getResponseUrl(String ciid) throws IOException {
+        PaymentUtil util = new PaymentUtil();
         Properties properties = new Properties();
-        InputStream is = properties.getClass().getClassLoader().getResourceAsStream("merchantInfo.properties");
+        InputStream is = util.getClass().getClassLoader().getResourceAsStream("merchantInfo.properties");
         properties.load(is);
         String p0_Cmd = "Buy";
         String p1_MerId = properties.getProperty("p1_MerId");

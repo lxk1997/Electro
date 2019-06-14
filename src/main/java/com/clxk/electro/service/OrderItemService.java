@@ -15,29 +15,13 @@ import java.util.List;
  */
 public interface OrderItemService {
 
-    int insert(OrderItem orderItem);
-
-    int delete(OrderItem orderItem);
-
     int update(OrderItem orderItem);
 
     int updateStatus(String uid, int status);
 
-    int deleteByUid(String uid);
-
-    int deleteByOiid(String oiid);
-
-    OrderItem findByOiid(String oiid);
-
-    List<OrderItem> findAll();
-
     List<OrderItem> findByUid(String uid);
 
-    List<OrderItem> findByCategoryId(String categoryId);
-
     List<OrderItem>findTopSellingByCategory(String categoryId);
-
-    List<OrderItem> findByStatus(int status);
 
     String palceOrder(String uid, Address address, String addressType);
 

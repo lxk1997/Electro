@@ -26,38 +26,8 @@ public class CartItemServiceImpl implements CartItemService {
     private ProductDao productDao;
 
     @Override
-    public int insert(CartItem cartItem) {
-        return cartItemDao.insert(cartItem);
-    }
-
-    @Override
-    public int delete(CartItem cartItem) {
-        return cartItemDao.delete(cartItem);
-    }
-
-    @Override
     public int deleteByUid(String uid) {
         return cartItemDao.deleteByUid(uid);
-    }
-
-    @Override
-    public int changeCount(String ciid, int count) {
-        return cartItemDao.changeCount(ciid, count);
-    }
-
-    @Override
-    public CartItem findByPid(String pid) {
-        return cartItemDao.findByPid(pid);
-    }
-
-    @Override
-    public int update(CartItem cartItem) {
-        return cartItemDao.update(cartItem);
-    }
-
-    @Override
-    public CartItem findByCiid(String ciid) {
-        return cartItemDao.findByCiid(ciid);
     }
 
     @Override

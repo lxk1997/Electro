@@ -13,15 +13,10 @@ import java.util.List;
  * @Version 1.0
  */
 public interface ProductService {
-    int insert(Product product);
-
-    int delete(Product product);
 
     int update(Product product);
 
     int deleteByPid(String pid);
-
-    List<Product> findAll();
 
     List<Product> findHotDealProduct();
 

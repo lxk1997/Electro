@@ -12,13 +12,5 @@ import java.util.List;
  */
 public interface ManagerService {
 
-    int insert(Manager manager);
-
-    int update(Manager manager);
-
     List<Manager> findAll();
-
-    Manager findByMname(String mname);
-
-    Manager findByMid(String mid);
 }

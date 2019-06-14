@@ -21,27 +21,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentDao departmentDao;
 
     @Override
-    public int insert(Department department) {
-        return departmentDao.insert(department);
-    }
-
-    @Override
-    public int delete(Department department) {
-        return departmentDao.delete(department);
-    }
-
-    @Override
-    public int update(Department department) {
-        return departmentDao.update(department);
-    }
-
-    @Override
     public List<Department> findAll() {
         return departmentDao.findAll();
     }
 
-    @Override
-    public Department findByDid(String did) {
-        return departmentDao.findByDid(did);
-    }
 }

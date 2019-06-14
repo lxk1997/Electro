@@ -12,13 +12,6 @@ import java.util.List;
  */
 public interface DepartmentService {
 
-    int insert(Department department);
-
-    int delete(Department department);
-
-    int update(Department department);
-
     List<Department> findAll();
 
-    Department findByDid(String did);
 }

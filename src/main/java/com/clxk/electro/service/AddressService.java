@@ -12,15 +12,5 @@ import java.util.List;
  */
 public interface AddressService {
 
-    int insert(Address address);
-
-    int delete(Address address);
-
-    int update(Address address);
-
-    Address findByAid(String aid);
-
-    List<Address> findByUid(String uid);
-
     String getAddressByUid(String uid);
 }

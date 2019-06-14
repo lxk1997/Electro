@@ -12,19 +12,8 @@ import java.util.List;
  */
 public interface CartItemService {
 
-    int insert(CartItem cartItem);
-
-    int delete(CartItem cartItem);
 
     int deleteByUid(String uid);
-
-    int changeCount(String ciid, int count);
-
-    CartItem findByPid(String pid);
-
-    int update(CartItem cartItem);
-
-    CartItem findByCiid(String ciid);
 
     List<CartItem> findByUid(String uid);
 

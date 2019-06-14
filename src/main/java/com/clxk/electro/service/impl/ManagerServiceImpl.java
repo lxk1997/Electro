@@ -21,27 +21,7 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerDao managerDao;
 
     @Override
-    public int insert(Manager manager) {
-        return managerDao.insert(manager);
-    }
-
-    @Override
-    public int update(Manager manager) {
-        return managerDao.update(manager);
-    }
-
-    @Override
     public List<Manager> findAll() {
         return managerDao.findAll();
-    }
-
-    @Override
-    public Manager findByMname(String mname) {
-        return managerDao.findByMname(mname);
-    }
-
-    @Override
-    public Manager findByMid(String mid) {
-        return managerDao.findByMid(mid);
     }
 }

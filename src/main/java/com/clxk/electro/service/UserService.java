@@ -13,8 +13,6 @@ import java.util.List;
  */
 public interface UserService {
 
-    int insert(User user);
-
     int update(User user);
 
     List<User> findAll();

@@ -12,13 +12,6 @@ import java.util.List;
  */
 public interface CategoryService {
 
-    int insert(Category category);
-
-    int delete(Category category);
-
-    int update(Category category);
-
     List<Category> findAll();
 
-    Category findByCid(String cid);
 }

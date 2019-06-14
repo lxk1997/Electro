@@ -35,16 +35,6 @@ public class OrderItemServiceImpl implements OrderItemService {
     private AddressDao addressDao;
 
     @Override
-    public int insert(OrderItem orderItem) {
-        return orderItemDao.insert(orderItem);
-    }
-
-    @Override
-    public int delete(OrderItem orderItem) {
-        return orderItemDao.delete(orderItem);
-    }
-
-    @Override
     public int update(OrderItem orderItem) {
         return orderItemDao.update(orderItem);
     }
@@ -54,25 +44,6 @@ public class OrderItemServiceImpl implements OrderItemService {
         return orderItemDao.updateStatus(uid, status);
     }
 
-    @Override
-    public int deleteByUid(String uid) {
-        return orderItemDao.deleteByUid(uid);
-    }
-
-    @Override
-    public int deleteByOiid(String oiid) {
-        return orderItemDao.deleteByOiid(oiid);
-    }
-
-    @Override
-    public OrderItem findByOiid(String oiid) {
-        return orderItemDao.findByOiid(oiid);
-    }
-
-    @Override
-    public List<OrderItem> findAll() {
-        return orderItemDao.findAll();
-    }
 
     @Override
     public List<OrderItem> findByUid(String uid) {
@@ -80,18 +51,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItem> findByCategoryId(String categoryId) {
-        return orderItemDao.findByCategoryId(categoryId);
-    }
-
-    @Override
     public List<OrderItem> findTopSellingByCategory(String categoryId) {
         return orderItemDao.findTopSellingByCategoryId(categoryId);
-    }
-
-    @Override
-    public List<OrderItem> findByStatus(int status) {
-        return orderItemDao.findByStatus(status);
     }
 
     @Override

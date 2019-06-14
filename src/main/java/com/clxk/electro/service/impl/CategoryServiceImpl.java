@@ -21,27 +21,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDao categoryDao;
 
     @Override
-    public int insert(Category category) {
-        return categoryDao.insert(category);
-    }
-
-    @Override
-    public int delete(Category category) {
-        return categoryDao.delete(category);
-    }
-
-    @Override
-    public int update(Category category) {
-        return categoryDao.update(category);
-    }
-
-    @Override
     public List<Category> findAll() {
         return categoryDao.findAll();
     }
 
-    @Override
-    public Category findByCid(String cid) {
-        return categoryDao.findByCid(cid);
-    }
 }

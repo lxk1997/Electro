@@ -23,31 +23,6 @@ public class AddressServiceImpl implements AddressService {
     private AddressDao addressDao;
 
     @Override
-    public int insert(Address address) {
-        return addressDao.insert(address);
-    }
-
-    @Override
-    public int delete(Address address) {
-        return addressDao.delete(address);
-    }
-
-    @Override
-    public int update(Address address) {
-        return addressDao.update(address);
-    }
-
-    @Override
-    public Address findByAid(String aid) {
-        return addressDao.findByAid(aid);
-    }
-
-    @Override
-    public List<Address> findByUid(String uid) {
-        return addressDao.findByUid(uid);
-    }
-
-    @Override
     public String getAddressByUid(String uid) {
         List<Address> addresses = addressDao.findByUid(uid);
         Map<String, Object> ans = new HashMap<>();

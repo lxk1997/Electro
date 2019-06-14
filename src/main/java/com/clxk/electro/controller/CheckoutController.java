@@ -39,7 +39,9 @@ public class CheckoutController {
     public String pay(HttpSession session, HttpServletResponse response) {
         List<CartItem> items = (List<CartItem>) session.getAttribute("cart");
         try {
-            response.sendRedirect(PaymentUtil.getResponseUrl(items.get(0).getCiid()));
+            String url = PaymentUtil.getResponseUrl(items.get(0).getCiid());
+            System.out.println(url);
+            response.sendRedirect(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
