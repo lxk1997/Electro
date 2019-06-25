@@ -3,9 +3,11 @@ package com.clxk.electro.service.impl;
 import com.clxk.electro.common.Utils;
 import com.clxk.electro.dao.CategoryDao;
 import com.clxk.electro.dao.ProductDao;
+import com.clxk.electro.dao.cache.ProductRedisDao;
 import com.clxk.electro.model.Product;
 import com.clxk.electro.model.ProductDetails;
 import com.clxk.electro.service.ProductService;
+import com.dyuproject.protostuff.ProtostuffIOUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
     @Resource
     private CategoryDao categoryDao;
+    @Resource
+    private ProductRedisDao productRedisDao;
 
     @Override
     public int update(Product product) {
@@ -44,25 +48,48 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findHotDealProduct() {
-        return productDao.findHotDealProduct();
+        List<Product> products = productRedisDao.getProductList("hotDeal");
+        if(products == null) {
+            products = productDao.findHotDealProduct();
+            productRedisDao.putProductList(products,"hotDeal");
+        }
+        return products;
     }
 
     @Override
     public List<Product> findByCategory(String categoryId) {
+        List<Product> products;
         if (categoryId == null || categoryId.equals("0")) {
-            return productDao.findAll();
+            products = productDao.findAll();
         }
-        return productDao.findByCategory(categoryId);
+        else {
+            products = productRedisDao.getProductList("categoryId:" + categoryId);
+            if(products == null) {
+                products = productDao.findByCategory(categoryId);
+                productRedisDao.putProductList(products,"categoryId:" + categoryId);
+            }
+        }
+        return products;
     }
 
     @Override
     public Product findByPid(String pid) {
-        return productDao.findByPid(pid);
+        Product product = productRedisDao.getProduct(pid);
+        if(product == null) {
+            product = productDao.findByPid(pid);
+            productRedisDao.putProduct(product);
+        }
+        return product;
     }
 
     @Override
     public List<Product> findByDateOrderAndCategory(String categoryId) {
-        return productDao.findByDateOrderAndCategory(categoryId);
+        List<Product> products = productRedisDao.getProductList("dateOrderAndCategoryId:" + categoryId);
+        if(products == null) {
+            products = productDao.findByDateOrderAndCategory(categoryId);
+            productRedisDao.putProductList(products, "dateOrderAndCategoryId:" + categoryId);
+        }
+        return products;
     }
 
     @Override

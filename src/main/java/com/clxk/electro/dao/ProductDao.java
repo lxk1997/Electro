@@ -1,9 +1,11 @@
 package com.clxk.electro.dao;
 
 import com.clxk.electro.model.Product;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description Product持久层
@@ -31,4 +33,8 @@ public interface ProductDao {
     Product findByPid(String pid);
 
     List<Product> findByDateOrderAndCategory(String categoryId);
+
+    int reduceStock(@Param("pid") String pid,@Param("count") int count);
+
+    int executePlaceOrderProcedure(Map<String, Object> map);
 }

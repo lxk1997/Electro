@@ -2,16 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clxk.electro.dao.ProductDao">
-    <sql id="product_field">
-        ${pre}.pid as "pid",
-        ${pre}.pname as "pname",
-        ${pre}.category_id as "categoryId",
-        ${pre}.price as "price",
-        ${pre}.firstcost as "firstcost",
-        ${pre}.discount as "discount",
-        ${pre}.stock as "stock",
-        ${pre}.date as "date"
-    </sql>
 
     <resultMap id="productMap" type="com.clxk.electro.model.Product">
         <id property="pid" column="pid"/>
@@ -99,4 +89,22 @@
         delete from product where pid=#{pid};
         delete from product_details where pdid=#{pid};
     </delete>
+
+    <update id="reduceStock">
+        update product set stock = stock-#{count} where pid = #{pid};
+    </update>
+
+    <select id="executePlaceOrderProcedure" parameterType="java.util.Map" statementType="CALLABLE">
+        {call execute_placeOrder(
+            #{oiid, jdbcType=VARCHAR, mode=IN},
+            #{uid, jdbcType=VARCHAR, mode=IN},
+            #{pid, jdbcType=VARCHAR, mode=IN},
+            #{count, jdbcType=INTEGER, mode=IN},
+            #{date, jdbcType=VARCHAR, mode=IN},
+            #{status, jdbcType=INTEGER, mode=IN},
+            #{notes, jdbcType=VARCHAR, mode=IN},
+            #{addressId, jdbcType=VARCHAR, mode=IN},
+            #{result, jdbcType=INTEGER, mode=OUT}
+        )}
+    </select>
 </mapper>
